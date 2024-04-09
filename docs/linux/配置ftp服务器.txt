@@ -1,0 +1,112 @@
+ubuntu server下配置pure-ftpd服务
+
+pure-ftpd介绍
+pure-ftpd是一种免费的ftp服务器软件，可以在多种类unix操作系统中编译，本次实验场境为ubuntu server21.04。
+
+安装pure-ftpd服务
+sudo apt-get install pure-ftpd
+
+使用虚拟用户方式登入
+首先创建虚拟用户共用的系统用户组和系统用户
+mkdir -p /home/ftpuser/test
+groupadd ftpgroup（组名）
+useradd ftpuser（用户名） -g ftpgroup -s /bin/false -d /home/ftpuser
+chown -R ftpuser:ftpgroup /home/ftpuser
+1
+2
+3
+4
+然后创建虚拟用户
+pure-pw useradd test（虚拟用户名） -u ftpuser -d /home/ftpuser
+1
+随后要在/etc/pure-ftpd/auth/下建立软链接
+ln -s /etc/pure-ftpd/conf/Pure-DB 60puredb
+1
+最后刷新数据库并重启pure-ftpd服务
+pure-pw mkdb
+service pure-ftpd restart
+————————————————
+版权声明：本文为CSDN博主「xhfnb」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/xhfnb/article/details/118145663
+
+二、配置 pure-ftp
+1、创建 ftp 系统用户
+# 创建用户 ftp
+useradd ftp -s /sbin/nologin
+2、配置FTP存储根目录
+# 创建 FTP 存储根目录
+mkdir /data/ftp
+
+# 设置 FTP 根目录权限
+chown -R ftp.ftp /data/ftp/
+3、编辑 pure-ftp 配置文件
+编辑 pure-ftp 配置文件 /etc/pure-ftpd/pure-ftpd.conf 部分参数如下：
+
+# PureDB 用户数据库路径(重要)
+PureDB                       /etc/pure-ftpd/pureftpd.pdb
+
+# 锁定所有用户到家目录中
+ChrootEveryone               yes
+
+# 如果虚拟用户的目录不存在则自动创建
+CreateHomeDir                yes 
+
+# 兼容不同客户端
+BrokenClientsCompatibility   yes 
+
+# 显示隐藏文件
+DisplayDotFiles              no
+
+# 防止命令误操作
+CustomerProof                yes 
+
+# 被动模式端口范围
+PassivePortRange             30000 50000
+
+# 被动模式 IP 
+ForcePassiveIP               192.168.1.100
+
+# 只允许匿名用户访问
+AnonymousOnly                no 
+
+# 不允许匿名用户访问(为 no 时允许)
+NoAnonymous                  yes
+
+# 不允许匿名用户上传文件(为 no 时允许)
+AnonymousCantUpload          yes
+
+# 不允许匿名用户创建目录(为 no 时允许)
+AnonymousCanCreateDirs       yes
+
+# 仅运行认证用户进行FXP传输
+AllowUserFXP                 no 
+
+# 对匿名用户和非匿名用户允许进行匿名 FXP 传输
+AllowAnonymousFXP            no 
+
+# 设置日志的告警级别,默认为 ftp,none 是禁止记录日志
+SyslogFacility               none
+4、创建 ftp 虚拟用户
+# 创建 ftp 用户 aaa 家目录
+mkdir /data/ftp/aaa
+chown -R ftp.ftp /data/ftp/aaa/
+
+# 创建 ftp 用户 aaa, -u 是将虚拟用户 aaa 与系统用户 ftp 关联在一起，aaa 账号登录后是以 ftp 的身份来读取和下载文件,-d 是指定ftp_usera账户的家目录，这样可以使用户 aaa 只能访问其家目录 /data/ftp/aaa/。
+pure-pw useradd aaa -u ftp -d /data/ftp/aaa/
+
+# 创建用户信息数据库文件,这一步很关键。
+pure-pw mkdb
+
+# 查看已创建的账号列表
+pure-pw list
+5、启动 pure-ftp 服务
+# 启动 pure-ftp 服务
+systemctl start pure-ftpd.service
+
+# 添加开机启动项
+systemctl enable pure-ftpd.service
+
+# 或使用
+systemctl enable --now pure-ftpd.service
+6、使用客户端测试连接
+使用 Windows 或 Linux 客户端登录 FTP 测试服务是否正常。

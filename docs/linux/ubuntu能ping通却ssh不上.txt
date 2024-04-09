@@ -1,0 +1,16 @@
+2. 原因
+因为Ubuntu默认没有安装openssh-server
+
+检查是否安装:
+$ ps -e | grep ssh
+
+如果输出没有或者只有一个ssh-agent就说没没安装.
+3.解决办法
+安装openssh-server
+$ sudo apt-get install openssh-server
+
+检查是否安装成功
+$ ssh localhost
+//或者用
+$ ps -e|grep ssh
+如果要输密码就说明成功

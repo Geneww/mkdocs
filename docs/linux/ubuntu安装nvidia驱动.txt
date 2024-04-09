@@ -1,0 +1,111 @@
+参考：https://blog.csdn.net/qq_30468723/article/details/107531062
+
+
+在这基础上补充了一些细节，并且在ubuntu20.04版本上实践可行
+
+这种方式主要是为了避免sudo apt-get install nvidia-*安装方式造成登录界面循环。
+
+ubuntu 默认安装了第三方开源的驱动程序nouveau，安装nvidia显卡驱动首先需要禁用nouveau，不然会碰到冲突的问题，导致无法安装nvidia显卡驱动。
+编辑文件blacklist.conf：
+
+sudo gedit /etc/modprobe.d/blacklist.conf
+1
+在文件最后部分插入以下两行内容
+
+blacklist nouveau
+options nouveau modeset=0
+1
+2
+更新系统
+
+sudo update-initramfs -u
+1
+重启系统（一定要重启）
+
+验证nouveau是否已禁用
+
+lsmod | grep nouveau
+1
+没有信息显示，说明nouveau已被禁用，接下来可以安装nvidia的显卡驱动。
+
+在英伟达的官网上查找你自己电脑的显卡型号然后下载相应的驱动。网址：http://www.nvidia.cn/page/home.html
+我下载的版本：NVIDIA-Linux-x86_64-450.57.run（注意不同的版本最后安装执行的具体选项不同）
+
+下载后的run文件拷贝至home目录下。
+
+在ubuntu下按ctrl+alt+f1进入命令行界面，
+如果出现unit lightdm.service not loaded,则先更新apt-get
+sudo apt-get update
+1
+然后安装lightdm
+
+sudo apt-get install lightdm
+1
+安装后会跳出一个界面，选择lightdm
+然后重启：reboot
+
+重启登录后按ctrl+alt+F1进入命令行界面
+输入用户名和密码登录后输入：
+
+ sudo service lightdm stop      //这个是关闭图形界面，不执行会出错。
+1
+然后卸载掉原有驱动（如果装过的话）：
+
+ sudo apt-get remove nvidia-*  （若安装过其他版本或其他方式安装过驱动执行此项）
+1
+给驱动run文件赋予执行权限：
+ sudo chmod  a+x NVIDIA-Linux-x86_64-396.18.run
+1
+安装：
+
+ sudo ./NVIDIA-Linux-x86_64-396.18.run -no-x-check -no-nouveau-check -no-opengl-files 
+ //只有禁用opengl这样安装才不会出现循环登陆的问题
+1
+2
+-no-x-check：安装驱动时关闭X服务
+
+-no-nouveau-check：安装驱动时禁用nouveau
+
+-no-opengl-files：只安装驱动文件，不安装OpenGL文件
+
+我讲一下我遇到的问题，我没遇到的问题可以参考我参照的原文
+原文链接：https://blog.csdn.net/xunan003/article/details/81665835
+
+(1)没有安装gcc、make
+直接安装即可
+sudo apt-get install gcc
+sudo apt-get install make
+
+(2)
+The distribution-provided pre-install script failed! Are you sure you want to continue?
+选择 yes 继续。
+
+Would you like to register the kernel module souces with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later?
+选择 No 继续。
+
+问题没记住，选项是：install without signing
+问题大概是：Nvidia’s 32-bit compatibility libraries?
+选择 No 继续。
+
+Would you like to run the nvidia-xconfigutility to automatically update your x configuration so that the NVIDIA x driver will be used when you restart x? Any pre-existing x confile will be backed up.
+选择 Yes 继续
+
+5.安装完毕之后
+挂载Nvidia驱动：
+
+modprobe nvidia
+1
+检查驱动是否安装成功：
+
+nvidia-smi
+1
+如果出现如下提示，则说明安装成功：
+在这里插入图片描述
+
+开启图形界面，重启
+
+sudo service lightdm start
+sudo reboot
+1
+2
+安装完毕

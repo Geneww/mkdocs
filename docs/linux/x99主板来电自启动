@@ -1,0 +1,2 @@
+x99主板来电自启动
+IntelRCSetup -> PCH Configuration -> Restore AC after Power Loss

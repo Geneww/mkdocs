@@ -4,6 +4,12 @@ theme:
     name: material
     language: zh
     palette:
+        # Palette toggle for automatic mode
+        - media: "(prefers-color-scheme)"
+          toggle:
+            icon: material/brightness-auto
+            name: 跟随系统模式
+            
         # 切换到亮色
         - media: "(prefers-color-scheme: light)" # 根据系统的颜色模式自动切换
           scheme: default
@@ -92,17 +98,8 @@ markdown_extensions:
 
 # 下面的是需要自定义的内容，请不要修改上方的内容，上面都是在开启各种插件和功能
 
-site_name: 文档的名称 # 设置文档名称
-copyright: Copyright &copy; Python调包侠 # 左下角的版权声明
-
-# nav:
-#   - Home: index.md
-#   - 教程: tutorials.md
-#   - guides: how-to-guides.md
-#   - 更多:
-#       - 更多/中文.md
-#   - 接口文档:
-#       - interface/1.md
+site_name: Gene's blog # 设置文档名称
+copyright: Copyright &copy; 2017 - 2024 Gene # 左下角的版权声明
 
 plugins:
     - mkdocstrings:
@@ -119,6 +116,23 @@ extra:
           link: https://github.com/Geneww
           name: GitHub
         - icon: material/email
-          link: Gene's email:<495612021@qq.com>
+          link: mailto:495612021@qq.com
           name: Email
 
+nav:
+  - Home: index.md
+  - Linux:
+      - 环境安装:
+            - CUDA安装: ./linux/安装CUDA.md
+            - 用户创建: ./linux/linux新建用户及用户组目录权限.md
+            - docker安装: ./linux/Ubuntu安装docker.md
+            - nvidia-docker安装: ./linux/ubuntu安装nvidia-docker.md
+      - 常用指令:
+            - journalctl使用: ./infer/x86/
+  - 推理部署:
+      - Nginx:
+            - 子域名泛解析: ./infer/nginx/配置步骤.md
+      - x86:
+            - ./infer/x86/
+      - 边缘设备:
+            - ncnn: ./infer/arm/ncnn移植步骤.md

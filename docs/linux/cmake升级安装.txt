@@ -1,0 +1,25 @@
+1）卸载之前系统中cmake，方法：
+
+sudo apt purge cmake*
+2)安装build-essential，这个包提供了很多编译相关的软件包：
+
+sudo apt-get install build-essential 
+3） 获取cmake
+
+wget http://www.cmake.org/files/v3.6/cmake-3.6.3.tar.gz
+4）解压与安装
+
+tar xf cmake-3.6.3.tar.gz
+cd cmake-3.6.3
+./configure
+make
+sudo make install
+
+5）验证
+cmake --version
+
+找不到cmake命令 查看make install 将cmake安装到了/usr/local/bin/目录下
+
+建立软连接至/usr/bin/目录下问题解决
+
+sudo ln -s /usr/local/bin/cmake /usr/bin/cmake
