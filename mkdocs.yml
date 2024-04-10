@@ -2,6 +2,7 @@ theme:
     icon:
         logo: material/home
     name: material
+#     name: 'rtd-dropdown'
     language: zh
     palette:
         # Palette toggle for automatic mode
@@ -125,14 +126,16 @@ nav:
       - 环境安装:
             - CUDA安装: ./linux/安装CUDA.md
             - linux用户创建: ./linux/linux新建用户及用户组目录权限.md
-            - docker安装: ./linux/Ubuntu安装docker.md
-            - nvidia-docker安装: ./linux/ubuntu安装nvidia-docker.md
+            - docker: 
+                  - docker: ./linux/Ubuntu安装docker.md
+                  - nvidia-docker安装: ./linux/ubuntu安装nvidia-docker.md
             - frp安装使用: ./linux/frp搭建.md
             - ip网段配置: ./linux/ip多网段.md
             - Ubuntu配置静态ip: ./linux/ubuntu配置静态ip.md
             - frp安装使用: ./linux/frp搭建.md
-      - 常用指令:
-            - journalctl使用: ./infer/x86/
+      - 指令:
+            - 常用指令:
+                  - journalctl使用: ./infer/x86/
   - 推理部署:
       - Nginx:
             - 子域名泛解析: ./infer/nginx/配置步骤.md

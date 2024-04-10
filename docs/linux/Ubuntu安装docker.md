@@ -1,4 +1,4 @@
-# [Ubuntu18.04安装docker](https://www.cnblogs.com/wt7018/p/11880666.html)
+# Ubuntu18.04安装docker
 
 参考
 
@@ -6,13 +6,13 @@ https://www.runoob.com/docker/ubuntu-docker-install.html
 
 1.卸载
 
-```
+```shell
 sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 
 2.安装Docker
 
-```
+```shell
 sudo apt-get update
 # 安装依赖包
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
@@ -28,7 +28,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 
 3.安装 Docker Engine-Community
 
-```
+```shell
 # 更新
 $ sudo apt-get update
 # 安装最新的Docker-ce 
@@ -40,7 +40,7 @@ sudo systemctl start docker
 
 4.测试
 
-```
+```shell
 sudo docker run hello-world
 ```
 
@@ -53,9 +53,11 @@ sudo docker run hello-world
 ![img](https://img-blog.csdnimg.cn/20200227175406444.png)
 
 通过将用户添加到docker用户组可以将sudo去掉，命令如下
+```shell
 
 sudo groupadd docker #添加docker用户组
 
 sudo gpasswd -a $USER docker #将登陆用户加入到docker用户组中
 
 newgrp docker #更新用户组
+```

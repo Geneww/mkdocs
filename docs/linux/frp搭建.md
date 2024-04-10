@@ -82,7 +82,14 @@ sudo systemctl start frps.service
 sudo systemctl status frps.service
 ```
 
+<style>
+.clear {
+    clear: both;
+}
+</style>
 <img src="https://image.iokko.cn/file/6045d514d8b8598b15ca1.png" alt="Image" style="float: left;">
+<div class="clear"></div>
+
 
 ## 五、解压frp至客户端
 

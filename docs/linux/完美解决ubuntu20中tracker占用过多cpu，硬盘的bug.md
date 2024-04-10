@@ -8,13 +8,13 @@ track是linux中的文件索引工具，ubuntu18之前是默认不安装的，�
 
 1.首先打开终端输入下面的命令，目的是屏蔽tracker systemd服务，完全禁用当前的服务
 
-```bash
+```shell
 systemctl --user mask tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service
 ```
 
 2.然后重启跟踪器：
 
-```text
+```shell
 tracker reset --hard
 ```
 
@@ -22,7 +22,7 @@ tracker reset --hard
 
 重启后检测：
 
-```text
+```shell
 tracker status
 ```
 
@@ -30,7 +30,7 @@ tracker status
 
 还可以检测tracker的辅助程序是否被禁用：
 
-```text
+```shell
 tracker daemon
 ```
 
@@ -42,7 +42,7 @@ tracker daemon
 
 如果想撤销操作，恢复跟踪器：
 
-```text
+```shell
 systemctl --user unmask tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service
 ```
 
@@ -50,12 +50,12 @@ systemctl --user unmask tracker-store.service tracker-miner-fs.service tracker-m
 
 方法1：
 
-```text
+```shell
 gsettings set org.freedesktop.Tracker.Miner.Files crawling-interval -2
 ```
 
 方法2：停止后台的tracker
 
-```text
+```shell
 tracker daemon -t
 ```
