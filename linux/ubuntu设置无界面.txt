@@ -1,0 +1,7 @@
+Ubuntu关闭GUI
+sudo systemctl set-default multi-user.target
+sudo reboot
+Ubuntu开启GUI
+
+sudo systemctl set-default graphical.target
+sudo reboot

@@ -1,0 +1,34 @@
+https://blog.csdn.net/qq_42566274/article/details/106399531
+
+
+1.在ubuntu中添加早期系统源
+vim /etc/apt/sources.list
+
+2.在sources.list文件的最下面添加源 
+1.https://launchpad.net/ubuntu/+archivemirrors 选择China 然后选择一个机构的源 选择对应版本 这里将12.04 14.04源都加入了
+
+#ubuntu12.04
+deb http://mirrors.aliyun.com/ubuntu/ precise main 
+deb-src http://mirrors.aliyun.com/ubuntu/ precise main
+
+#ubuntu14.04
+deb http://mirrors.aliyun.com/ubuntu/ trusty main 
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main 
+
+3.添加完后 保存更新一下软件源
+sudo apt-get update
+apt-get install gcc-4.8
+apt-get install g++-4.8
+
+4.查看版本
+gcc -v
+如果提示 bash: gcc: command not found  是因为没有gcc的软连接  
+
+5.建立软连接
+cd usr/bin/
+ln -s gcc-4.8 gcc
+ln -s g++-4.8 g++
+
+gcc -v可以看到已经有gcc信息了
+gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1)
+

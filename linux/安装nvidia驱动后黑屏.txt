@@ -1,0 +1,10 @@
+黑屏无法进入的话进入恢复模式
+
+1、重启后在系统选择界面上选第二个——ubuntu 高级选项
+2、进去以后选择recovery mode的选项
+3、弹出Recovery Menu 然后选择root （Drop to root shell prompt）选项
+4、接着在屏幕下部分可以看到命令行，按回车进入到自己的用户名下
+
+$ sudo apt-get purge nvidia*
+$ sudo apt-get autoremove
+$ sudo reboot

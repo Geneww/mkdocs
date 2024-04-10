@@ -1,0 +1,23 @@
+1.查看本机网卡信息
+ifconfig 或者 ip addr
+
+2.修改配置文件/etc/network/interfaces
+
+修改前
+auto lo
+iface lo inet loopback
+
+修改后
+#auto lo
+#face lo inet loopback
+auto eth0
+iface eth0 inet static
+address 192.168.13.194
+netmask 255.255.255.0
+gateway 192.168.13.1
+dns-nameservers  192.168.13.1
+
+3.刷新
+sudo /etc/init.d/networking restart
+或者
+sudo ifdown eth0 && sudo ifup eth0
