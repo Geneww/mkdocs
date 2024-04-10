@@ -121,7 +121,6 @@ extra:
           name: Email
 
 nav:
-#   - Home: index.md
   - Linux:
       - 环境安装:
             - 开发环境:
@@ -145,16 +144,37 @@ nav:
   - DL:
       - CV:
             - Recognize:
-                  - 子域名泛解析: ./infer/nginx/配置步骤.md
-                  - python-grpc: ./infer/serve/用python搭建gRPC服务.md
+                  - Insightface: ./cv/Recognize/insightface.md
             - Detect&Track:
                   - YOLO:
-                        -YOLOV5:
-                  - ByteTracker:
+                        - YOLOV5: ./cv/Detect&Track/yolov5.md
+                  - ByteTracker: ./cv/Detect&Track/ByteTracker.md
             - Segment:
-                  - FCN:
-                  - PSPNet:
-                  - Unet: ./infer/arm/ncnn移植步骤.md
+                  - FCN: ./cv/Segment/FCN.md
+                  - PSPNet: ./cv/Segment/PSPNet.md
+                  - UNet: ./cv/Segment/unet.md
+      - NLP:
+            - RNN: ./nlp/RNN.md
+            - GRU: ./nlp/GRU.md
+            - LSTM: ./nlp/LSTM.md
+            - Attention: ./nlp/Attention.md
+      - LLM:
+            - 生成模型:
+                  - LLaMA:
+                        - LLaMA实验: ./llm/nginx/配置步骤.md
+                        - LLaMA量化: ./infer/nginx/配置步骤.md
+            - diffusion:
+                  - diffusion: ./llm/nginx/配置步骤.md
+            - transformer:
+                  - ncnn: ./infer/arm/ncnn移植步骤.md 
+            - SLM:
+                  - Phi-2: ./llm/nginx/配置步骤.md
+                  - Stable LM 2: ./llm/nginx/配置步骤.md
+
+  - Paper:
+      - GPT: ./llm/nginx/配置步骤.md
+      - Sora: ./llm/nginx/配置步骤.md
+
   - 推理部署:
       - 服务:
             - Nginx:
@@ -164,14 +184,4 @@ nav:
       - x86:
             - ./infer/x86/
       - 边缘设备:
-            - ncnn: ./infer/arm/ncnn移植步骤.md
-  - LLM:
-      - 生成模型:
-            - LLaMA:
-                  - LLaMA实验: ./llm/nginx/配置步骤.md
-                  - LLaMA量化: ./infer/nginx/配置步骤.md
-      - diffusion:
-            - ./infer/x86/
-      - transformer:
-            - 
             - ncnn: ./infer/arm/ncnn移植步骤.md
