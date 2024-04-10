@@ -99,7 +99,7 @@ markdown_extensions:
 
 # 下面的是需要自定义的内容，请不要修改上方的内容，上面都是在开启各种插件和功能
 
-site_name: Gene's blog # 设置文档名称
+site_name: Gene's Docs # 设置文档名称
 copyright: Copyright &copy; 2017 - 2024 Gene # 左下角的版权声明
 
 plugins:
@@ -121,25 +121,57 @@ extra:
           name: Email
 
 nav:
-  - Home: index.md
+#   - Home: index.md
   - Linux:
       - 环境安装:
-            - CUDA安装: ./linux/安装CUDA.md
+            - 开发环境:
+                  - CUDA安装: ./linux/environment/安装CUDA.md
             - linux用户创建: ./linux/linux新建用户及用户组目录权限.md
             - docker: 
-                  - docker: ./linux/Ubuntu安装docker.md
-                  - nvidia-docker安装: ./linux/ubuntu安装nvidia-docker.md
-            - frp安装使用: ./linux/frp搭建.md
-            - ip网段配置: ./linux/ip多网段.md
-            - Ubuntu配置静态ip: ./linux/ubuntu配置静态ip.md
-            - frp安装使用: ./linux/frp搭建.md
+                  - docker: ./linux/environment/Ubuntu安装docker.md
+                  - nvidia-docker安装: ./linux/environment/ubuntu安装nvidia-docker.md
+      - 网络相关: 
+            - 内网穿透:
+                  - frp安装使用: ./linux/network/frp搭建.md
+            - 网络设置:
+                  - ip网段配置: ./linux/network/ip多网段.md
+                  - Ubuntu配置静态ip: ./linux/network/ubuntu配置静态ip.md
+                  - 添加平行路由: ./linux/network/ubuntu配置静态ip.md
+            
       - 指令:
             - 常用指令:
-                  - journalctl使用: ./infer/x86/
+                  - journalctl使用: ./linux/command/
+                  - 压缩: ./linux/command/
+  - DL:
+      - CV:
+            - Recognize:
+                  - 子域名泛解析: ./infer/nginx/配置步骤.md
+                  - python-grpc: ./infer/serve/用python搭建gRPC服务.md
+            - Detect&Track:
+                  - YOLO:
+                        -YOLOV5:
+                  - ByteTracker:
+            - Segment:
+                  - FCN:
+                  - PSPNet:
+                  - Unet: ./infer/arm/ncnn移植步骤.md
   - 推理部署:
-      - Nginx:
-            - 子域名泛解析: ./infer/nginx/配置步骤.md
+      - 服务:
+            - Nginx:
+                  - 子域名泛解析: ./infer/nginx/配置步骤.md
+            - grpc:
+                  - python-grpc: ./infer/serve/用python搭建gRPC服务.md
       - x86:
             - ./infer/x86/
       - 边缘设备:
+            - ncnn: ./infer/arm/ncnn移植步骤.md
+  - LLM:
+      - 生成模型:
+            - LLaMA:
+                  - LLaMA实验: ./llm/nginx/配置步骤.md
+                  - LLaMA量化: ./infer/nginx/配置步骤.md
+      - diffusion:
+            - ./infer/x86/
+      - transformer:
+            - 
             - ncnn: ./infer/arm/ncnn移植步骤.md
