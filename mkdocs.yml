@@ -141,8 +141,13 @@ nav:
             - 常用指令:
                   - journalctl使用: ./linux/command/
                   - 压缩: ./linux/command/
-  - DL:
+  - Algorithm:
       - CV:
+            - 传统算法:
+                  - 颜色空间转换: ./cv/base/常见颜色空间互转.md
+                  - Sobel边缘检测: ./cv/base/Sobel算子边缘检测.md
+                  - Canny边缘检测: ./cv/base/Canny算子边缘检测.md
+                  - 双边滤波: ./cv/base/双边滤波原理及Opencv调用.md
             - Recognize:
                   - Insightface: ./cv/Recognize/insightface.md
             - Detect&Track:
