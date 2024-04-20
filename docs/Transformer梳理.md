@@ -23,6 +23,9 @@ Transformer 开创了继 MLP 、CNN和 RN 之后的第四大类模型。
 
 
 ## ScaledDotProductAttention
+<img src="https://image.iokko.cn/file/49dcc4e21ce8761949feb.png" alt="Image" style="float: ;">
+
+<div class="clear"></div>
 
 $$
 Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
@@ -33,9 +36,56 @@ $$
 - V 代表 Value 矩阵
 - dk 是一个缩放因子
 
+```python
+class ScaledDotProductAttention(nn.Module):
+    def __init__(self):
+        super(ScaledDotProductAttention, self).__init__()
+        self.softmax = nn.Softmax(dim=-1)
+
+    def forward(self, q, k, v, d_k, mask):
+        scores = q @ k / np.sqrt(d_k)
+        if mask:
+            scores.masked_fill_(mask, -1e9)
+        return self.softmax(scores) @ v
+```
+
 ## MultiHeadAttention
 
+<img src="https://image.iokko.cn/file/8c9ff442e9facb71dafdb.png" alt="Image" style="float: ;">
 
+```python
+class MultiHeadAttention(nn.Module):
+    def __init__(self, hidden_size, head_size):
+        super(MultiHeadAttention, self).__init__()
+        self.hidden_size = hidden_size
+        self.head_size = head_size
+        self.mat_q = nn.Linear(hidden_size, hidden_size)
+        self.mat_k = nn.Linear(hidden_size, hidden_size)
+        self.mat_v = nn.Linear(hidden_size, hidden_size)
+        self.concat = nn.Linear(hidden_size, hidden_size)
+        self.attention = ScaledDotProductAttention()
+
+    def forward(self, input_q, input_k, input_v):
+        # input_q: [batch, seq_len, hidden_size]
+        d_k = self.hidden_size // self.head_size  # 512 // 8
+        batch_size = input_q.size(0)
+
+        # 分多个头  [batch, seq_len, hidden_size] -> [batch, seq_len, head_size, d_k] -> [batch, head_size, seq_len, d_k]
+        q = self.mat_q(input_q).view(batch_size, -1, self.head_size, d_k).transpose(1, 2)
+        k = self.mat_k(input_k).view(batch_size, -1, self.head_size, d_k).transpose(1, 2)
+        v = self.mat_v(input_v).view(batch_size, -1, self.head_size, d_k).transpose(1, 2)
+
+        # 注意力计算
+        attention = self.attention(q, k, v)
+        return attention
+```
+
+
+
+<div class="clear"></div>
+
+
+## MaskedMultiHeadAttention
 
 
 
@@ -46,6 +96,32 @@ $$
 - 相反，对于layernorm相对来说没有太多的问题，因为他是按照每个样本来进行均值和方差的计算，同时也不需要存下一个全局的均值和方差（不管样本的长短，均值和方差的计算都是以样本为单位的），这样的话相对来讲更稳定一些
 
 ## FeedForward Networks
+
+这个FFN模块比较简单，就是一个MLP，本质上全是两层全连接层加一个激活函数，这里使用的是relu
+
+$$
+X = Dense_1(X) \\
+X = Relu(X) \\ 
+Out = Dense_2(X)
+$$
+
+```python
+class PositionwiseFeedForward(nn.Module):
+    def __init__(self):
+        super(PositionwiseFeedForward, self).__init__()
+        # 就是一个MLP Hx4H + 4HxH
+        self.fc = nn.Sequential(
+            nn.Linear(d_model, d_ff),
+            nn.ReLU(),
+            nn.Linear(d_ff, d_model)
+        )
+
+    def forward(self, inputs):
+        '''inputs: [batch_size, seq_len, d_model]'''
+        residual = inputs
+        output = self.fc(inputs)
+        return nn.LayerNorm(d_model) (output + residual)  # return： [batch_size, seq_len, d_model] 形状不变
+```
 
 
 
@@ -67,8 +143,8 @@ $$
 
 ​	你打我与我打你 通过位置编码计算出来结果是不一样的，通过位置编码计算后，attention的输入不一样了，所以输出也不一样了。
 $$
-PE(pos,2i) = sin(\frac{pos}{1000^{\frac{2i}{d_{model}}}}) \\
-PE(pos,2i+1) = cos(\frac{pos}{1000^{\frac{2i}{d_{model}}}})
+PE(pos,2i) = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}}) \\
+PE(pos,2i+1) = cos(\frac{pos}{10000^{\frac{2i}{d_{model}}}})
 $$
 
 
@@ -101,3 +177,18 @@ class PositionalEncoding(nn.Module):
 ```
 
 ## Embedding
+
+- embedding module 的前向过程其实是一个索引（查表）的过程
+  - 表的形式是一个 matrix（embedding.weight, learnable parameters）
+    - matrix.shape: (v, h)
+      - v：vocabulary size
+      - h：hidden dimension
+  - 具体索引的过程，是通过 one hot + 矩阵乘法的形式实现的；
+  - input.shape: (b, s)
+    - b：batch size
+    - s：seq len
+  - embedding(input)
+    - (b, s) ==> (b, s, h)
+    - (b, s) 和 (v, h) ==>? (b, s, h)
+      - (b, s) 经过 one hot => (b, s, v)
+      - (b, s, v) @ (v, h) ==> (b, s, h)
