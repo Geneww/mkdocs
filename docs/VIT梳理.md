@@ -56,7 +56,7 @@ class PatchEmbedding(nn.Module):
 ```
 
 ## 2.TransformerEncoder
-
+![Transformer Encoder](https://image.iokko.cn/file/d418c837218ad2b82a4b6.png)
 这里只使用的Transformer的Encoder模块
 
 ```python
