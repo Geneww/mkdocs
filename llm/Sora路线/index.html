@@ -1,0 +1,901 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Sora的前世今生：从文生图到文生视频 - Gene's Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sora" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gene&#39;s Docs" class="md-header__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gene's Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sora的前世今生：从文生图到文生视频
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="跟随系统模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="跟随系统模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-orange"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-gray" data-md-color-accent="deep-orange"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cv/base/%E5%B8%B8%E8%A7%81%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E4%BA%92%E8%BD%AC/" class="md-tabs__link">
+          
+  
+  Algorithm
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../nginx/配置步骤.md" class="md-tabs__link">
+          
+  
+  Paper
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-tabs__link">
+          
+  
+  推理部署
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gene&#39;s Docs" class="md-nav__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    Gene's Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../cv/base/%E5%B8%B8%E8%A7%81%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E4%BA%92%E8%BD%AC/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Paper
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    推理部署
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 背景
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sora">Sora的前世今生：从文生图到文生视频<a class="headerlink" href="#sora" title="Permanent link">&para;</a></h1>
+<p>优tech分享｜</p>
+<blockquote>
+<p>在2月16日凌晨，OpenAI首款文本生成视频模型Sora正式亮相，迅速在网络上引发广泛关注。对于Sora背后的技术原理，网络上已经充斥着各种分析和猜测，其中大多数分析都是从技术报告入手，对于普通读者来说难度相对较高。为了使技术原理更加通俗易懂，本文将从文本生成图像到文本生成视频的技术演进角度进行剖析，解读从AE、VAE、DDPM、LDM到DiT和Sora的技术发展路线，旨在为读者提供一条清晰简明的技术进化路径。</p>
+</blockquote>
+<h3 id="1"><strong>1. 背景</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>最近AI圈内乃至整个科技圈最爆的新闻莫过于OpenAI的Sora了，感觉热度甚至远超之前ChatGPT发布时的热度。OpenAI也是放出了Sora的技术报告（有一定的信息量，也留下了大量的想象空间）。</p>
+<p>技术报告传送门： <a href="https://openai.com/research/video-generation-models-as-world-simulators">https://openai.com/research/video-generation-models-as-world-simulators</a></p>
+<p>今天就来尝试聊一下Sora的前世今生，欢迎交流讨论批评指正！</p>
+<p>无论是文生图还是文生视频，很多这方面的工作其实都可以看成是自编码器的进阶版本，让我们从自编码器开始入手。</p>
+<p><strong>自编码器（Autoencoder）：压缩大于生成</strong></p>
+<p>自编码器由编码器和解码器两个部分构成</p>
+<p>编码器负责学习输入到编码的映射 ，将高维输入（例如图片）转化为低维编码</p>
+<p>解码器则学习编码到输出的映射 ，将这些低维编码还原为高维输出（例如重构的图片）</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicQqQlcXzZxHYPj9dF8NDXRb8PVs9q9II5UzHOiaOE2omjk1yn9ibYh8icQ/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>我们希望压缩前和还原后的向量尽可能相似（比如让它们的平均平方误差MSE尽可能小）</p>
+<p>这样就能让神经网络学会使用低维编码表征原始的高维向量（例如图片）。</p>
+<p><strong>那有了自编码器能够做生成吗，答案是可以的</strong>，只要留下解码器，我随便喂入一个低维编码，不就能够得到一个生成的高维向量了（例如图片）。（当然，这里可能生成一起奇奇怪怪的东西，因为这里对低维向量没有做出约束，自编码器通过将图片转化为<strong>数值编码</strong>再还原回图片的过程，可能导致对训练数据过<strong>拟合</strong>。结果就是，对于未见过的低维编码，解码器重构的图片质量通常不佳。因此<strong>自编码器更多用于数据压缩</strong>。）</p>
+<h1 id="variational-autoencoders"><strong>变分自编码器（Variational Autoencoders）：迈向更鲁棒地生成</strong><a class="headerlink" href="#variational-autoencoders" title="Permanent link">&para;</a></h1>
+<p><strong>自编码器不擅长图片生成是因为过拟合，那如果能够解决过拟合问题，不就能拿来生成图片了！</strong></p>
+<p>变分自编码器做的就是这么一件事：既然自编码器将图片编码为<strong>确定性的数值编码</strong>会导致过拟合，变分自编码器就将图片编码为一个<strong>具有随机性的概率分布</strong>，比如标准正态分布。 这样当模型训练好后，我们只要给解码器喂入<strong>采样自标准正态分布的低维向量</strong>，就能够生成较为“真实”的图片了。</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicNRXHzMCBGpEkFGg35VpU08MicWiaMm8FYfmOK7udk0rCY1qKPlnpWoUw/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>因此，变分自编码器除了希望编码前和解码后的样本尽可能相似（MSE尽可能小），还希望用于解码的数据服从标准正态分布，也就是<strong>低维编码的分布和标准正态分布的KL散度尽可能小</strong>，损失函数加上这么一项约束。</p>
+<blockquote>
+<p>变分自编码器中涉及到了从标准正态分布中进行采样，因此作者引入了一种参数化的技巧（也是为了误差能够反向传播），感兴趣的可以进一步了解。</p>
+<p>此外，VQ-VAE、VQ-GAN 也是一些值得学习的工作。由于不影响对后续的理解，这里不再进行赘述。</p>
+</blockquote>
+<p>变分自编码器减轻了自编码器过拟合的问题，也确实能够用来做图片的生成了，但是大家会发现用<strong>它生成图片通常会比较模糊</strong>。可以这样想一下，变分自编码器的编码器和解码器都是一个神经网络，编码过程和解码过程都是<strong>一步就到位了</strong>，一步到位可能带来的问题就是建模概率分布的能力有限/或者说能够对图片生成过程施加的约束是有限的/或者说“可控性”是比较低的。</p>
+<h1 id="ddpm"><strong>去噪扩散概率模型（DDPM）：慢工出细活</strong><a class="headerlink" href="#ddpm" title="Permanent link">&para;</a></h1>
+<p>既然变分自编码器一步到位的编解码方式可能导致生成图片的效果不太理想，DDPM就考虑拆成多步来做，它将编码过程和解码过程分解为多步：</p>
+<p>编码过程</p>
+<p>解码过程</p>
+<p>因此，所谓的扩散模型由两个阶段构成</p>
+<ul>
+<li>前向扩散过程，比如给定一张照片，不断（也就是多步）往图片上添加噪声，直到最后这样图片看上去什么都不是（就是个纯噪声）</li>
+<li>反向去噪过程，给定噪声，不断执行去噪的这一操作，最终得到一张“真实好看”的照片</li>
+</ul>
+<p>下图中从右往左就是前向扩散的过程，从左往右就是反向去噪的过程</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicQGzSPm2lJtl0VHRRiaFAyDle6aGgWk1ACZCBxErJB3j4mJ9pU2dszGA/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>可以看到每一步的下标有一个，的范围从到，代表从数据集中采样出一张图片，前向过程在每一步从高斯分布中采样出噪声叠加到时刻的图像上，当足够大时，最终会得到一个各向同性的高斯分布（球形高斯分布，也就是各个方向方差都一样的多维高斯分布)。</p>
+<blockquote>
+<p>引用一个苏剑林大佬的比喻帮助大家理解：我们可以将扩散过程想象为建楼，其中随机噪声是砖瓦水泥等原材料，样本数据是高楼大厦，所以生成模型就是一支用原材料建设高楼大厦的施工队。这个过程肯定很难的，但俗话说“破坏容易建设难”，建楼你不会，拆楼你总会了吧？我们考虑将高楼大厦一步步地拆为砖瓦水泥的过程，当我们有了“拆楼”的中间过程后，我们知道拆楼的每一步是如何完成的，那反过来不就是建楼的一步？如果我们能学会两者之间的变换关系，那么从出发，反复地执行一步建楼的过程，最终不就能造出高楼大厦出来？</p>
+</blockquote>
+<p>DDPM通过多步迭代生成得到图片缓解了变分自编码器生成图片模糊的问题，但是由<strong>于多步去噪过程需要对同一尺寸的图片数据进行操作</strong>，也就导致了越大的图片需要的计算资源越多（原来只要处理一次，现在<strong>有几步就要处理几次</strong>）。</p>
+<h2 id="ddpm_1"><strong>DDPM细节推导（选读）</strong><a class="headerlink" href="#ddpm_1" title="Permanent link">&para;</a></h2>
+<p>下面从数学一点的角度对DDPM进行介绍，不感兴趣的同学可以直接跳过</p>
+<p>假设原始数据的分布为，从数据集中拿出一张图片就类似于从原始数据分布中进行采样，进一步可以定义第步的前向扩散过程为</p>
+<p>其中是第步的方差，且服从一个指定的变化规律（schedule），比如可以是线性变化、二次变换、或者按照正余弦的方式进行变化（有点类似于学习率变化的那种意思）。</p>
+<p>有了后，根据前向扩散过程的条件分布，我们可以通过从高斯分布中采样得到</p>
+<p>其中.</p>
+<p>PS：为什么均值前面有个系数？其实是为了保证条件概率具有单位方差。</p>
+<p>根据前向扩散这个条件分布，我们还可以将其一步一步展开来看和的关系，比如将</p>
+<p>代入</p>
+<p>可以得到和的关系。进一步如果将每一步的扩散过程不过代入消元，最终可以得到</p>
+<p>其中，这一性质也被称为“nice property”。</p>
+<p>有了上述前向扩散过程的定义和性质，给定数据，就可以一步步叠加噪声得到，其中为纯噪声（也可以直接根据nice property得到任意时刻的）；而反向去噪的过程则是从噪声中采样一个出来，然后根据某个一步步去噪，最终得到。回顾一下前面叠加噪声（或者说拆楼）的过程，我们可以得到许多的样本对，那么“建楼”自然就是从这些数据对中学习一个从到的模型，也可以表示为概率分布，又因为这个模型是未知的，所以可以考虑采用神经网络来近似它！</p>
+<p>神经网络可以被看作一个函数近似器，也就是输入为的函数，记作，建楼的过程就是希望和尽可能接近，比如说他们的欧式距离尽可能小</p>
+<p>不过直接让神经网络直接从来预测难度也还是比较大的，是不是可以考虑简化一下？回顾之前在“拆楼”的过程中其实已经具备从到的一个关系表示</p>
+<p>那也就可以通过移项然后做个除法得到</p>
+<p>这里就是个系数，是什么先不管，但是可以认为这是从到的一个表达式，也能够启发算法的设计，如果把右边看作，由于是确定的，那么可以表示为</p>
+<p>其中类似于一个确定项，是不是也意味着我们只需要去预测时刻的噪声就可以了！ 接着把神经网络的预测代入希望最小化的损失函数中，化简可以得到</p>
+<p>综上，算法的训练流程可以表示为</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicqjc0jJiciaj3Mfjk9MTkhSu1E1MRIy0Fxx3Nlu0EW50UTWqwoafMgbZw/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p><strong>算法流程</strong></p>
+<ul>
+<li>随机从数据集中采样图片</li>
+<li>随机采样一个步数</li>
+<li>从高斯分布中采样一个噪声并通过nice property得到步后含噪的图片</li>
+<li>神经网络根据预测噪声，计算误差，反向传播</li>
+</ul>
+<p>PS：在原论文中作者把方差给固定住了，仅学习均值部分来实现去噪的效果（当然，后续也有改进论文提出把方差也一起拿来学习）。</p>
+<p>知道这个网络怎么训练了，我们再来思考一下网络的结构该如何设计。由于网络的输入是叠加噪声后的图片（以及时间步长），输出为噪声的预测，也就是输入和输出的维度其实是一样的，那么只要满足输入输出维度一样的神经网络结构都可以拿来一试（比如自编码器、U-net等），作者这边采用的则是U-net</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGickzsfrJiauLVFc0bdMS4mPr5CEEPNwricDot9tqx0q3Ria5YM4WRUgehlg/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<blockquote>
+<p>U-net提出的初衷是为了解决医学图像分割的问题，其实整体来看，这个也是一个Encoder-Decoder的结构。这个结构先对图片进行卷积和池化，在U-net论文中是池化4次，比方说一开始的图片是224x224的，那么就会变成112x112，56x56,28x28,14x14四个不同尺寸的特征。然后我们对14x14的特征图做上采样或者反卷积，得到28x28的特征图，这个28x28的特征图与之前的28x28的特征图进行通道上的拼接，然后再对拼接之后的特征图做卷积和上采样，得到56x56的特征图，再与之前的56x56的特征拼接，卷积，再上采样，经过四次上采样可以得到一个与输入图像尺寸相同的224x224的预测结果。</p>
+</blockquote>
+<p>对于时间步长，可以将其转化为time embedding（比如类似position embedding的做法），然后叠加到（U-net的各层）图片上。</p>
+<p>模型结构也确定了，怎么训练也知道了，那么训练完后该如何生成图片呢？图片的生成过程也称为采样的过程，流程如下</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicjSoicM3ibszy1DewAdh2GCKUpiaNJTDRe2V5xqt45tuRMOzeZMep23djQ/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>反向去噪过程：从高斯分布中采样一个噪声，从时刻开始，每次通过训练好的神经网络预测噪声，然后得到略微去噪后的图片，再代入神经网络预测噪声，不断迭代，最终得到第0步的图片。</p>
+<h1 id="ldmvae"><strong>潜在扩散模型（LDM）：借助VAE来降本增效</strong><a class="headerlink" href="#ldmvae" title="Permanent link">&para;</a></h1>
+<p>既然DDPM在原始空间（像素级别的图片）进行扩散模型的训练（hundreds of GPU days）和采样比较费资源的，那我们就可以考虑把它降维后在latent space进行操作。因此Latent Diffusion Models的做法就是安排上一个自编码器来对原始图片进行降维，比如原来的图片是的，降成后再来进行DDPM这一套流程，生成图片时则是通过扩散模型拿到大小的图片，再通过自编码器的解码器还原为的图片。</p>
+<h2 id="ldm"><strong>LDM文生图（选读）</strong><a class="headerlink" href="#ldm" title="Permanent link">&para;</a></h2>
+<p>下面关于LDM的一些细节介绍，不感兴趣的同学可以直接跳过。</p>
+<p>理解了latent的含义后，接下来再考虑下如何根据文本来生成图片呢？ 既然要接收文本，那就需要给模型安排上文本编码器（text encoder），<strong>把文本转化为模型能够理解的东西</strong>。Stable Diffusion采用了CLIP的文本编码器，它的输入是一段文本，输出是77个token的embeddings向量，每个向量的维度为768（可以理解为一段话最多保留77个字（或词），每个字（或词）用768维的向量表示）。</p>
+<blockquote>
+<p>CLIP是在400million的图片和标题构成的数据集（通过搜索的方式，查询了50w个queries，且每个query保留最多2w条（image，text）数据）上进行训练得到的，作者采用了对比学习的方式，只需要预测文本的整体和图像的成对关系，而不需要预测出具体文本的每一个字。 假设一个批次有对（图像，文本）对，可以有 种组合方式，对比学习把原始数据集中的个组合作为正样本（下图对角线），把其他的 种组合作为负样本（下图非对角线）有了正负样本后，就可以按照分类的思路来训练，比如每一行就是个N分类问题，其中label就是真实组合所在位置，比如第一行的label是0，第二行的label是1，以此类推。</p>
+</blockquote>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicG4fBeickymoFbevKWM7eyvSlKHomb8QSLpq0aXoX3C7qFK3Z9wwfLRQ/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>得到文本的表示后，就需要考虑如何在原来的U-net里叠加上文本的信息呢？ 原来的U-net的输入由两部分组成</p>
+<ul>
+<li>加噪后的图片</li>
+<li>时间步长（）</li>
+</ul>
+<p>现在则是由三部分组成</p>
+<ul>
+<li>加噪后的图片</li>
+<li>时间步长（）</li>
+<li>文本的token embedding</li>
+</ul>
+<p>为了能够充分利用文本的信息，让模型按照文本的意思来绘画，Stable Diffusion提出了一种文本和图片之间的交叉注意力机制，具体的</p>
+<p>其中，来自于图像侧，和来自于文本侧；可以理解为<strong>计算图像和文本的相似度，然后根据这个相似度作为系数对文本进行加权</strong>。 在前面U-net的基础上，每个resnet之后接上这样一个注意力机制就得到了注入文本信息的U-net的结构了。</p>
+<p>然后就可以愉快地像之前的DDPM一样，<strong>预测噪声，最小化MSE</strong>，学习模型了！</p>
+<p>最后再来一张整体的结构图总结一下</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicdrG5fOH50rribQNYYBVo0guhrTwuqQxribXzia2QJv3CmibBrdlZ7kxDeg/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<h1 id="diffusion-transformersdittransformer"><strong>Diffusion Transformers（DiT）：当扩散模型遇到Transformer</strong><a class="headerlink" href="#diffusion-transformersdittransformer" title="Permanent link">&para;</a></h1>
+<p>LDM的扩散模型使用了U-net这一网络结构，但这个结构会是最佳的吗？</p>
+<p>参考其他领域或者任务的经验，比如去年火了一整年的大语言模型、多模态大模型绝大部分用的都是Transformer结构，相比于U-net，<strong>Transformer结构的Scaling能力（</strong>模型参数量越大，性能越强）更受大家认可。因此，<strong>DiT其实就是把LDM中的U-net替换成了Transformer</strong>，并在Vision Transformer模块的基础上做了略微的修改使得在图片生成过程能够接受一些额外的信息，比如时间步，标签。</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGichb8YT8C6AZdwR1O0yPUgVsoafztQ8PSRzmdUKtgYRntedr1kKDNG2w/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<h2 id="vision-transformer"><strong>Vision Transformer 基础（选读）</strong><a class="headerlink" href="#vision-transformer" title="Permanent link">&para;</a></h2>
+<p>既然要用Transformer来替换U-net，我们需要了解一下Transformer如何处理图片数据的呢？经典之作当然是Vision Transformer (ViT)了，它的主要思想就是<strong>将图片分割为固定大小的图像块（image patch/token），对于每个图像块进行线性变换并添加位置信息，然后将得到的向量序列送入一个标准的Transformer编码器。</strong></p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicn78rQibx0QZHqOUicpjmM3wibEQYksia3ODRSJ6tCdEsQiba5INCQB1b7fw/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>至于图片的切割分块可以参考DiT中的这张图，假如patch的大小为，那么一张的图片会切成一个的图片块序列，然后当作文本序列来看待就好了。</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicmFMbSpSSsqZoiatibMH7qKd7N0TSZUlClb9ibpVgrtUszLmgtNk1mibLBw/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<h1 id="sora_1"><strong>Sora：视频生成的新纪元</strong><a class="headerlink" href="#sora_1" title="Permanent link">&para;</a></h1>
+<p>先抛出我的观点：<strong>Sora就是改进的DiT</strong>。</p>
+<p>而DiT本质上是 VAE编码器 + ViT + DDPM + VAE解码器；从OpenAI的技术报告体现出来的创新点我认为主要有两个方面：</p>
+<ul>
+<li>改进VAE -&gt; 时空编码器</li>
+<li>改进DiT -&gt; 不限制分辨率和时长</li>
+</ul>
+<p>至于图像分块、Scaling transformers、视频re-captioning、视频编辑（SDEdit）这些其实都是已知的一些做法了。</p>
+<h2 id="low"><strong>实现一个最low的视频生成模型</strong><a class="headerlink" href="#low" title="Permanent link">&para;</a></h2>
+<p>假如我们具备前面的知识了，或者说给你一个DiT（能够进行图片生成），如何能够实现视频的生成呢？</p>
+<blockquote>
+<p>视频的每一帧（frame）本质上就是一张图片。在视频播放时，这些连续的图片以一定的速率（帧率，通常以每秒帧数FPS表示）快速播放，由于人眼的视觉暂留效应，这些连续的静态图片在观众眼中形成了动态效果，从而产生了视频的流畅运动感。</p>
+</blockquote>
+<p>那要实现视频生成是不是可以<strong>看作是多帧图片的生成，因此最low的做法就是把视频生成看作独立的图片生成，使用DiT生成多帧图片然后串起来就是视频了。</strong></p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicGgtlxyftSXGEFlOdJZGVsL2vjTCmSqJmvRhic2v6E1ec199HALS1V8g/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>当然，这样做的问题显然很大，因为没有考虑视频不同帧图片之间的关联，可能会导致生成的多帧图像很不连贯，串起来看就不像是视频了。</p>
+<h2 id="vae"><strong>改进VAE：融入时间关联</strong><a class="headerlink" href="#vae" title="Permanent link">&para;</a></h2>
+<p>为了使得视频的生成连贯，那在VAE编解码的过程自然需要去考虑视频不同帧的关系，原来对图片进行处理相当于考虑的是图片空间上的关系，现在换到视频就是多了时间上的关系，也就是经典的时空联合建模问题。</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicciargvasNVCIue88B6ErmhoTBRRq0OhZuibBd2SDsiavsLXlkr6TVSUhQ/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<blockquote>
+<p>时空联合建模的方法其实非常多了，比如使用3D CNN、比如时间空间单独处理再融合、比如设计fancy的注意力机制等等。</p>
+</blockquote>
+<p>对应的就是Sora技术报告中的Video compression network</p>
+<blockquote>
+<p>We train a network that reduces the dimensionality of visual data.20 This network takes raw video as input and outputs a latent representation that is compressed both temporally and spatially.</p>
+</blockquote>
+<p>技术报告中没有提及具体的做法，但是可以看出这里显然是在VAE编码器上考虑了时空建模，对于解码器的设计没有相关介绍（可能也考虑了时空建模，也可能不做改动）。</p>
+<p>这里再分享另外一个工作VideoLDM，他们的做法是在解码器上插入额外的temporal layers来考虑视频帧之间的关系，而编码器是保持不变的。</p>
+<blockquote>
+<p>这里额外推荐几篇视频生成的相关论文，Make-A-Video、Emu Video、VideoLDM、AnimateDiff、VideoPoet、Lumiere，感兴趣的同学可以进一步了解，这里不再赘述。</p>
+</blockquote>
+<h2 id="dit"><strong>改进DiT：适配任意分辨率和时长</strong><a class="headerlink" href="#dit" title="Permanent link">&para;</a></h2>
+<p>网上的很多分享都在传Sora能适配任意分辨率和时长是参考了NaViT这篇文章的做法，其实并非如此，Vision Transformer (ViT)本身就能够处理任意分辨率（不同分辨率就是相当于不同长度的图片块序列，不就类似你给大语言模型提供不同长度的输入一个意思）！NaViT只是提供了一种高效训练的方法。</p>
+<p>接下来我们来思考下DiT如何处理不同分辨率和时长的视频数据呢？假如我们有一个的视频会切成一个的图片块序列（当然这里图片块的排序也可以有一些讲究，比如按空间维度排序，或者按时间维度排序）。</p>
+<p><strong>因为、、*<em>都是可变的，所以关键的问题应该是改进DiT使它能够更好地识别不同图片块是属于原始视频中的哪个区域。*</em></strong></p>
+<p>一种可行的做法就是从<strong>位置编码</strong>的角度入手，比如对于输入Transformer的图片块，我们可以在<strong>patch embedding上叠加上时间、空间上的位置信息。</strong></p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicick7LuIgMhDTL32LFN9ib71gJKNunwdPbY6jz0GUibfQWS9HWvwxic6t6Q/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<blockquote>
+<p>类似的，其实在ViT的工作中考虑过使用2D-aware position embeddings来表示不同图片块的位置信息，只是没有什么明显的效果。</p>
+</blockquote>
+<h2 id="_1"><strong>数据仍然还是王道</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在数据层面上，OpenAI也给出了两点很有参考价值的方法</p>
+<ul>
+<li>不对视频/图片进行裁剪等预处理，<strong>使用native size</strong></li>
+<li>数据的<strong>质量很重要</strong>，比如（文本、视频）这样的成对数据，原始的文本可能并不能很好的描述视频，可以通过re-captioning的方式来优化文本描述，这一点在DALL·E 3的报告中也已经强调了，这里只是进一步从图片re-captioning扩展到视频re-captioning。</li>
+</ul>
+<p><strong>那么DALL·E 3是如何做re-captioning的呢？（选读）</strong></p>
+<p>既然是生成文本，自然就是类GPT的语言模型，做的就是下一个词预测；考虑到生成的文本是图像的描述，因此需要基于图像这个条件，也就是条件生成，要把 image 放进去</p>
+<p>那么图像以什么形式放进去呢？简单点，就用 CLIP 来编码图像，然后把图像embedding放进去就ok了。那这样一个图像打标模型怎么训练呢？用的就是 CoCa 的方法，也就是同时考虑对比损失和LM损失</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicJTV5iamTfzRApJgHhsB9TcYkxRuvLe8RvPd1IIlk3rP6y5M4qaiaTqSQ/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<h2 id="_2"><strong>模型推理策略</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>官方展示Sora的应用有很多，比如文生视频、图生视频、视频反推、视频编辑、视频融合等。 这里就会涉及一些有意思的做法，比如可以这么做（以下做法并不唯一）</p>
+<p>1.文生视频：喂入DiT的就是文本embedding+全噪声patch</p>
+<p>2.视频编辑：类似SDEdit的做法，在视频上加点噪声（不要搞成全是噪声），然后拿去逐步去噪</p>
+<p>3.图生视频、视频反推、视频融合：喂入DiT的就是文本embedding（可选）+特定帧用给定图片的embedding+其他帧用全噪声patch</p>
+<h1 id="_3"><strong>未来会是什么？</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>不知道大家有没有注意到，Sora还提到了它除了文生视频，也支持文生图，这里其实透露出了一种统一的味道。我相信未来的发展肯定会出现更加强大的多模态统一，这里引用一张去年我在一场内部分享中的slides来结束本次的文章，<strong>万物皆可“分词”，选择合适的编码器 + Transformer结构或其他 + 合适的解码器，就可能实现各种不同模态之前的互相转换、互相生成！</strong></p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicQolKXXxyjqV2JXHN32MsibFvO5utO3S8qmyNKrQ1Hx6KSqjpOMuVD9Q/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>比如可以参考NExT-GPT的一个结构图</p>
+<p><img alt="图片" src="https://mmbiz.qpic.cn/sz_mmbiz_png/j3gficicyOvauRNPDEKFkm7yxWP81IMjGicLNJxWOPjONrrcmtshTFibg9vpAiaJj9RpCmElZmQVzjTicvOHsdNvVuNA/640?wx_fmt=png&amp;from=appmsg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" /></p>
+<p>相信2024年同样会是AI领域突飞猛进的一年，期待更多精彩的工作。</p>
+<p>【参考资料】</p>
+<p>Autoencoders, <a href="https://arxiv.org/abs/2003.05991">https://arxiv.org/abs/2003.05991</a></p>
+<p>Auto-Encoding Variational Bayes, <a href="https://arxiv.org/abs/1312.6114">https://arxiv.org/abs/1312.6114</a></p>
+<p>Denoising Diffusion Probabilistic Models, <a href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a></p>
+<p>High-Resolution Image Synthesis with Latent Diffusion Models, <a href="https://arxiv.org/pdf/2112.10752.pdf">https://arxiv.org/pdf/2112.10752.pdf</a></p>
+<p>Scalable Diffusion Models with Transformers, <a href="https://arxiv.org/pdf/2212.09748.pdf">https://arxiv.org/pdf/2212.09748.pdf</a></p>
+<p>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale, <a href="https://arxiv.org/abs/2010.11929">https://arxiv.org/abs/2010.11929</a></p>
+<p>Sora, <a href="https://openai.com/research/video-generation-models-as-world-simulators">https://openai.com/research/video-generation-models-as-world-simulators</a></p>
+<p>Video LDM, <a href="https://arxiv.org/pdf/2304.08818.pdf">https://arxiv.org/pdf/2304.08818.pdf</a></p>
+<p>NaViT, <a href="https://arxiv.org/abs/2307.06304">https://arxiv.org/abs/2307.06304</a></p>
+<p>CoCa, <a href="https://arxiv.org/pdf/2205.01917.pdf">https://arxiv.org/pdf/2205.01917.pdf</a></p>
+<p>NExT-GPT, <a href="https://next-gpt.github.io/">https://next-gpt.github.io/</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2017 - 2024 Gene
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Geneww" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:495612021@qq.com" target="_blank" rel="noopener" title="Email" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.prune", "toc.follow", "navigation.top", "search.suggest", "search.highlight", "search.share", "navigation.footer", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

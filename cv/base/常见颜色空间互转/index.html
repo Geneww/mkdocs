@@ -1,0 +1,2042 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../linux/network/frp%E6%90%AD%E5%BB%BA/">
+      
+      
+        <link rel="next" href="../Sobel%E7%AE%97%E5%AD%90%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>颜色空间转换 - Gene's Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Gene&#39;s Docs" class="md-header__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gene's Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              颜色空间转换
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="跟随系统模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="跟随系统模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-orange"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-gray" data-md-color-accent="deep-orange"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Algorithm
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../llm/nginx/配置步骤.md" class="md-tabs__link">
+          
+  
+  Paper
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-tabs__link">
+          
+  
+  推理部署
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Gene&#39;s Docs" class="md-nav__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    Gene's Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorithm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CV
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            CV
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    传统算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            传统算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    颜色空间转换
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sobel%E7%AE%97%E5%AD%90%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sobel边缘检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Canny%E7%AE%97%E5%AD%90%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Canny边缘检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8F%8C%E8%BE%B9%E6%BB%A4%E6%B3%A2%E5%8E%9F%E7%90%86%E5%8F%8AOpencv%E8%B0%83%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    双边滤波
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Recognize/insightface/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Recognize
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../Detect%26Track/yolov5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Detect&Track
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../Segment/FCN/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Segment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    NLP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            NLP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nlp/RNN.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RNN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nlp/GRU.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GRU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nlp/LSTM.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LSTM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../nlp/Attention.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Attention
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            LLM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../llm/nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    生成模型
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../llm/nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    diffusion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../infer/arm/ncnn%E7%A7%BB%E6%A4%8D%E6%AD%A5%E9%AA%A4/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    transformer
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../llm/nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    SLM
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../llm/nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Paper
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    推理部署
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">前言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>今天是OpenCV传统图像处理算法的第一篇，我们来盘点一下常见的6种颜色空间互转算法，并给出了一些简单的加速方案，希望可以帮助到学习OpenCV图像处理的同学。这6种算法分别是：</p>
+<ul>
+<li>RGB和GRAY互转</li>
+<li>RGB和YUV互转</li>
+<li>RGB和HSV互转</li>
+<li>RGB和HSI互转、</li>
+<li>RGB和YCbCr互转</li>
+<li>RGB和YDbDr互转</li>
+</ul>
+<h1 id="_2">算法原理和代码实现<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="rgbgggray">一，RGBGG转GRAY<a class="headerlink" href="#rgbgggray" title="Permanent link">&para;</a></h2>
+<p>RGB是依据人眼识别的颜色定义出的空间，可表示大部分颜色。是图像处理中最基本、最常用、面向硬件的颜色空间，是一种光混合的体系。</p>
+<p>RGB颜色空间最常用的用途就是显示器系统，彩色阴极射线管,彩色光栅图形的显示器都使用R、G、B数值来驱动R、G、B 电子枪发射电子，并分别激发荧光屏上的R、G、B三种颜色的荧光粉发出不同亮度的光线，并通过相加混合产生各种颜色。扫描仪也是通过吸收原稿经反射或透射而发送来的光线中的R、G、B成分，并用它来表示原稿的颜色。</p>
+<p>首先是RGB2GRAY，也就是彩色图转灰度图的算法。RGB值和灰度的转换，实际上是人眼对于彩色的感觉到亮度感觉的转换，这是一个心理学问题，有一个公式：
+Grey = 0.299<span class="arithmatex">\(\times\)</span>R + 0.587<span class="arithmatex">\(\times\)</span>G + 0.114<span class="arithmatex">\(\times\)</span>B。直接计算复杂度较高，考虑优化可以将小数转为整数，除法变为移位，乘法也变为移位，但是这种方法也会带来一定的精度损失，我们可以根据实际情况选择需要保留的精度位数。下面给出不同精度(2-20位)的计算公式：</p>
+<p><div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos=" 1 "></span></a>Grey = (R*1 + G*2 + B*1) &gt;&gt; 2
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><a href="#__codelineno-0-3"><span class="linenos" data-linenos=" 3 "></span></a>Grey= (R*2 + G*5 + B*1) &gt;&gt; 3
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><a href="#__codelineno-0-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><a href="#__codelineno-0-5"><span class="linenos" data-linenos=" 5 "></span></a>Grey= (R*4 + G*10 + B*2) &gt;&gt; 4
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><a href="#__codelineno-0-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><a href="#__codelineno-0-7"><span class="linenos" data-linenos=" 7 "></span></a>Grey = (R*9 + G*19 + B*4) &gt;&gt; 5
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><a href="#__codelineno-0-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><a href="#__codelineno-0-9"><span class="linenos" data-linenos=" 9 "></span></a>Grey = (R*19 + G*37 + B*8) &gt;&gt; 6
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><a href="#__codelineno-0-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><a href="#__codelineno-0-11"><span class="linenos" data-linenos="11 "></span></a>Grey= (R*38 + G*75 + B*15) &gt;&gt; 7
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><a href="#__codelineno-0-12"><span class="linenos" data-linenos="12 "></span></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><a href="#__codelineno-0-13"><span class="linenos" data-linenos="13 "></span></a>Grey= (R*76 + G*150 + B*30) &gt;&gt; 8
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><a href="#__codelineno-0-14"><span class="linenos" data-linenos="14 "></span></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><a href="#__codelineno-0-15"><span class="linenos" data-linenos="15 "></span></a>Grey = (R*153 + G*300 + B*59) &gt;&gt; 9
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><a href="#__codelineno-0-16"><span class="linenos" data-linenos="16 "></span></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><a href="#__codelineno-0-17"><span class="linenos" data-linenos="17 "></span></a>Grey = (R*306 + G*601 + B*117) &gt;&gt; 10
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><a href="#__codelineno-0-18"><span class="linenos" data-linenos="18 "></span></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><a href="#__codelineno-0-19"><span class="linenos" data-linenos="19 "></span></a>Grey = (R*612 + G*1202 + B*234) &gt;&gt; 11
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><a href="#__codelineno-0-20"><span class="linenos" data-linenos="20 "></span></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><a href="#__codelineno-0-21"><span class="linenos" data-linenos="21 "></span></a>Grey = (R*1224 + G*2405 + B*467) &gt;&gt; 12
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><a href="#__codelineno-0-22"><span class="linenos" data-linenos="22 "></span></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><a href="#__codelineno-0-23"><span class="linenos" data-linenos="23 "></span></a>Grey= (R*2449 + G*4809 + B*934) &gt;&gt; 13
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><a href="#__codelineno-0-24"><span class="linenos" data-linenos="24 "></span></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><a href="#__codelineno-0-25"><span class="linenos" data-linenos="25 "></span></a>Grey= (R*4898 + G*9618 + B*1868) &gt;&gt; 14
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><a href="#__codelineno-0-26"><span class="linenos" data-linenos="26 "></span></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><a href="#__codelineno-0-27"><span class="linenos" data-linenos="27 "></span></a>Grey = (R*9797 + G*19235 + B*3736) &gt;&gt; 15
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><a href="#__codelineno-0-28"><span class="linenos" data-linenos="28 "></span></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><a href="#__codelineno-0-29"><span class="linenos" data-linenos="29 "></span></a>Grey = (R*19595 + G*38469 + B*7472) &gt;&gt; 16
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><a href="#__codelineno-0-30"><span class="linenos" data-linenos="30 "></span></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><a href="#__codelineno-0-31"><span class="linenos" data-linenos="31 "></span></a>Grey = (R*39190 + G*76939 + B*14943) &gt;&gt; 17
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><a href="#__codelineno-0-32"><span class="linenos" data-linenos="32 "></span></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><a href="#__codelineno-0-33"><span class="linenos" data-linenos="33 "></span></a>Grey = (R*78381 + G*153878 + B*29885) &gt;&gt; 18
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><a href="#__codelineno-0-34"><span class="linenos" data-linenos="34 "></span></a>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><a href="#__codelineno-0-35"><span class="linenos" data-linenos="35 "></span></a>Grey =(R*156762 + G*307757 + B*59769) &gt;&gt; 19
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><a href="#__codelineno-0-36"><span class="linenos" data-linenos="36 "></span></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><a href="#__codelineno-0-37"><span class="linenos" data-linenos="37 "></span></a>Grey= (R*313524 + G*615514 + B*119538) &gt;&gt; 20
+</code></pre></div>
+再给出保留20位精度的计算代码(使用了Openmp多线程优化)：</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos=" 1 "></span></a>//RGB2GRAY优化
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos=" 2 "></span></a>Mat speed_rgb2gray(Mat src) {
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos=" 3 "></span></a>    Mat dst(src.rows, src.cols, CV_8UC1);
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos=" 4 "></span></a>#pragma omp parallel for num_threads(4)
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos=" 5 "></span></a>    for (int i = 0; i &lt; src.rows; i++) {
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos=" 6 "></span></a>        for (int j = 0; j &lt; src.cols; j++) {
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos=" 7 "></span></a>            dst.at&lt;uchar&gt;(i, j) = ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 18) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 15) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 14) +
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos=" 8 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 11) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 5) +
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><a href="#__codelineno-1-9"><span class="linenos" data-linenos=" 9 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 2) +
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><a href="#__codelineno-1-10"><span class="linenos" data-linenos="10 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 19) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 16) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 14) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 13) +
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><a href="#__codelineno-1-11"><span class="linenos" data-linenos="11 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 10) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 8) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 1) +
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><a href="#__codelineno-1-12"><span class="linenos" data-linenos="12 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 16) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 15) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 14) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 12) +
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><a href="#__codelineno-1-13"><span class="linenos" data-linenos="13 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 9) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 6) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 5) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 1) &gt;&gt; 20);
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><a href="#__codelineno-1-14"><span class="linenos" data-linenos="14 "></span></a>        }
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><a href="#__codelineno-1-15"><span class="linenos" data-linenos="15 "></span></a>    }
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><a href="#__codelineno-1-16"><span class="linenos" data-linenos="16 "></span></a>    return dst;
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><a href="#__codelineno-1-17"><span class="linenos" data-linenos="17 "></span></a>}
+</code></pre></div>
+<h2 id="rgbyuv">二，RGB和YUV互转<a class="headerlink" href="#rgbyuv" title="Permanent link">&para;</a></h2>
+<p>首先介绍一下YUV颜色空间，YUV(亦称YCrCb)是被欧洲电视系统所采用的一种颜色编码方法。在现代彩色电视系统中，通常采用三管彩色摄像机或彩色CCD摄影机进行取像，然后把取得的彩色图像信号经分色、分别放大校正后得到RGB，再经过矩阵变换电路得到亮度信号Y和两个色差信号R-Y(即U)、B-Y(即V)，最后发送端将亮度和两个色差总共三个信号分别进行编码，用同一信道发送出去。这种色彩的表示方法就是所谓的YUV色彩空间表示。采用YUV色彩空间的重要性是它的亮度信号Y和色度信号U、V是分离的。如果只有Y信号分量而没有U、V信号分量，那么这样表示的图像就是黑白灰度图像。彩色电视采用YUV空间正是为了用亮度信号Y解决彩色电视机与黑白电视机的兼容问题，使黑白电视机也能接收彩色电视信号。
+YUV主要用于优化彩色视频信号的传输，使其向后相容老式黑白电视。与RGB视频信号传输相比，它最大的优点在于只需占用极少的频宽（RGB要求三个独立的视频信号同时传输）。其中“Y”表示明亮度（Luminance或Luma），也就是灰阶值；而“U”和“V” 表示的则是色度（Chrominance或Chroma），作用是描述影像色彩及饱和度，用于指定像素的颜色。“亮度”是透过RGB输入信号来建立的，方法是将RGB信号的特定部分叠加到一起。“色度”则定义了颜色的两个方面─色调与饱和度，分别用Cr和Cb来表示。其中，Cr反映了RGB输入信号红色部分与RGB信号亮度值之间的差异。而Cb反映的是RGB输入信号蓝色部分与RGB信号亮度值之同的差异。</p>
+<p>1，RGB转YUV</p>
+<p>Y = 0.299R + 0.587G + 0.114B
+U = -0.147R - 0.289G + 0.436B
+V = 0.615R - 0.515G - 0.100B</p>
+<p>2，YUV转RGB</p>
+<p>R = Y + 1.14V
+G = Y - 0.39U - 0.58V
+B = Y + 2.03U</p>
+<h2 id="1">优化1：去掉浮点运算<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>基于这一点，我们做如下操作：</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>Y * 256 = 0.299 * 256R + 0.587 * 256G + 0.114 * 256B
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><a href="#__codelineno-2-2"><span class="linenos" data-linenos="2 "></span></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><a href="#__codelineno-2-3"><span class="linenos" data-linenos="3 "></span></a>U * 256 = -0.147 * 256R - 0.289 * 256G + 0.436 * 256B
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><a href="#__codelineno-2-4"><span class="linenos" data-linenos="4 "></span></a>V * 256 = 0.615 * 256R - 0.515 * 256G - 0.100 * 256B
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><a href="#__codelineno-2-5"><span class="linenos" data-linenos="5 "></span></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><a href="#__codelineno-2-6"><span class="linenos" data-linenos="6 "></span></a>R * 256 = Y * 256 + 1.14 * 256V
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><a href="#__codelineno-2-7"><span class="linenos" data-linenos="7 "></span></a>G * 256 = Y * 256 - 0.39 * 256U - 0.58 * 256V
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><a href="#__codelineno-2-8"><span class="linenos" data-linenos="8 "></span></a>B * 256 = Y * 256 + 2.03 * 256U
+</code></pre></div>
+<p>简化上面的公式如下：</p>
+<p><div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos=" 1 "></span></a>256Y = 76.544R + 150.272G + 29.184B
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos=" 3 "></span></a>256U = -37.632R - 73.984G + 111.616B
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos=" 5 "></span></a>256V = 157.44R - 131.84G - 25.6B
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><a href="#__codelineno-3-7"><span class="linenos" data-linenos=" 7 "></span></a>256R = 256Y + 291.84V
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><a href="#__codelineno-3-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><a href="#__codelineno-3-9"><span class="linenos" data-linenos=" 9 "></span></a>256G = 256Y - 99.84U - 148.48V
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><a href="#__codelineno-3-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><a href="#__codelineno-3-11"><span class="linenos" data-linenos="11 "></span></a>256B = 256Y + 519.68U
+</code></pre></div>
+然后，我们就可以对上述公式进一步优化，彻底干掉小数，注意这里是有精度损失的。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a>256Y = 77R + 150G + 29B
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a>256U = -38R - 74G + 112B
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a>256V = 158R - 132G - 26B
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a>256R = 256Y + 292V
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a>256G = 256Y - 100U - 149V
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><a href="#__codelineno-4-11"><span class="linenos" data-linenos="11 "></span></a>256B = 256Y + 520U
+</code></pre></div>
+<p>实际上就是四舍五入，这是乘以256是为了缩小误差，当然乘数越大，误差越小。和RGB2GRAY一样的套路。</p>
+<h2 id="_3">优化二：乘法和除法变为移位运算<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>先将除法变为移位运算：
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos=" 1 "></span></a>Y = (77R + 150G + 29B) &gt;&gt; 8
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><a href="#__codelineno-5-3"><span class="linenos" data-linenos=" 3 "></span></a>U = (-38R - 74G + 112B) &gt;&gt; 8
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><a href="#__codelineno-5-4"><span class="linenos" data-linenos=" 4 "></span></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><a href="#__codelineno-5-5"><span class="linenos" data-linenos=" 5 "></span></a>V = (158R - 132G - 26B) &gt;&gt; 8
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><a href="#__codelineno-5-6"><span class="linenos" data-linenos=" 6 "></span></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><a href="#__codelineno-5-7"><span class="linenos" data-linenos=" 7 "></span></a>R = (256Y + 292V) &gt;&gt; 8
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><a href="#__codelineno-5-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><a href="#__codelineno-5-9"><span class="linenos" data-linenos=" 9 "></span></a>G = (256Y - 100U - 149V) &gt;&gt; 8
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><a href="#__codelineno-5-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><a href="#__codelineno-5-11"><span class="linenos" data-linenos="11 "></span></a>B = (256Y + 520U) &gt;&gt; 8
+</code></pre></div>
+公式中还有很多乘法运算，乘法跟移位运算相比，还是效率太低了，因此，我们将把所有乘法都改成移位运算。如何将常数乘法改成移位运算？这里给个例子：Y=Y*9可以改为：Y=(Y&lt;&lt;3)+Y。因此，我们可以讲YUV的公式继续改为最简：
+RGB转YUV：
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a>Y = ((R &lt;&lt; 6) + (R &lt;&lt; 3) + (R &lt;&lt; 2) + R + (G &lt;&lt; 7) + (G &lt;&lt; 4) + (G &lt;&lt; 2) + (G &lt;&lt; 1) + (B &lt;&lt; 4) + (B &lt;&lt; 3) + (B &lt;&lt; 2) + B) &gt;&gt; 8;
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a>U = (-((R &lt;&lt; 5) + (R &lt;&lt; 2) + (R &lt;&lt; 1)) - ((G &lt;&lt; 6) + (G &lt;&lt; 3) + (G &lt;&lt; 1)) + ((B &lt;&lt; 6) + (B &lt;&lt; 5) + (B &lt;&lt; 4))) &gt;&gt; 8;
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a>V = ((R &lt;&lt; 7) + (R &lt;&lt; 4) + (R &lt;&lt; 3) + (R &lt;&lt; 2) + (R &lt;&lt; 1) - ((G &lt;&lt; 7) + (G &lt;&lt; 2)) - ((B &lt;&lt; 4) + (B &lt;&lt; 3) + (B &lt;&lt; 1))) &gt;&gt; 8;
+</code></pre></div>
+YUV转RGB：
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a>R = ((Y &lt;&lt; 8) + ((V &lt;&lt; 8) + (V &lt;&lt; 5) + (V &lt;&lt; 2))) &gt;&gt; 8;
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a>G = ((Y &lt;&lt; 8) - ((U &lt;&lt; 6) + (U &lt;&lt; 5) + (U &lt;&lt; 2)) - ((V &lt;&lt; 7) + (V &lt;&lt; 4) + (V &lt;&lt; 2) + V)) &gt;&gt; 8;
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a>B = ((Y &lt;&lt; 8) + (U &lt;&lt; 9) + (U &lt;&lt; 3)) &gt;&gt; 8;
+</code></pre></div>
+使用OpemMP和上诉优化的互转代码如下：注意一下，imread读取的图片通道顺序默认是BGR。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos=" 1 "></span></a>//RGB2YUV优化
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos=" 2 "></span></a>Mat speed_rgb2yuv(Mat src) {
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos=" 3 "></span></a>    Mat dst(src.rows, src.cols, CV_8UC3);
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos=" 4 "></span></a>#pragma omp parallel for num_threads(4)
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos=" 5 "></span></a>    for (int i = 0; i &lt; src.rows; i++) {
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos=" 6 "></span></a>        for (int j = 0; j &lt; src.cols; j++) {
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos=" 7 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] =
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><a href="#__codelineno-8-8"><span class="linenos" data-linenos=" 8 "></span></a>                ((src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 6) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 2) + src.at&lt;Vec3b&gt;(i, j)[2] +
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><a href="#__codelineno-8-9"><span class="linenos" data-linenos=" 9 "></span></a>                (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 2) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 1) +
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><a href="#__codelineno-8-10"><span class="linenos" data-linenos="10 "></span></a>                    (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 2) + src.at&lt;Vec3b&gt;(i, j)[0]) &gt;&gt; 8;
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><a href="#__codelineno-8-11"><span class="linenos" data-linenos="11 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = (-((src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 5) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 2) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 1)) -
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><a href="#__codelineno-8-12"><span class="linenos" data-linenos="12 "></span></a>                ((src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 6) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 1)) +
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><a href="#__codelineno-8-13"><span class="linenos" data-linenos="13 "></span></a>                ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 6) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 5) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 4))) &gt;&gt; 8;
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><a href="#__codelineno-8-14"><span class="linenos" data-linenos="14 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = ((src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 2) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 1) -
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><a href="#__codelineno-8-15"><span class="linenos" data-linenos="15 "></span></a>                ((src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 2)) - ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 4) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 3) + (src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 1))) &gt;&gt; 8;
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><a href="#__codelineno-8-16"><span class="linenos" data-linenos="16 "></span></a>        }
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><a href="#__codelineno-8-17"><span class="linenos" data-linenos="17 "></span></a>    }
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><a href="#__codelineno-8-18"><span class="linenos" data-linenos="18 "></span></a>    return dst;
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a><a href="#__codelineno-8-19"><span class="linenos" data-linenos="19 "></span></a>}
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><a href="#__codelineno-8-20"><span class="linenos" data-linenos="20 "></span></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a><a href="#__codelineno-8-21"><span class="linenos" data-linenos="21 "></span></a>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><a href="#__codelineno-8-22"><span class="linenos" data-linenos="22 "></span></a>//YUV2RGB优化
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a><a href="#__codelineno-8-23"><span class="linenos" data-linenos="23 "></span></a>Mat speed_yuv2rgb(Mat src) {
+<a id="__codelineno-8-24" name="__codelineno-8-24"></a><a href="#__codelineno-8-24"><span class="linenos" data-linenos="24 "></span></a>    Mat dst(src.rows, src.cols, CV_8UC3);
+<a id="__codelineno-8-25" name="__codelineno-8-25"></a><a href="#__codelineno-8-25"><span class="linenos" data-linenos="25 "></span></a>    #pragma omp parallel for num_threads(4)
+<a id="__codelineno-8-26" name="__codelineno-8-26"></a><a href="#__codelineno-8-26"><span class="linenos" data-linenos="26 "></span></a>    for (int i = 0; i &lt; src.rows; i++) {
+<a id="__codelineno-8-27" name="__codelineno-8-27"></a><a href="#__codelineno-8-27"><span class="linenos" data-linenos="27 "></span></a>        for (int j = 0; j &lt; src.cols; j++) {
+<a id="__codelineno-8-28" name="__codelineno-8-28"></a><a href="#__codelineno-8-28"><span class="linenos" data-linenos="28 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 8) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 9) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 3)) &gt;&gt; 8;
+<a id="__codelineno-8-29" name="__codelineno-8-29"></a><a href="#__codelineno-8-29"><span class="linenos" data-linenos="29 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 8) - ((src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 6) + (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 5) +
+<a id="__codelineno-8-30" name="__codelineno-8-30"></a><a href="#__codelineno-8-30"><span class="linenos" data-linenos="30 "></span></a>            (src.at&lt;Vec3b&gt;(i, j)[1] &lt;&lt; 2)) - ((src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 7) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 4) +
+<a id="__codelineno-8-31" name="__codelineno-8-31"></a><a href="#__codelineno-8-31"><span class="linenos" data-linenos="31 "></span></a>            (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 2) + src.at&lt;Vec3b&gt;(i, j)[2])) &gt;&gt; 8;
+<a id="__codelineno-8-32" name="__codelineno-8-32"></a><a href="#__codelineno-8-32"><span class="linenos" data-linenos="32 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = ((src.at&lt;Vec3b&gt;(i, j)[0] &lt;&lt; 8) + ((src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 8) + (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 5) +
+<a id="__codelineno-8-33" name="__codelineno-8-33"></a><a href="#__codelineno-8-33"><span class="linenos" data-linenos="33 "></span></a>            (src.at&lt;Vec3b&gt;(i, j)[2] &lt;&lt; 2))) &gt;&gt; 8;
+<a id="__codelineno-8-34" name="__codelineno-8-34"></a><a href="#__codelineno-8-34"><span class="linenos" data-linenos="34 "></span></a>        }
+<a id="__codelineno-8-35" name="__codelineno-8-35"></a><a href="#__codelineno-8-35"><span class="linenos" data-linenos="35 "></span></a>    }
+<a id="__codelineno-8-36" name="__codelineno-8-36"></a><a href="#__codelineno-8-36"><span class="linenos" data-linenos="36 "></span></a>    return dst;
+<a id="__codelineno-8-37" name="__codelineno-8-37"></a><a href="#__codelineno-8-37"><span class="linenos" data-linenos="37 "></span></a>}
+</code></pre></div>
+<h2 id="rgbhsv">三，RGB和HSV互转<a class="headerlink" href="#rgbhsv" title="Permanent link">&para;</a></h2>
+<p>HSV是一种将RGB色彩空间中的点在倒圆锥体中的表示方法。HSV即色相(Hue)、饱和度(Saturation)、明度(Value)，又称HSB(B即Brightness)。色相是色彩的基本属性，就是平常说的颜色的名称，如红色、黄色等。饱和度（S）是指色彩的纯度，越高色彩越纯，低则逐渐变灰，取0-100%的数值。明度（V），取0-max(计算机中HSV取值范围和存储的长度有关)。HSV颜色空间可以用一个圆锥空间模型来描述。圆锥的顶点处，V=0，H和S无定义，代表黑色。圆锥的顶面中心处V=max，S=0，H无定义，代表白色。
+RGB颜色空间中，三种颜色分量的取值与所生成的颜色之间的联系并不直观。而HSV颜色空间，更类似于人类感觉颜色的方式，封装了关于颜色的信息：“这是什么颜色？深浅如何？明暗如何？”。
+从RGB转到HSV的计算公式为：设max等于r、g和b中的最大者，min为最小者。对应的HSV空间中的(h,s,v)值为：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190213154738127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3Rfc29ydA==,size_16,color_FFFFFF,t_70" /></p>
+<p>h在0到360°之间，s在0到100%之间，v在0到max之间。
+从HSV空间转回RGB空间的公式为：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190213154827434.png" /></p>
+<p>代码实现，效果测试无误：
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos=" 1 "></span></a>Mat RGB2HSV(Mat src) {
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos=" 2 "></span></a>    int row = src.rows;
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos=" 3 "></span></a>    int col = src.cols;
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos=" 4 "></span></a>    Mat dst(row, col, CV_32FC3);
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos=" 5 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos=" 6 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos=" 7 "></span></a>            float b = src.at&lt;Vec3b&gt;(i, j)[0] / 255.0;
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><a href="#__codelineno-9-8"><span class="linenos" data-linenos=" 8 "></span></a>            float g = src.at&lt;Vec3b&gt;(i, j)[1] / 255.0;
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><a href="#__codelineno-9-9"><span class="linenos" data-linenos=" 9 "></span></a>            float r = src.at&lt;Vec3b&gt;(i, j)[2] / 255.0;
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><a href="#__codelineno-9-10"><span class="linenos" data-linenos="10 "></span></a>            float minn = min(r, min(g, b));
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><a href="#__codelineno-9-11"><span class="linenos" data-linenos="11 "></span></a>            float maxx = max(r, max(g, b));
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><a href="#__codelineno-9-12"><span class="linenos" data-linenos="12 "></span></a>            dst.at&lt;Vec3f&gt;(i, j)[2] = maxx; //V
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><a href="#__codelineno-9-13"><span class="linenos" data-linenos="13 "></span></a>            float delta = maxx - minn;
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a><a href="#__codelineno-9-14"><span class="linenos" data-linenos="14 "></span></a>            float h, s;
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><a href="#__codelineno-9-15"><span class="linenos" data-linenos="15 "></span></a>            if (maxx != 0) {
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a><a href="#__codelineno-9-16"><span class="linenos" data-linenos="16 "></span></a>                s = delta / maxx;
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><a href="#__codelineno-9-17"><span class="linenos" data-linenos="17 "></span></a>            }
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><a href="#__codelineno-9-18"><span class="linenos" data-linenos="18 "></span></a>            else {
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><a href="#__codelineno-9-19"><span class="linenos" data-linenos="19 "></span></a>                s = 0;
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a><a href="#__codelineno-9-20"><span class="linenos" data-linenos="20 "></span></a>            }
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><a href="#__codelineno-9-21"><span class="linenos" data-linenos="21 "></span></a>            if (r == maxx) {
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><a href="#__codelineno-9-22"><span class="linenos" data-linenos="22 "></span></a>                h = (g - b) / delta;
+<a id="__codelineno-9-23" name="__codelineno-9-23"></a><a href="#__codelineno-9-23"><span class="linenos" data-linenos="23 "></span></a>            }
+<a id="__codelineno-9-24" name="__codelineno-9-24"></a><a href="#__codelineno-9-24"><span class="linenos" data-linenos="24 "></span></a>            else if (g == maxx) {
+<a id="__codelineno-9-25" name="__codelineno-9-25"></a><a href="#__codelineno-9-25"><span class="linenos" data-linenos="25 "></span></a>                h = 2 + (b - r) / delta;
+<a id="__codelineno-9-26" name="__codelineno-9-26"></a><a href="#__codelineno-9-26"><span class="linenos" data-linenos="26 "></span></a>            }
+<a id="__codelineno-9-27" name="__codelineno-9-27"></a><a href="#__codelineno-9-27"><span class="linenos" data-linenos="27 "></span></a>            else {
+<a id="__codelineno-9-28" name="__codelineno-9-28"></a><a href="#__codelineno-9-28"><span class="linenos" data-linenos="28 "></span></a>                h = 4 + (r - g) / delta;
+<a id="__codelineno-9-29" name="__codelineno-9-29"></a><a href="#__codelineno-9-29"><span class="linenos" data-linenos="29 "></span></a>            }
+<a id="__codelineno-9-30" name="__codelineno-9-30"></a><a href="#__codelineno-9-30"><span class="linenos" data-linenos="30 "></span></a>            h *= 60;
+<a id="__codelineno-9-31" name="__codelineno-9-31"></a><a href="#__codelineno-9-31"><span class="linenos" data-linenos="31 "></span></a>            if (h &lt; 0)
+<a id="__codelineno-9-32" name="__codelineno-9-32"></a><a href="#__codelineno-9-32"><span class="linenos" data-linenos="32 "></span></a>                h += 360;
+<a id="__codelineno-9-33" name="__codelineno-9-33"></a><a href="#__codelineno-9-33"><span class="linenos" data-linenos="33 "></span></a>            dst.at&lt;Vec3f&gt;(i, j)[0] = h;
+<a id="__codelineno-9-34" name="__codelineno-9-34"></a><a href="#__codelineno-9-34"><span class="linenos" data-linenos="34 "></span></a>            dst.at&lt;Vec3f&gt;(i, j)[1] = s;
+<a id="__codelineno-9-35" name="__codelineno-9-35"></a><a href="#__codelineno-9-35"><span class="linenos" data-linenos="35 "></span></a>        }
+<a id="__codelineno-9-36" name="__codelineno-9-36"></a><a href="#__codelineno-9-36"><span class="linenos" data-linenos="36 "></span></a>    }
+<a id="__codelineno-9-37" name="__codelineno-9-37"></a><a href="#__codelineno-9-37"><span class="linenos" data-linenos="37 "></span></a>    return dst;
+<a id="__codelineno-9-38" name="__codelineno-9-38"></a><a href="#__codelineno-9-38"><span class="linenos" data-linenos="38 "></span></a>}
+<a id="__codelineno-9-39" name="__codelineno-9-39"></a><a href="#__codelineno-9-39"><span class="linenos" data-linenos="39 "></span></a>
+<a id="__codelineno-9-40" name="__codelineno-9-40"></a><a href="#__codelineno-9-40"><span class="linenos" data-linenos="40 "></span></a>Mat HSV2RGB(Mat src) {
+<a id="__codelineno-9-41" name="__codelineno-9-41"></a><a href="#__codelineno-9-41"><span class="linenos" data-linenos="41 "></span></a>    int row = src.rows;
+<a id="__codelineno-9-42" name="__codelineno-9-42"></a><a href="#__codelineno-9-42"><span class="linenos" data-linenos="42 "></span></a>    int col = src.cols;
+<a id="__codelineno-9-43" name="__codelineno-9-43"></a><a href="#__codelineno-9-43"><span class="linenos" data-linenos="43 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-9-44" name="__codelineno-9-44"></a><a href="#__codelineno-9-44"><span class="linenos" data-linenos="44 "></span></a>    float r, g, b, h, s, v;
+<a id="__codelineno-9-45" name="__codelineno-9-45"></a><a href="#__codelineno-9-45"><span class="linenos" data-linenos="45 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-9-46" name="__codelineno-9-46"></a><a href="#__codelineno-9-46"><span class="linenos" data-linenos="46 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-9-47" name="__codelineno-9-47"></a><a href="#__codelineno-9-47"><span class="linenos" data-linenos="47 "></span></a>            h = src.at&lt;Vec3f&gt;(i, j)[0];
+<a id="__codelineno-9-48" name="__codelineno-9-48"></a><a href="#__codelineno-9-48"><span class="linenos" data-linenos="48 "></span></a>            s = src.at&lt;Vec3f&gt;(i, j)[1];
+<a id="__codelineno-9-49" name="__codelineno-9-49"></a><a href="#__codelineno-9-49"><span class="linenos" data-linenos="49 "></span></a>            v = src.at&lt;Vec3f&gt;(i, j)[2];
+<a id="__codelineno-9-50" name="__codelineno-9-50"></a><a href="#__codelineno-9-50"><span class="linenos" data-linenos="50 "></span></a>            if (s == 0) {
+<a id="__codelineno-9-51" name="__codelineno-9-51"></a><a href="#__codelineno-9-51"><span class="linenos" data-linenos="51 "></span></a>                r = g = b = v;
+<a id="__codelineno-9-52" name="__codelineno-9-52"></a><a href="#__codelineno-9-52"><span class="linenos" data-linenos="52 "></span></a>            }
+<a id="__codelineno-9-53" name="__codelineno-9-53"></a><a href="#__codelineno-9-53"><span class="linenos" data-linenos="53 "></span></a>            else {
+<a id="__codelineno-9-54" name="__codelineno-9-54"></a><a href="#__codelineno-9-54"><span class="linenos" data-linenos="54 "></span></a>                h /= 60;
+<a id="__codelineno-9-55" name="__codelineno-9-55"></a><a href="#__codelineno-9-55"><span class="linenos" data-linenos="55 "></span></a>                int offset = floor(h);
+<a id="__codelineno-9-56" name="__codelineno-9-56"></a><a href="#__codelineno-9-56"><span class="linenos" data-linenos="56 "></span></a>                float f = h - offset;
+<a id="__codelineno-9-57" name="__codelineno-9-57"></a><a href="#__codelineno-9-57"><span class="linenos" data-linenos="57 "></span></a>                float p = v * (1 - s);
+<a id="__codelineno-9-58" name="__codelineno-9-58"></a><a href="#__codelineno-9-58"><span class="linenos" data-linenos="58 "></span></a>                float q = v * (1 - s * f);
+<a id="__codelineno-9-59" name="__codelineno-9-59"></a><a href="#__codelineno-9-59"><span class="linenos" data-linenos="59 "></span></a>                float t = v * (1 - s * (1 - f));
+<a id="__codelineno-9-60" name="__codelineno-9-60"></a><a href="#__codelineno-9-60"><span class="linenos" data-linenos="60 "></span></a>                switch (offset)
+<a id="__codelineno-9-61" name="__codelineno-9-61"></a><a href="#__codelineno-9-61"><span class="linenos" data-linenos="61 "></span></a>                {
+<a id="__codelineno-9-62" name="__codelineno-9-62"></a><a href="#__codelineno-9-62"><span class="linenos" data-linenos="62 "></span></a>                case 0: r = v; g = t; b = p; break;
+<a id="__codelineno-9-63" name="__codelineno-9-63"></a><a href="#__codelineno-9-63"><span class="linenos" data-linenos="63 "></span></a>                case 1: r = q; g = v; b = p; break;
+<a id="__codelineno-9-64" name="__codelineno-9-64"></a><a href="#__codelineno-9-64"><span class="linenos" data-linenos="64 "></span></a>                case 2: r = p; g = v; b = t; break;
+<a id="__codelineno-9-65" name="__codelineno-9-65"></a><a href="#__codelineno-9-65"><span class="linenos" data-linenos="65 "></span></a>                case 3: r = p; g = q; b = v; break;
+<a id="__codelineno-9-66" name="__codelineno-9-66"></a><a href="#__codelineno-9-66"><span class="linenos" data-linenos="66 "></span></a>                case 4: r = t; g = p; b = v; break;
+<a id="__codelineno-9-67" name="__codelineno-9-67"></a><a href="#__codelineno-9-67"><span class="linenos" data-linenos="67 "></span></a>                case 5: r = v; g = p; b = q; break;
+<a id="__codelineno-9-68" name="__codelineno-9-68"></a><a href="#__codelineno-9-68"><span class="linenos" data-linenos="68 "></span></a>                default:
+<a id="__codelineno-9-69" name="__codelineno-9-69"></a><a href="#__codelineno-9-69"><span class="linenos" data-linenos="69 "></span></a>                    break;
+<a id="__codelineno-9-70" name="__codelineno-9-70"></a><a href="#__codelineno-9-70"><span class="linenos" data-linenos="70 "></span></a>                }
+<a id="__codelineno-9-71" name="__codelineno-9-71"></a><a href="#__codelineno-9-71"><span class="linenos" data-linenos="71 "></span></a>            }
+<a id="__codelineno-9-72" name="__codelineno-9-72"></a><a href="#__codelineno-9-72"><span class="linenos" data-linenos="72 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = int(b * 255);
+<a id="__codelineno-9-73" name="__codelineno-9-73"></a><a href="#__codelineno-9-73"><span class="linenos" data-linenos="73 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = int(g * 255);
+<a id="__codelineno-9-74" name="__codelineno-9-74"></a><a href="#__codelineno-9-74"><span class="linenos" data-linenos="74 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = int(r * 255);
+<a id="__codelineno-9-75" name="__codelineno-9-75"></a><a href="#__codelineno-9-75"><span class="linenos" data-linenos="75 "></span></a>        }
+<a id="__codelineno-9-76" name="__codelineno-9-76"></a><a href="#__codelineno-9-76"><span class="linenos" data-linenos="76 "></span></a>    }
+<a id="__codelineno-9-77" name="__codelineno-9-77"></a><a href="#__codelineno-9-77"><span class="linenos" data-linenos="77 "></span></a>    return dst;
+<a id="__codelineno-9-78" name="__codelineno-9-78"></a><a href="#__codelineno-9-78"><span class="linenos" data-linenos="78 "></span></a>}
+</code></pre></div></p>
+<h2 id="rgbhsi">四，RGB和HSI互转<a class="headerlink" href="#rgbhsi" title="Permanent link">&para;</a></h2>
+<p>HSI色彩空间是从人的视觉系统出发，用色调(Hue)、饱和度(Saturation或Chroma)和亮度 (Intensity或Brightness)来描述色彩。</p>
+<ul>
+<li>H——表示颜色的相位角。红、绿、蓝分别相隔120度；互补色分别相差180度，即颜色的类别。</li>
+<li>S——表示成所选颜色的纯度和该颜色最大的纯度之间的比率，范围：[0,  1]，即颜色的深浅程度。</li>
+<li>I——表示色彩的明亮程度，围：[0, 1]，人眼对亮度很敏感！</li>
+</ul>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190213163428719.png" /></p>
+<p>可以看到HSI色彩空间和RGB色彩空间只是同一物理量的不同表示法，因而它们之间存在着转换关系：HSI颜色模式中的色调使用颜色类别表示，饱和度与颜色的白光光亮亮度刚好成反比，代表灰色与色调的比例，亮度是颜色的相对明暗程度。
+转自：<a href="https://blog.csdn.net/aoshilang2249/article/details/38070663">https://blog.csdn.net/aoshilang2249/article/details/38070663</a>
+RGB转换为HSI的公式：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190213163800518.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3Rfc29ydA==,size_16,color_FFFFFF,t_70" /></p>
+<p>HSI转RGB的公式为：给定 HSI空间中的 (h, s, l) 值定义的一个颜色，带有 h 在指示色相角度的值域 [0, 360）中，分别表示饱和度和亮度的s 和 l 在值域 [0, 1] 中，相应在 RGB 空间中的 (r, g, b) 三原色，带有分别对应于红色、绿色和蓝色的 r, g 和 b 也在值域 [0, 1] 中，它们可计算为：
+首先，如果 s = 0，则结果的颜色是非彩色的、或灰色的。在这个特殊情况，r, g 和 b 都等于 l。注意 h 的值在这种情况下是未定义的。当 s ≠ 0 的时候，可以使用下列过程：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190213163928189.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3Rfc29ydA==,size_16,color_FFFFFF,t_70" /></p>
+<p>源码实现，测试无误：</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="  1 "></span></a>Mat RGB2HSI(Mat src) {
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="  2 "></span></a>    int row = src.rows;
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="  3 "></span></a>    int col = src.cols;
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos="  4 "></span></a>    Mat dst(row, col, CV_32FC3);
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><a href="#__codelineno-10-5"><span class="linenos" data-linenos="  5 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><a href="#__codelineno-10-6"><span class="linenos" data-linenos="  6 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><a href="#__codelineno-10-7"><span class="linenos" data-linenos="  7 "></span></a>            float b = src.at&lt;Vec3b&gt;(i, j)[0] / 255.0;
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><a href="#__codelineno-10-8"><span class="linenos" data-linenos="  8 "></span></a>            float g = src.at&lt;Vec3b&gt;(i, j)[1] / 255.0;
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><a href="#__codelineno-10-9"><span class="linenos" data-linenos="  9 "></span></a>            float r = src.at&lt;Vec3b&gt;(i, j)[2] / 255.0;
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><a href="#__codelineno-10-10"><span class="linenos" data-linenos=" 10 "></span></a>            float minn = min(b, min(g, r));
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><a href="#__codelineno-10-11"><span class="linenos" data-linenos=" 11 "></span></a>            float maxx = max(b, max(g, r));
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><a href="#__codelineno-10-12"><span class="linenos" data-linenos=" 12 "></span></a>            float H = 0;
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><a href="#__codelineno-10-13"><span class="linenos" data-linenos=" 13 "></span></a>            float S = 0;
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><a href="#__codelineno-10-14"><span class="linenos" data-linenos=" 14 "></span></a>            float I = (minn + maxx) / 2.0f;
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><a href="#__codelineno-10-15"><span class="linenos" data-linenos=" 15 "></span></a>            if (maxx == minn) {
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a><a href="#__codelineno-10-16"><span class="linenos" data-linenos=" 16 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[0] = H;
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><a href="#__codelineno-10-17"><span class="linenos" data-linenos=" 17 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[1] = S;
+<a id="__codelineno-10-18" name="__codelineno-10-18"></a><a href="#__codelineno-10-18"><span class="linenos" data-linenos=" 18 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[2] = I;
+<a id="__codelineno-10-19" name="__codelineno-10-19"></a><a href="#__codelineno-10-19"><span class="linenos" data-linenos=" 19 "></span></a>            }
+<a id="__codelineno-10-20" name="__codelineno-10-20"></a><a href="#__codelineno-10-20"><span class="linenos" data-linenos=" 20 "></span></a>            else {
+<a id="__codelineno-10-21" name="__codelineno-10-21"></a><a href="#__codelineno-10-21"><span class="linenos" data-linenos=" 21 "></span></a>                float delta = maxx - minn;
+<a id="__codelineno-10-22" name="__codelineno-10-22"></a><a href="#__codelineno-10-22"><span class="linenos" data-linenos=" 22 "></span></a>                if (I &lt; 0.5) {
+<a id="__codelineno-10-23" name="__codelineno-10-23"></a><a href="#__codelineno-10-23"><span class="linenos" data-linenos=" 23 "></span></a>                    S = delta / (maxx + minn);
+<a id="__codelineno-10-24" name="__codelineno-10-24"></a><a href="#__codelineno-10-24"><span class="linenos" data-linenos=" 24 "></span></a>                }
+<a id="__codelineno-10-25" name="__codelineno-10-25"></a><a href="#__codelineno-10-25"><span class="linenos" data-linenos=" 25 "></span></a>                else {
+<a id="__codelineno-10-26" name="__codelineno-10-26"></a><a href="#__codelineno-10-26"><span class="linenos" data-linenos=" 26 "></span></a>                    S = delta / (2.0 - maxx - minn);
+<a id="__codelineno-10-27" name="__codelineno-10-27"></a><a href="#__codelineno-10-27"><span class="linenos" data-linenos=" 27 "></span></a>                }
+<a id="__codelineno-10-28" name="__codelineno-10-28"></a><a href="#__codelineno-10-28"><span class="linenos" data-linenos=" 28 "></span></a>                if (r == maxx) {
+<a id="__codelineno-10-29" name="__codelineno-10-29"></a><a href="#__codelineno-10-29"><span class="linenos" data-linenos=" 29 "></span></a>                    if (g &gt; b) {
+<a id="__codelineno-10-30" name="__codelineno-10-30"></a><a href="#__codelineno-10-30"><span class="linenos" data-linenos=" 30 "></span></a>                        H = (g - b) / delta;
+<a id="__codelineno-10-31" name="__codelineno-10-31"></a><a href="#__codelineno-10-31"><span class="linenos" data-linenos=" 31 "></span></a>                    }
+<a id="__codelineno-10-32" name="__codelineno-10-32"></a><a href="#__codelineno-10-32"><span class="linenos" data-linenos=" 32 "></span></a>                    else {
+<a id="__codelineno-10-33" name="__codelineno-10-33"></a><a href="#__codelineno-10-33"><span class="linenos" data-linenos=" 33 "></span></a>                        H = 6.0 + (g - b) / delta;
+<a id="__codelineno-10-34" name="__codelineno-10-34"></a><a href="#__codelineno-10-34"><span class="linenos" data-linenos=" 34 "></span></a>                    }
+<a id="__codelineno-10-35" name="__codelineno-10-35"></a><a href="#__codelineno-10-35"><span class="linenos" data-linenos=" 35 "></span></a>                }
+<a id="__codelineno-10-36" name="__codelineno-10-36"></a><a href="#__codelineno-10-36"><span class="linenos" data-linenos=" 36 "></span></a>                else if (g == maxx) {
+<a id="__codelineno-10-37" name="__codelineno-10-37"></a><a href="#__codelineno-10-37"><span class="linenos" data-linenos=" 37 "></span></a>                    H = 2.0 + (b - r) / delta;
+<a id="__codelineno-10-38" name="__codelineno-10-38"></a><a href="#__codelineno-10-38"><span class="linenos" data-linenos=" 38 "></span></a>                }
+<a id="__codelineno-10-39" name="__codelineno-10-39"></a><a href="#__codelineno-10-39"><span class="linenos" data-linenos=" 39 "></span></a>                else {
+<a id="__codelineno-10-40" name="__codelineno-10-40"></a><a href="#__codelineno-10-40"><span class="linenos" data-linenos=" 40 "></span></a>                    H = 4.0 + (r - g) / delta;
+<a id="__codelineno-10-41" name="__codelineno-10-41"></a><a href="#__codelineno-10-41"><span class="linenos" data-linenos=" 41 "></span></a>                }
+<a id="__codelineno-10-42" name="__codelineno-10-42"></a><a href="#__codelineno-10-42"><span class="linenos" data-linenos=" 42 "></span></a>                H /= 6.0; //除以6，表示在那个部分
+<a id="__codelineno-10-43" name="__codelineno-10-43"></a><a href="#__codelineno-10-43"><span class="linenos" data-linenos=" 43 "></span></a>                if (H &lt; 0.0)
+<a id="__codelineno-10-44" name="__codelineno-10-44"></a><a href="#__codelineno-10-44"><span class="linenos" data-linenos=" 44 "></span></a>                    H += 1.0;
+<a id="__codelineno-10-45" name="__codelineno-10-45"></a><a href="#__codelineno-10-45"><span class="linenos" data-linenos=" 45 "></span></a>                if (H &gt; 1)
+<a id="__codelineno-10-46" name="__codelineno-10-46"></a><a href="#__codelineno-10-46"><span class="linenos" data-linenos=" 46 "></span></a>                    H -= 1;
+<a id="__codelineno-10-47" name="__codelineno-10-47"></a><a href="#__codelineno-10-47"><span class="linenos" data-linenos=" 47 "></span></a>                H = (int)(H * 360); //转成[0, 360]
+<a id="__codelineno-10-48" name="__codelineno-10-48"></a><a href="#__codelineno-10-48"><span class="linenos" data-linenos=" 48 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[0] = H;
+<a id="__codelineno-10-49" name="__codelineno-10-49"></a><a href="#__codelineno-10-49"><span class="linenos" data-linenos=" 49 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[1] = S;
+<a id="__codelineno-10-50" name="__codelineno-10-50"></a><a href="#__codelineno-10-50"><span class="linenos" data-linenos=" 50 "></span></a>                dst.at&lt;Vec3f&gt;(i, j)[2] = I;
+<a id="__codelineno-10-51" name="__codelineno-10-51"></a><a href="#__codelineno-10-51"><span class="linenos" data-linenos=" 51 "></span></a>            }
+<a id="__codelineno-10-52" name="__codelineno-10-52"></a><a href="#__codelineno-10-52"><span class="linenos" data-linenos=" 52 "></span></a>        }
+<a id="__codelineno-10-53" name="__codelineno-10-53"></a><a href="#__codelineno-10-53"><span class="linenos" data-linenos=" 53 "></span></a>    }
+<a id="__codelineno-10-54" name="__codelineno-10-54"></a><a href="#__codelineno-10-54"><span class="linenos" data-linenos=" 54 "></span></a>    return dst;
+<a id="__codelineno-10-55" name="__codelineno-10-55"></a><a href="#__codelineno-10-55"><span class="linenos" data-linenos=" 55 "></span></a>}
+<a id="__codelineno-10-56" name="__codelineno-10-56"></a><a href="#__codelineno-10-56"><span class="linenos" data-linenos=" 56 "></span></a>
+<a id="__codelineno-10-57" name="__codelineno-10-57"></a><a href="#__codelineno-10-57"><span class="linenos" data-linenos=" 57 "></span></a>float get_Ans(double p, double q, double Ht) {
+<a id="__codelineno-10-58" name="__codelineno-10-58"></a><a href="#__codelineno-10-58"><span class="linenos" data-linenos=" 58 "></span></a>    if (Ht &lt; 0.0)
+<a id="__codelineno-10-59" name="__codelineno-10-59"></a><a href="#__codelineno-10-59"><span class="linenos" data-linenos=" 59 "></span></a>        Ht += 1.0;
+<a id="__codelineno-10-60" name="__codelineno-10-60"></a><a href="#__codelineno-10-60"><span class="linenos" data-linenos=" 60 "></span></a>    else if (Ht &gt; 1.0)
+<a id="__codelineno-10-61" name="__codelineno-10-61"></a><a href="#__codelineno-10-61"><span class="linenos" data-linenos=" 61 "></span></a>        Ht -= 1.0;
+<a id="__codelineno-10-62" name="__codelineno-10-62"></a><a href="#__codelineno-10-62"><span class="linenos" data-linenos=" 62 "></span></a>    if ((6.0 * Ht) &lt; 1.0)
+<a id="__codelineno-10-63" name="__codelineno-10-63"></a><a href="#__codelineno-10-63"><span class="linenos" data-linenos=" 63 "></span></a>        return (p + (q - p) * Ht * 6.0);
+<a id="__codelineno-10-64" name="__codelineno-10-64"></a><a href="#__codelineno-10-64"><span class="linenos" data-linenos=" 64 "></span></a>    else if ((2.0 * Ht) &lt; 1.0)
+<a id="__codelineno-10-65" name="__codelineno-10-65"></a><a href="#__codelineno-10-65"><span class="linenos" data-linenos=" 65 "></span></a>        return q;
+<a id="__codelineno-10-66" name="__codelineno-10-66"></a><a href="#__codelineno-10-66"><span class="linenos" data-linenos=" 66 "></span></a>    else if ((3.0 * Ht) &lt; 2.0)
+<a id="__codelineno-10-67" name="__codelineno-10-67"></a><a href="#__codelineno-10-67"><span class="linenos" data-linenos=" 67 "></span></a>        return (p + (q - p) * ((2.0F / 3.0F) - Ht) * 6.0);
+<a id="__codelineno-10-68" name="__codelineno-10-68"></a><a href="#__codelineno-10-68"><span class="linenos" data-linenos=" 68 "></span></a>    else
+<a id="__codelineno-10-69" name="__codelineno-10-69"></a><a href="#__codelineno-10-69"><span class="linenos" data-linenos=" 69 "></span></a>        return (p);
+<a id="__codelineno-10-70" name="__codelineno-10-70"></a><a href="#__codelineno-10-70"><span class="linenos" data-linenos=" 70 "></span></a>}
+<a id="__codelineno-10-71" name="__codelineno-10-71"></a><a href="#__codelineno-10-71"><span class="linenos" data-linenos=" 71 "></span></a>
+<a id="__codelineno-10-72" name="__codelineno-10-72"></a><a href="#__codelineno-10-72"><span class="linenos" data-linenos=" 72 "></span></a>Mat HSI2RGB(Mat src) {
+<a id="__codelineno-10-73" name="__codelineno-10-73"></a><a href="#__codelineno-10-73"><span class="linenos" data-linenos=" 73 "></span></a>    int row = src.rows;
+<a id="__codelineno-10-74" name="__codelineno-10-74"></a><a href="#__codelineno-10-74"><span class="linenos" data-linenos=" 74 "></span></a>    int col = src.cols;
+<a id="__codelineno-10-75" name="__codelineno-10-75"></a><a href="#__codelineno-10-75"><span class="linenos" data-linenos=" 75 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-10-76" name="__codelineno-10-76"></a><a href="#__codelineno-10-76"><span class="linenos" data-linenos=" 76 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-10-77" name="__codelineno-10-77"></a><a href="#__codelineno-10-77"><span class="linenos" data-linenos=" 77 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-10-78" name="__codelineno-10-78"></a><a href="#__codelineno-10-78"><span class="linenos" data-linenos=" 78 "></span></a>            float r, g, b, M1, M2;
+<a id="__codelineno-10-79" name="__codelineno-10-79"></a><a href="#__codelineno-10-79"><span class="linenos" data-linenos=" 79 "></span></a>            float H = src.at&lt;Vec3f&gt;(i, j)[0];
+<a id="__codelineno-10-80" name="__codelineno-10-80"></a><a href="#__codelineno-10-80"><span class="linenos" data-linenos=" 80 "></span></a>            float S = src.at&lt;Vec3f&gt;(i, j)[1];
+<a id="__codelineno-10-81" name="__codelineno-10-81"></a><a href="#__codelineno-10-81"><span class="linenos" data-linenos=" 81 "></span></a>            float I = src.at&lt;Vec3f&gt;(i, j)[2];
+<a id="__codelineno-10-82" name="__codelineno-10-82"></a><a href="#__codelineno-10-82"><span class="linenos" data-linenos=" 82 "></span></a>            float hue = H / 360;
+<a id="__codelineno-10-83" name="__codelineno-10-83"></a><a href="#__codelineno-10-83"><span class="linenos" data-linenos=" 83 "></span></a>            if (S == 0) {//灰色
+<a id="__codelineno-10-84" name="__codelineno-10-84"></a><a href="#__codelineno-10-84"><span class="linenos" data-linenos=" 84 "></span></a>                r = g = b = I;
+<a id="__codelineno-10-85" name="__codelineno-10-85"></a><a href="#__codelineno-10-85"><span class="linenos" data-linenos=" 85 "></span></a>            }
+<a id="__codelineno-10-86" name="__codelineno-10-86"></a><a href="#__codelineno-10-86"><span class="linenos" data-linenos=" 86 "></span></a>            else {
+<a id="__codelineno-10-87" name="__codelineno-10-87"></a><a href="#__codelineno-10-87"><span class="linenos" data-linenos=" 87 "></span></a>                if (I &lt;= 0.5) {
+<a id="__codelineno-10-88" name="__codelineno-10-88"></a><a href="#__codelineno-10-88"><span class="linenos" data-linenos=" 88 "></span></a>                    M2 = I * (1.0 + S);
+<a id="__codelineno-10-89" name="__codelineno-10-89"></a><a href="#__codelineno-10-89"><span class="linenos" data-linenos=" 89 "></span></a>                }
+<a id="__codelineno-10-90" name="__codelineno-10-90"></a><a href="#__codelineno-10-90"><span class="linenos" data-linenos=" 90 "></span></a>                else {
+<a id="__codelineno-10-91" name="__codelineno-10-91"></a><a href="#__codelineno-10-91"><span class="linenos" data-linenos=" 91 "></span></a>                    M2 = I + S - I * S;
+<a id="__codelineno-10-92" name="__codelineno-10-92"></a><a href="#__codelineno-10-92"><span class="linenos" data-linenos=" 92 "></span></a>                }
+<a id="__codelineno-10-93" name="__codelineno-10-93"></a><a href="#__codelineno-10-93"><span class="linenos" data-linenos=" 93 "></span></a>                M1 = (2.0 * I - M2);
+<a id="__codelineno-10-94" name="__codelineno-10-94"></a><a href="#__codelineno-10-94"><span class="linenos" data-linenos=" 94 "></span></a>                r = get_Ans(M1, M2, hue + 1.0 / 3.0);
+<a id="__codelineno-10-95" name="__codelineno-10-95"></a><a href="#__codelineno-10-95"><span class="linenos" data-linenos=" 95 "></span></a>                g = get_Ans(M1, M2, hue);
+<a id="__codelineno-10-96" name="__codelineno-10-96"></a><a href="#__codelineno-10-96"><span class="linenos" data-linenos=" 96 "></span></a>                b = get_Ans(M1, M2, hue - 1.0 / 3.0);
+<a id="__codelineno-10-97" name="__codelineno-10-97"></a><a href="#__codelineno-10-97"><span class="linenos" data-linenos=" 97 "></span></a>            }
+<a id="__codelineno-10-98" name="__codelineno-10-98"></a><a href="#__codelineno-10-98"><span class="linenos" data-linenos=" 98 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = (int)(b * 255);
+<a id="__codelineno-10-99" name="__codelineno-10-99"></a><a href="#__codelineno-10-99"><span class="linenos" data-linenos=" 99 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = (int)(g * 255);
+<a id="__codelineno-10-100" name="__codelineno-10-100"></a><a href="#__codelineno-10-100"><span class="linenos" data-linenos="100 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = (int)(r * 255);
+<a id="__codelineno-10-101" name="__codelineno-10-101"></a><a href="#__codelineno-10-101"><span class="linenos" data-linenos="101 "></span></a>        }
+<a id="__codelineno-10-102" name="__codelineno-10-102"></a><a href="#__codelineno-10-102"><span class="linenos" data-linenos="102 "></span></a>    }
+<a id="__codelineno-10-103" name="__codelineno-10-103"></a><a href="#__codelineno-10-103"><span class="linenos" data-linenos="103 "></span></a>    return dst;
+<a id="__codelineno-10-104" name="__codelineno-10-104"></a><a href="#__codelineno-10-104"><span class="linenos" data-linenos="104 "></span></a>}
+</code></pre></div>
+<h2 id="rgbycbcr">五，RGB和YCbCr互转<a class="headerlink" href="#rgbycbcr" title="Permanent link">&para;</a></h2>
+<p>在常用的几种颜色空间中，YCbCr颜色空间在学术论文中出现的频率是相当高的，常用于肤色检测等等。其和RGB空间之间的相互转换公式在网上也有多种，我们这里取http://en.wikipedia.org/wiki/YCbCr 描述的JPG转换时使用的计算公式：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190409145140619.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3Rfc29ydA==,size_16,color_FFFFFF,t_70" /></p>
+<p>和RGB与CIEXYZ空间互转的优化套路一样，测试无误的代码如下：</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos=" 1 "></span></a>const float YCbCrYRF = 0.299F;              // RGB转YCbCr的系数(浮点类型）
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos=" 2 "></span></a>const float YCbCrYGF = 0.587F;
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos=" 3 "></span></a>const float YCbCrYBF = 0.114F;
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos=" 4 "></span></a>const float YCbCrCbRF = -0.168736F;
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos=" 5 "></span></a>const float YCbCrCbGF = -0.331264F;
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos=" 6 "></span></a>const float YCbCrCbBF = 0.500000F;
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos=" 7 "></span></a>const float YCbCrCrRF = 0.500000F;
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos=" 8 "></span></a>const float YCbCrCrGF = -0.418688F;
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a><a href="#__codelineno-11-9"><span class="linenos" data-linenos=" 9 "></span></a>const float YCbCrCrBF = -0.081312F;
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><a href="#__codelineno-11-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a><a href="#__codelineno-11-11"><span class="linenos" data-linenos="11 "></span></a>const float RGBRYF = 1.00000F;            // YCbCr转RGB的系数(浮点类型）
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a><a href="#__codelineno-11-12"><span class="linenos" data-linenos="12 "></span></a>const float RGBRCbF = 0.0000F;
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><a href="#__codelineno-11-13"><span class="linenos" data-linenos="13 "></span></a>const float RGBRCrF = 1.40200F;
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a><a href="#__codelineno-11-14"><span class="linenos" data-linenos="14 "></span></a>const float RGBGYF = 1.00000F;
+<a id="__codelineno-11-15" name="__codelineno-11-15"></a><a href="#__codelineno-11-15"><span class="linenos" data-linenos="15 "></span></a>const float RGBGCbF = -0.34414F;
+<a id="__codelineno-11-16" name="__codelineno-11-16"></a><a href="#__codelineno-11-16"><span class="linenos" data-linenos="16 "></span></a>const float RGBGCrF = -0.71414F;
+<a id="__codelineno-11-17" name="__codelineno-11-17"></a><a href="#__codelineno-11-17"><span class="linenos" data-linenos="17 "></span></a>const float RGBBYF = 1.00000F;
+<a id="__codelineno-11-18" name="__codelineno-11-18"></a><a href="#__codelineno-11-18"><span class="linenos" data-linenos="18 "></span></a>const float RGBBCbF = 1.77200F;
+<a id="__codelineno-11-19" name="__codelineno-11-19"></a><a href="#__codelineno-11-19"><span class="linenos" data-linenos="19 "></span></a>const float RGBBCrF = 0.00000F;
+<a id="__codelineno-11-20" name="__codelineno-11-20"></a><a href="#__codelineno-11-20"><span class="linenos" data-linenos="20 "></span></a>
+<a id="__codelineno-11-21" name="__codelineno-11-21"></a><a href="#__codelineno-11-21"><span class="linenos" data-linenos="21 "></span></a>const int Shift = 20;
+<a id="__codelineno-11-22" name="__codelineno-11-22"></a><a href="#__codelineno-11-22"><span class="linenos" data-linenos="22 "></span></a>const int HalfShiftValue = 1 &lt;&lt; (Shift - 1);
+<a id="__codelineno-11-23" name="__codelineno-11-23"></a><a href="#__codelineno-11-23"><span class="linenos" data-linenos="23 "></span></a>
+<a id="__codelineno-11-24" name="__codelineno-11-24"></a><a href="#__codelineno-11-24"><span class="linenos" data-linenos="24 "></span></a>const int YCbCrYRI = (int)(YCbCrYRF * (1 &lt;&lt; Shift) + 0.5);         // RGB转YCbCr的系数(整数类型）
+<a id="__codelineno-11-25" name="__codelineno-11-25"></a><a href="#__codelineno-11-25"><span class="linenos" data-linenos="25 "></span></a>const int YCbCrYGI = (int)(YCbCrYGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-26" name="__codelineno-11-26"></a><a href="#__codelineno-11-26"><span class="linenos" data-linenos="26 "></span></a>const int YCbCrYBI = (int)(YCbCrYBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-27" name="__codelineno-11-27"></a><a href="#__codelineno-11-27"><span class="linenos" data-linenos="27 "></span></a>const int YCbCrCbRI = (int)(YCbCrCbRF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-28" name="__codelineno-11-28"></a><a href="#__codelineno-11-28"><span class="linenos" data-linenos="28 "></span></a>const int YCbCrCbGI = (int)(YCbCrCbGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-29" name="__codelineno-11-29"></a><a href="#__codelineno-11-29"><span class="linenos" data-linenos="29 "></span></a>const int YCbCrCbBI = (int)(YCbCrCbBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-30" name="__codelineno-11-30"></a><a href="#__codelineno-11-30"><span class="linenos" data-linenos="30 "></span></a>const int YCbCrCrRI = (int)(YCbCrCrRF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-31" name="__codelineno-11-31"></a><a href="#__codelineno-11-31"><span class="linenos" data-linenos="31 "></span></a>const int YCbCrCrGI = (int)(YCbCrCrGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-32" name="__codelineno-11-32"></a><a href="#__codelineno-11-32"><span class="linenos" data-linenos="32 "></span></a>const int YCbCrCrBI = (int)(YCbCrCrBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-33" name="__codelineno-11-33"></a><a href="#__codelineno-11-33"><span class="linenos" data-linenos="33 "></span></a>
+<a id="__codelineno-11-34" name="__codelineno-11-34"></a><a href="#__codelineno-11-34"><span class="linenos" data-linenos="34 "></span></a>const int RGBRYI = (int)(RGBRYF * (1 &lt;&lt; Shift) + 0.5);              // YCbCr转RGB的系数(整数类型）
+<a id="__codelineno-11-35" name="__codelineno-11-35"></a><a href="#__codelineno-11-35"><span class="linenos" data-linenos="35 "></span></a>const int RGBRCbI = (int)(RGBRCbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-36" name="__codelineno-11-36"></a><a href="#__codelineno-11-36"><span class="linenos" data-linenos="36 "></span></a>const int RGBRCrI = (int)(RGBRCrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-37" name="__codelineno-11-37"></a><a href="#__codelineno-11-37"><span class="linenos" data-linenos="37 "></span></a>const int RGBGYI = (int)(RGBGYF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-38" name="__codelineno-11-38"></a><a href="#__codelineno-11-38"><span class="linenos" data-linenos="38 "></span></a>const int RGBGCbI = (int)(RGBGCbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-39" name="__codelineno-11-39"></a><a href="#__codelineno-11-39"><span class="linenos" data-linenos="39 "></span></a>const int RGBGCrI = (int)(RGBGCrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-40" name="__codelineno-11-40"></a><a href="#__codelineno-11-40"><span class="linenos" data-linenos="40 "></span></a>const int RGBBYI = (int)(RGBBYF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-41" name="__codelineno-11-41"></a><a href="#__codelineno-11-41"><span class="linenos" data-linenos="41 "></span></a>const int RGBBCbI = (int)(RGBBCbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-42" name="__codelineno-11-42"></a><a href="#__codelineno-11-42"><span class="linenos" data-linenos="42 "></span></a>const int RGBBCrI = (int)(RGBBCrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-11-43" name="__codelineno-11-43"></a><a href="#__codelineno-11-43"><span class="linenos" data-linenos="43 "></span></a>
+<a id="__codelineno-11-44" name="__codelineno-11-44"></a><a href="#__codelineno-11-44"><span class="linenos" data-linenos="44 "></span></a>Mat RGB2YCbCr(Mat src) {
+<a id="__codelineno-11-45" name="__codelineno-11-45"></a><a href="#__codelineno-11-45"><span class="linenos" data-linenos="45 "></span></a>    int row = src.rows;
+<a id="__codelineno-11-46" name="__codelineno-11-46"></a><a href="#__codelineno-11-46"><span class="linenos" data-linenos="46 "></span></a>    int col = src.cols;
+<a id="__codelineno-11-47" name="__codelineno-11-47"></a><a href="#__codelineno-11-47"><span class="linenos" data-linenos="47 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-11-48" name="__codelineno-11-48"></a><a href="#__codelineno-11-48"><span class="linenos" data-linenos="48 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-11-49" name="__codelineno-11-49"></a><a href="#__codelineno-11-49"><span class="linenos" data-linenos="49 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-11-50" name="__codelineno-11-50"></a><a href="#__codelineno-11-50"><span class="linenos" data-linenos="50 "></span></a>            int Blue = src.at&lt;Vec3b&gt;(i, j)[0];
+<a id="__codelineno-11-51" name="__codelineno-11-51"></a><a href="#__codelineno-11-51"><span class="linenos" data-linenos="51 "></span></a>            int Green = src.at&lt;Vec3b&gt;(i, j)[1];
+<a id="__codelineno-11-52" name="__codelineno-11-52"></a><a href="#__codelineno-11-52"><span class="linenos" data-linenos="52 "></span></a>            int Red = src.at&lt;Vec3b&gt;(i, j)[2];
+<a id="__codelineno-11-53" name="__codelineno-11-53"></a><a href="#__codelineno-11-53"><span class="linenos" data-linenos="53 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = (int)((YCbCrYRI * Red + YCbCrYGI * Green + YCbCrYBI * Blue + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-11-54" name="__codelineno-11-54"></a><a href="#__codelineno-11-54"><span class="linenos" data-linenos="54 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = (int)(128 + ((YCbCrCbRI * Red + YCbCrCbGI * Green + YCbCrCbBI * Blue + HalfShiftValue) &gt;&gt; Shift));
+<a id="__codelineno-11-55" name="__codelineno-11-55"></a><a href="#__codelineno-11-55"><span class="linenos" data-linenos="55 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = (int)(128 + ((YCbCrCrRI * Red + YCbCrCrGI * Green + YCbCrCrBI * Blue + HalfShiftValue) &gt;&gt; Shift));
+<a id="__codelineno-11-56" name="__codelineno-11-56"></a><a href="#__codelineno-11-56"><span class="linenos" data-linenos="56 "></span></a>        }
+<a id="__codelineno-11-57" name="__codelineno-11-57"></a><a href="#__codelineno-11-57"><span class="linenos" data-linenos="57 "></span></a>    }
+<a id="__codelineno-11-58" name="__codelineno-11-58"></a><a href="#__codelineno-11-58"><span class="linenos" data-linenos="58 "></span></a>    return dst;
+<a id="__codelineno-11-59" name="__codelineno-11-59"></a><a href="#__codelineno-11-59"><span class="linenos" data-linenos="59 "></span></a>}
+<a id="__codelineno-11-60" name="__codelineno-11-60"></a><a href="#__codelineno-11-60"><span class="linenos" data-linenos="60 "></span></a>
+<a id="__codelineno-11-61" name="__codelineno-11-61"></a><a href="#__codelineno-11-61"><span class="linenos" data-linenos="61 "></span></a>Mat YCbCr2RGB(Mat src) {
+<a id="__codelineno-11-62" name="__codelineno-11-62"></a><a href="#__codelineno-11-62"><span class="linenos" data-linenos="62 "></span></a>    int row = src.rows;
+<a id="__codelineno-11-63" name="__codelineno-11-63"></a><a href="#__codelineno-11-63"><span class="linenos" data-linenos="63 "></span></a>    int col = src.cols;
+<a id="__codelineno-11-64" name="__codelineno-11-64"></a><a href="#__codelineno-11-64"><span class="linenos" data-linenos="64 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-11-65" name="__codelineno-11-65"></a><a href="#__codelineno-11-65"><span class="linenos" data-linenos="65 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-11-66" name="__codelineno-11-66"></a><a href="#__codelineno-11-66"><span class="linenos" data-linenos="66 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-11-67" name="__codelineno-11-67"></a><a href="#__codelineno-11-67"><span class="linenos" data-linenos="67 "></span></a>            int Y = src.at&lt;Vec3b&gt;(i, j)[0];
+<a id="__codelineno-11-68" name="__codelineno-11-68"></a><a href="#__codelineno-11-68"><span class="linenos" data-linenos="68 "></span></a>            int Cb = src.at&lt;Vec3b&gt;(i, j)[1] - 128;
+<a id="__codelineno-11-69" name="__codelineno-11-69"></a><a href="#__codelineno-11-69"><span class="linenos" data-linenos="69 "></span></a>            int Cr = src.at&lt;Vec3b&gt;(i, j)[2] - 128;
+<a id="__codelineno-11-70" name="__codelineno-11-70"></a><a href="#__codelineno-11-70"><span class="linenos" data-linenos="70 "></span></a>            int Red = Y + ((RGBRCrI * Cr + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-11-71" name="__codelineno-11-71"></a><a href="#__codelineno-11-71"><span class="linenos" data-linenos="71 "></span></a>            int Green = Y + ((RGBGCbI * Cb + RGBGCrI * Cr + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-11-72" name="__codelineno-11-72"></a><a href="#__codelineno-11-72"><span class="linenos" data-linenos="72 "></span></a>            int Blue = Y + ((RGBBCbI * Cb + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-11-73" name="__codelineno-11-73"></a><a href="#__codelineno-11-73"><span class="linenos" data-linenos="73 "></span></a>            if (Red &gt; 255) Red = 255; else if (Red &lt; 0) Red = 0;
+<a id="__codelineno-11-74" name="__codelineno-11-74"></a><a href="#__codelineno-11-74"><span class="linenos" data-linenos="74 "></span></a>            if (Green &gt; 255) Green = 255; else if (Green &lt; 0) Green = 0;    // 编译后应该比三目运算符的效率高
+<a id="__codelineno-11-75" name="__codelineno-11-75"></a><a href="#__codelineno-11-75"><span class="linenos" data-linenos="75 "></span></a>            if (Blue &gt; 255) Blue = 255; else if (Blue &lt; 0) Blue = 0;
+<a id="__codelineno-11-76" name="__codelineno-11-76"></a><a href="#__codelineno-11-76"><span class="linenos" data-linenos="76 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = Blue;
+<a id="__codelineno-11-77" name="__codelineno-11-77"></a><a href="#__codelineno-11-77"><span class="linenos" data-linenos="77 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = Green;
+<a id="__codelineno-11-78" name="__codelineno-11-78"></a><a href="#__codelineno-11-78"><span class="linenos" data-linenos="78 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = Red;
+<a id="__codelineno-11-79" name="__codelineno-11-79"></a><a href="#__codelineno-11-79"><span class="linenos" data-linenos="79 "></span></a>        }
+<a id="__codelineno-11-80" name="__codelineno-11-80"></a><a href="#__codelineno-11-80"><span class="linenos" data-linenos="80 "></span></a>    }
+<a id="__codelineno-11-81" name="__codelineno-11-81"></a><a href="#__codelineno-11-81"><span class="linenos" data-linenos="81 "></span></a>    return dst;
+<a id="__codelineno-11-82" name="__codelineno-11-82"></a><a href="#__codelineno-11-82"><span class="linenos" data-linenos="82 "></span></a>}
+</code></pre></div>
+<h2 id="rgbydbdr">六，RGB和YDbDr互转<a class="headerlink" href="#rgbydbdr" title="Permanent link">&para;</a></h2>
+<p>YDbDr颜色空间和YCbCr颜色空间类似，其和RGB空间之间的相互转换公式里取http://en.wikipedia.org/wiki/YDbDr 所描述的。</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20190711114608334.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2p1c3Rfc29ydA==,size_16,color_FFFFFF,t_70" /></p>
+<p>代码：</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos=" 1 "></span></a>const float YDbDrYRF = 0.299F;              // RGB转YDbDr的系数(浮点类型）
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos=" 2 "></span></a>const float YDbDrYGF = 0.587F;
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos=" 3 "></span></a>const float YDbDrYBF = 0.114F;
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos=" 4 "></span></a>const float YDbDrDbRF = -0.1688F;
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos=" 5 "></span></a>const float YDbDrDbGF = -0.3312F;
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos=" 6 "></span></a>const float YDbDrDbBF = 0.5F;
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><a href="#__codelineno-12-7"><span class="linenos" data-linenos=" 7 "></span></a>const float YDbDrDrRF = -0.5F;
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a><a href="#__codelineno-12-8"><span class="linenos" data-linenos=" 8 "></span></a>const float YDbDrDrGF = 0.4186F;
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a><a href="#__codelineno-12-9"><span class="linenos" data-linenos=" 9 "></span></a>const float YDbDrDrBF = 0.0814F;
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><a href="#__codelineno-12-10"><span class="linenos" data-linenos="10 "></span></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a><a href="#__codelineno-12-11"><span class="linenos" data-linenos="11 "></span></a>const float RGBRYF = 1.00000F;            // YDbDr转RGB的系数(浮点类型）
+<a id="__codelineno-12-12" name="__codelineno-12-12"></a><a href="#__codelineno-12-12"><span class="linenos" data-linenos="12 "></span></a>const float RGBRDbF = 0.0002460817072494899F;
+<a id="__codelineno-12-13" name="__codelineno-12-13"></a><a href="#__codelineno-12-13"><span class="linenos" data-linenos="13 "></span></a>const float RGBRDrF = -1.402083073344533F;
+<a id="__codelineno-12-14" name="__codelineno-12-14"></a><a href="#__codelineno-12-14"><span class="linenos" data-linenos="14 "></span></a>const float RGBGYF = 1.00000F;
+<a id="__codelineno-12-15" name="__codelineno-12-15"></a><a href="#__codelineno-12-15"><span class="linenos" data-linenos="15 "></span></a>const float RGBGDbF = -0.344268308442098F;
+<a id="__codelineno-12-16" name="__codelineno-12-16"></a><a href="#__codelineno-12-16"><span class="linenos" data-linenos="16 "></span></a>const float RGBGDrF = 0.714219609001458F;
+<a id="__codelineno-12-17" name="__codelineno-12-17"></a><a href="#__codelineno-12-17"><span class="linenos" data-linenos="17 "></span></a>const float RGBBYF = 1.00000F;
+<a id="__codelineno-12-18" name="__codelineno-12-18"></a><a href="#__codelineno-12-18"><span class="linenos" data-linenos="18 "></span></a>const float RGBBDbF = 1.772034373903893F;
+<a id="__codelineno-12-19" name="__codelineno-12-19"></a><a href="#__codelineno-12-19"><span class="linenos" data-linenos="19 "></span></a>const float RGBBDrF = 0.0002111539810593343F;
+<a id="__codelineno-12-20" name="__codelineno-12-20"></a><a href="#__codelineno-12-20"><span class="linenos" data-linenos="20 "></span></a>
+<a id="__codelineno-12-21" name="__codelineno-12-21"></a><a href="#__codelineno-12-21"><span class="linenos" data-linenos="21 "></span></a>const int Shift = 20;
+<a id="__codelineno-12-22" name="__codelineno-12-22"></a><a href="#__codelineno-12-22"><span class="linenos" data-linenos="22 "></span></a>const int HalfShiftValue = 1 &lt;&lt; (Shift - 1);
+<a id="__codelineno-12-23" name="__codelineno-12-23"></a><a href="#__codelineno-12-23"><span class="linenos" data-linenos="23 "></span></a>
+<a id="__codelineno-12-24" name="__codelineno-12-24"></a><a href="#__codelineno-12-24"><span class="linenos" data-linenos="24 "></span></a>const int YDbDrYRI = (int)(YDbDrYRF * (1 &lt;&lt; Shift) + 0.5);         // RGB转YDbDr的系数(整数类型）
+<a id="__codelineno-12-25" name="__codelineno-12-25"></a><a href="#__codelineno-12-25"><span class="linenos" data-linenos="25 "></span></a>const int YDbDrYGI = (int)(YDbDrYGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-26" name="__codelineno-12-26"></a><a href="#__codelineno-12-26"><span class="linenos" data-linenos="26 "></span></a>const int YDbDrYBI = (int)(YDbDrYBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-27" name="__codelineno-12-27"></a><a href="#__codelineno-12-27"><span class="linenos" data-linenos="27 "></span></a>const int YDbDrDbRI = (int)(YDbDrDbRF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-28" name="__codelineno-12-28"></a><a href="#__codelineno-12-28"><span class="linenos" data-linenos="28 "></span></a>const int YDbDrDbGI = (int)(YDbDrDbGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-29" name="__codelineno-12-29"></a><a href="#__codelineno-12-29"><span class="linenos" data-linenos="29 "></span></a>const int YDbDrDbBI = (int)(YDbDrDbBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-30" name="__codelineno-12-30"></a><a href="#__codelineno-12-30"><span class="linenos" data-linenos="30 "></span></a>const int YDbDrDrRI = (int)(YDbDrDrRF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-31" name="__codelineno-12-31"></a><a href="#__codelineno-12-31"><span class="linenos" data-linenos="31 "></span></a>const int YDbDrDrGI = (int)(YDbDrDrGF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-32" name="__codelineno-12-32"></a><a href="#__codelineno-12-32"><span class="linenos" data-linenos="32 "></span></a>const int YDbDrDrBI = (int)(YDbDrDrBF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-33" name="__codelineno-12-33"></a><a href="#__codelineno-12-33"><span class="linenos" data-linenos="33 "></span></a>
+<a id="__codelineno-12-34" name="__codelineno-12-34"></a><a href="#__codelineno-12-34"><span class="linenos" data-linenos="34 "></span></a>const int RGBRYI = (int)(RGBRYF * (1 &lt;&lt; Shift) + 0.5);              // YDbDr转RGB的系数(整数类型）
+<a id="__codelineno-12-35" name="__codelineno-12-35"></a><a href="#__codelineno-12-35"><span class="linenos" data-linenos="35 "></span></a>const int RGBRDbI = (int)(RGBRDbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-36" name="__codelineno-12-36"></a><a href="#__codelineno-12-36"><span class="linenos" data-linenos="36 "></span></a>const int RGBRDrI = (int)(RGBRDrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-37" name="__codelineno-12-37"></a><a href="#__codelineno-12-37"><span class="linenos" data-linenos="37 "></span></a>const int RGBGYI = (int)(RGBGYF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-38" name="__codelineno-12-38"></a><a href="#__codelineno-12-38"><span class="linenos" data-linenos="38 "></span></a>const int RGBGDbI = (int)(RGBGDbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-39" name="__codelineno-12-39"></a><a href="#__codelineno-12-39"><span class="linenos" data-linenos="39 "></span></a>const int RGBGDrI = (int)(RGBGDrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-40" name="__codelineno-12-40"></a><a href="#__codelineno-12-40"><span class="linenos" data-linenos="40 "></span></a>const int RGBBYI = (int)(RGBBYF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-41" name="__codelineno-12-41"></a><a href="#__codelineno-12-41"><span class="linenos" data-linenos="41 "></span></a>const int RGBBDbI = (int)(RGBBDbF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-42" name="__codelineno-12-42"></a><a href="#__codelineno-12-42"><span class="linenos" data-linenos="42 "></span></a>const int RGBBDrI = (int)(RGBBDrF * (1 &lt;&lt; Shift) + 0.5);
+<a id="__codelineno-12-43" name="__codelineno-12-43"></a><a href="#__codelineno-12-43"><span class="linenos" data-linenos="43 "></span></a>
+<a id="__codelineno-12-44" name="__codelineno-12-44"></a><a href="#__codelineno-12-44"><span class="linenos" data-linenos="44 "></span></a>Mat RGB2YDbDr(Mat src) {
+<a id="__codelineno-12-45" name="__codelineno-12-45"></a><a href="#__codelineno-12-45"><span class="linenos" data-linenos="45 "></span></a>    int row = src.rows;
+<a id="__codelineno-12-46" name="__codelineno-12-46"></a><a href="#__codelineno-12-46"><span class="linenos" data-linenos="46 "></span></a>    int col = src.cols;
+<a id="__codelineno-12-47" name="__codelineno-12-47"></a><a href="#__codelineno-12-47"><span class="linenos" data-linenos="47 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-12-48" name="__codelineno-12-48"></a><a href="#__codelineno-12-48"><span class="linenos" data-linenos="48 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-12-49" name="__codelineno-12-49"></a><a href="#__codelineno-12-49"><span class="linenos" data-linenos="49 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-12-50" name="__codelineno-12-50"></a><a href="#__codelineno-12-50"><span class="linenos" data-linenos="50 "></span></a>            int Blue = src.at&lt;Vec3b&gt;(i, j)[0];
+<a id="__codelineno-12-51" name="__codelineno-12-51"></a><a href="#__codelineno-12-51"><span class="linenos" data-linenos="51 "></span></a>            int Green = src.at&lt;Vec3b&gt;(i, j)[1];
+<a id="__codelineno-12-52" name="__codelineno-12-52"></a><a href="#__codelineno-12-52"><span class="linenos" data-linenos="52 "></span></a>            int Red = src.at&lt;Vec3b&gt;(i, j)[2];
+<a id="__codelineno-12-53" name="__codelineno-12-53"></a><a href="#__codelineno-12-53"><span class="linenos" data-linenos="53 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = (uchar)((YDbDrYRI * Red + YDbDrYGI * Green + YDbDrYBI * Blue + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-12-54" name="__codelineno-12-54"></a><a href="#__codelineno-12-54"><span class="linenos" data-linenos="54 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = (uchar)(128 + ((YDbDrDbRI * Red + YDbDrDbGI * Green + YDbDrDbBI * Blue + HalfShiftValue) &gt;&gt; Shift));
+<a id="__codelineno-12-55" name="__codelineno-12-55"></a><a href="#__codelineno-12-55"><span class="linenos" data-linenos="55 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = (uchar)(128 + ((YDbDrDrRI * Red + YDbDrDrGI * Green + YDbDrDrBI * Blue + HalfShiftValue) &gt;&gt; Shift));
+<a id="__codelineno-12-56" name="__codelineno-12-56"></a><a href="#__codelineno-12-56"><span class="linenos" data-linenos="56 "></span></a>        }
+<a id="__codelineno-12-57" name="__codelineno-12-57"></a><a href="#__codelineno-12-57"><span class="linenos" data-linenos="57 "></span></a>    }
+<a id="__codelineno-12-58" name="__codelineno-12-58"></a><a href="#__codelineno-12-58"><span class="linenos" data-linenos="58 "></span></a>    return dst;
+<a id="__codelineno-12-59" name="__codelineno-12-59"></a><a href="#__codelineno-12-59"><span class="linenos" data-linenos="59 "></span></a>}
+<a id="__codelineno-12-60" name="__codelineno-12-60"></a><a href="#__codelineno-12-60"><span class="linenos" data-linenos="60 "></span></a>
+<a id="__codelineno-12-61" name="__codelineno-12-61"></a><a href="#__codelineno-12-61"><span class="linenos" data-linenos="61 "></span></a>Mat YDbDr2RGB(Mat src) {
+<a id="__codelineno-12-62" name="__codelineno-12-62"></a><a href="#__codelineno-12-62"><span class="linenos" data-linenos="62 "></span></a>    int row = src.rows;
+<a id="__codelineno-12-63" name="__codelineno-12-63"></a><a href="#__codelineno-12-63"><span class="linenos" data-linenos="63 "></span></a>    int col = src.cols;
+<a id="__codelineno-12-64" name="__codelineno-12-64"></a><a href="#__codelineno-12-64"><span class="linenos" data-linenos="64 "></span></a>    Mat dst(row, col, CV_8UC3);
+<a id="__codelineno-12-65" name="__codelineno-12-65"></a><a href="#__codelineno-12-65"><span class="linenos" data-linenos="65 "></span></a>    for (int i = 0; i &lt; row; i++) {
+<a id="__codelineno-12-66" name="__codelineno-12-66"></a><a href="#__codelineno-12-66"><span class="linenos" data-linenos="66 "></span></a>        for (int j = 0; j &lt; col; j++) {
+<a id="__codelineno-12-67" name="__codelineno-12-67"></a><a href="#__codelineno-12-67"><span class="linenos" data-linenos="67 "></span></a>            int Y = src.at&lt;Vec3b&gt;(i, j)[0];
+<a id="__codelineno-12-68" name="__codelineno-12-68"></a><a href="#__codelineno-12-68"><span class="linenos" data-linenos="68 "></span></a>            int Db = src.at&lt;Vec3b&gt;(i, j)[1] - 128;
+<a id="__codelineno-12-69" name="__codelineno-12-69"></a><a href="#__codelineno-12-69"><span class="linenos" data-linenos="69 "></span></a>            int Dr = src.at&lt;Vec3b&gt;(i, j)[2] - 128;
+<a id="__codelineno-12-70" name="__codelineno-12-70"></a><a href="#__codelineno-12-70"><span class="linenos" data-linenos="70 "></span></a>            int Red = Y + ((RGBRDbI * Db + RGBRDrI * Dr + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-12-71" name="__codelineno-12-71"></a><a href="#__codelineno-12-71"><span class="linenos" data-linenos="71 "></span></a>            int Green = Y + ((RGBGDbI * Db + RGBGDrI * Dr + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-12-72" name="__codelineno-12-72"></a><a href="#__codelineno-12-72"><span class="linenos" data-linenos="72 "></span></a>            int Blue = Y + ((RGBBDbI * Db + RGBBDrI * Dr + HalfShiftValue) &gt;&gt; Shift);
+<a id="__codelineno-12-73" name="__codelineno-12-73"></a><a href="#__codelineno-12-73"><span class="linenos" data-linenos="73 "></span></a>            if (Red &gt; 255) Red = 255;
+<a id="__codelineno-12-74" name="__codelineno-12-74"></a><a href="#__codelineno-12-74"><span class="linenos" data-linenos="74 "></span></a>            else if (Red &lt; 0) Red = 0;
+<a id="__codelineno-12-75" name="__codelineno-12-75"></a><a href="#__codelineno-12-75"><span class="linenos" data-linenos="75 "></span></a>            if (Green &gt; 255) Green = 255;
+<a id="__codelineno-12-76" name="__codelineno-12-76"></a><a href="#__codelineno-12-76"><span class="linenos" data-linenos="76 "></span></a>            else if (Green &lt; 0) Green = 0;
+<a id="__codelineno-12-77" name="__codelineno-12-77"></a><a href="#__codelineno-12-77"><span class="linenos" data-linenos="77 "></span></a>            if (Blue &gt; 255) Blue = 0;
+<a id="__codelineno-12-78" name="__codelineno-12-78"></a><a href="#__codelineno-12-78"><span class="linenos" data-linenos="78 "></span></a>            else if (Blue &lt; 0) Blue = 0;
+<a id="__codelineno-12-79" name="__codelineno-12-79"></a><a href="#__codelineno-12-79"><span class="linenos" data-linenos="79 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[0] = Blue;
+<a id="__codelineno-12-80" name="__codelineno-12-80"></a><a href="#__codelineno-12-80"><span class="linenos" data-linenos="80 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[1] = Green;
+<a id="__codelineno-12-81" name="__codelineno-12-81"></a><a href="#__codelineno-12-81"><span class="linenos" data-linenos="81 "></span></a>            dst.at&lt;Vec3b&gt;(i, j)[2] = Red;
+<a id="__codelineno-12-82" name="__codelineno-12-82"></a><a href="#__codelineno-12-82"><span class="linenos" data-linenos="82 "></span></a>        }
+<a id="__codelineno-12-83" name="__codelineno-12-83"></a><a href="#__codelineno-12-83"><span class="linenos" data-linenos="83 "></span></a>    }
+<a id="__codelineno-12-84" name="__codelineno-12-84"></a><a href="#__codelineno-12-84"><span class="linenos" data-linenos="84 "></span></a>    return dst;
+<a id="__codelineno-12-85" name="__codelineno-12-85"></a><a href="#__codelineno-12-85"><span class="linenos" data-linenos="85 "></span></a>}
+</code></pre></div>
+<h1 id="_4">后记<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>本文盘点了6种常见的颜色空间互转算法，因为这六种算法是我在学习过程和图像处理论文复现中有使用到的，所以如果还有其他我这里没提到的的转换算法，欢迎留言和我交流哦。</p>
+<hr />
+<p>欢迎关注我的微信公众号GiantPadaCV，期待和你一起交流机器学习，深度学习，图像算法，优化技术，比赛及日常生活等。</p>
+<p><img alt="图片.png" src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xOTIzNzExNS1hZDY2ZjRmMjQ5MzRhZmQx?x-oss-process=image/format,png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../../linux/network/frp%E6%90%AD%E5%BB%BA/" class="md-footer__link md-footer__link--prev" aria-label="上一页: frp安装使用">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                frp安装使用
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Sobel%E7%AE%97%E5%AD%90%E8%BE%B9%E7%BC%98%E6%A3%80%E6%B5%8B/" class="md-footer__link md-footer__link--next" aria-label="下一页: Sobel边缘检测">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                Sobel边缘检测
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2017 - 2024 Gene
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Geneww" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:495612021@qq.com" target="_blank" rel="noopener" title="Email" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.prune", "toc.follow", "navigation.top", "search.suggest", "search.highlight", "search.share", "navigation.footer", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

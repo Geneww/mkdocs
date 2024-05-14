@@ -1,0 +1,1002 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>中文LLaMA&Alpaca大语言模型实验 - Gene's Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#llamaalpaca" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gene&#39;s Docs" class="md-header__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gene's Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              中文LLaMA&Alpaca大语言模型实验
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="跟随系统模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="跟随系统模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-orange"  aria-label="切换到暗色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗色模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-gray" data-md-color-accent="deep-orange"  aria-label="切换到亮色模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cv/base/%E5%B8%B8%E8%A7%81%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E4%BA%92%E8%BD%AC/" class="md-tabs__link">
+          
+  
+  Algorithm
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../nginx/配置步骤.md" class="md-tabs__link">
+          
+  
+  Paper
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-tabs__link">
+          
+  
+  推理部署
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gene&#39;s Docs" class="md-nav__button md-logo" aria-label="Gene's Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5Z"/></svg>
+
+    </a>
+    Gene's Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../linux/environment/%E5%AE%89%E8%A3%85CUDA/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../cv/base/%E5%B8%B8%E8%A7%81%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4%E4%BA%92%E8%BD%AC/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Algorithm
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../nginx/配置步骤.md" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Paper
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../infer/nginx/%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    推理部署
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境搭建
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="环境搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境准备
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程开发准备
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="远程开发准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pycharmdocker" class="md-nav__link">
+    <span class="md-ellipsis">
+      pycharm连接docker容器开发
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码、模型、数据集准备
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="代码、模型、数据集准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码准备
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型权重 及 Tokenizer 准备
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="llamaalpaca">中文LLaMA&amp;Alpaca大语言模型实验<a class="headerlink" href="#llamaalpaca" title="Permanent link">&para;</a></h1>
+<p>步骤</p>
+<p>llama原始模型转换为Transformers  huggingface格式</p>
+<p>1.lora pt</p>
+<p>2.lora指令精调</p>
+<p>3.模型合并</p>
+<p>在<strong>大模型词表扩充必备工具SentencePiece</strong>一文中，我们提到了在目前开源大模型中，LLaMA无疑是最闪亮的星。但是，与 ChatGLM-6B 和 Bloom 原生支持中文不同。 LLaMA 原生仅支持 Latin 或 Cyrillic 语系，对于中文支持不是特别理想。原版LLaMA模型的词表大小是32K，而多语言模型（如：XLM-R、Bloom）的词表大小约为250K。以中文为例，LLaMA词表中的中文token比较少（只有几百个）。这将导致了两个问题：</p>
+<ul>
+<li>LLaMA 原生tokenizer词表中仅包含少量中文字符，在对中文字进行tokenzation时，一个中文汉字往往被切分成多个token（2-3个Token才能组合成一个汉字），显著降低编解码的效率。</li>
+<li>预训练中没有出现过或者出现得很少的语言学习得不充分。</li>
+</ul>
+<p>为了解决这些问题，我们可能就需要进行中文词表扩展。比如：在中文语料库上训练一个中文tokenizer模型，然后将中文 tokenizer 与 LLaMA 原生的 tokenizer 进行合并，通过组合它们的词汇表，最终获得一个合并后的 tokenizer 模型。</p>
+<p>而国内<strong><a href="https://link.zhihu.com/?target=https%3A//github.com/ymcui/Chinese-LLaMA-Alpaca">Chinese-LLaMA-Alpaca</a></strong>开源项目详细说明了词表扩展、模型预训练和模型指令精调的整个过程。本文将分享<strong><a href="https://link.zhihu.com/?target=https%3A//github.com/ymcui/Chinese-LLaMA-Alpaca">Chinese-LLaMA-Alpaca</a></strong>是如何从0到1进行中文词表扩充、模型预训练和微调的整个过程。</p>
+<h2 id="_1"><strong>环境搭建</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>基础环境配置如下：</p>
+<ul>
+<li><strong>操作系统:</strong> Ubuntu 18.04</li>
+<li><strong>CPUs:</strong> 单个节点具有 384GB 内存的 Intel CPU，物理CPU个数为2，每颗CPU核数为20</li>
+<li><strong>GPUs:</strong> 4 卡 A800 80GB GPUs</li>
+<li><strong>Python:</strong> 3.10 (需要先升级OpenSSL到1.1.1t版本（<strong><a href="https://link.zhihu.com/?target=https%3A//www.openssl.org/source/openssl-1.1.1t.tar.gz">点击下载OpenSSL</a></strong>），然后再编译安装Python)，<strong><a href="https://link.zhihu.com/?target=https%3A//www.python.org/downloads/source/">点击下载Python</a></strong></li>
+<li><strong>NVIDIA驱动程序版本:</strong> 525.105.17，根据不同型号选择不同的驱动程序，<strong><a href="https://link.zhihu.com/?target=https%3A//www.nvidia.com/Download/index.aspx%3Flang%3Den-us">点击下载</a></strong>。</li>
+<li><strong>CUDA工具包:</strong> 11.6，<strong><a href="https://link.zhihu.com/?target=https%3A//developer.nvidia.com/cuda-toolkit-archive">点击下载</a></strong></li>
+<li><strong>cuDNN:</strong> 8.8.1.3_cuda11，<strong><a href="https://link.zhihu.com/?target=https%3A//developer.nvidia.com/cudnn">点击下载</a></strong></li>
+</ul>
+<p>为了便于复现，本文选择使用Doker镜像进行环境搭建。</p>
+<p>首先，下载对应版本的Pytorch镜像。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>docker pull pytorch/pytorch:1.13.1-cuda11.6-cudnn8-devel
+</code></pre></div>
+<p>镜像下载完成之后，创建容器。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>docker run -dt --name pytorch1131_cu116 --restart=always --gpus all \
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>-v /home/wuhw/projects/AIGC:/workspace \
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><a href="#__codelineno-1-3"><span class="linenos" data-linenos="3 "></span></a>-p 12002:22 \
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><a href="#__codelineno-1-4"><span class="linenos" data-linenos="4 "></span></a>-p 12003:8000 \
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><a href="#__codelineno-1-5"><span class="linenos" data-linenos="5 "></span></a>-w /workspace \
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><a href="#__codelineno-1-6"><span class="linenos" data-linenos="6 "></span></a>--shm-size 64g \
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><a href="#__codelineno-1-7"><span class="linenos" data-linenos="7 "></span></a>pytorch/pytorch:1.13.1-cuda11.6-cudnn8-devel \
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><a href="#__codelineno-1-8"><span class="linenos" data-linenos="8 "></span></a>/bin/bash
+</code></pre></div>
+<p>进入容器。</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>docker exec -it pytorch1131_cu116_v1 bash
+</code></pre></div>
+<h3 id="_2">环境准备<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>安装vim、git、git-lfs\sshd</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>apt-get<span class="w"> </span>update
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a><span class="c1">#apt-get upgrade</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a>apt-get<span class="w"> </span>install<span class="w"> </span>vim
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>apt-get<span class="w"> </span>install<span class="w"> </span>git
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><a href="#__codelineno-3-5"><span class="linenos" data-linenos="5 "></span></a>apt-get<span class="w"> </span>install<span class="w"> </span>git-lfs
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><a href="#__codelineno-3-6"><span class="linenos" data-linenos="6 "></span></a>apt-get<span class="w"> </span>install<span class="w"> </span>openssh-server
+</code></pre></div>
+<p>配置sshd</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="c1"># 启动sshd</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos=" 2 "></span></a>/etc/init.d/ssh<span class="w"> </span>start
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><a href="#__codelineno-4-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="c1"># 验证服务是否开启</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><a href="#__codelineno-4-4"><span class="linenos" data-linenos=" 4 "></span></a>ps<span class="w"> </span>-e<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sshd
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><a href="#__codelineno-4-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="c1"># 开启ssh允许root用户访问登录</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><a href="#__codelineno-4-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="c1"># 编辑ssh配置文件/etc/ssh/sshd_config</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><a href="#__codelineno-4-7"><span class="linenos" data-linenos=" 7 "></span></a>vim<span class="w"> </span>/etc/ssh/sshd_config
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><a href="#__codelineno-4-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="c1"># 找到以下行：PermitRootLogin no将其改为：</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><a href="#__codelineno-4-9"><span class="linenos" data-linenos=" 9 "></span></a>PermitRootLogin<span class="w"> </span>yes
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><a href="#__codelineno-4-10"><span class="linenos" data-linenos="10 "></span></a><span class="c1"># 重启ssh服务以使更改生效：</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><a href="#__codelineno-4-11"><span class="linenos" data-linenos="11 "></span></a>service<span class="w"> </span>ssh<span class="w"> </span>restart
+</code></pre></div>
+<p>安装依赖库。</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">transformers</span><span class="o">==</span><span class="m">4</span>.28.1<span class="w"> </span><span class="nv">sentencepiece</span><span class="o">==</span><span class="m">0</span>.1.97<span class="w"> </span>google<span class="w"> </span>protobuf<span class="w"> </span>deepspeed<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w">  </span>--trusted-host<span class="w"> </span>pypi.tuna.tsinghua.edu.cn
+</code></pre></div>
+<p>从源码安装 Peft，由于 Peft 库变动频繁，从 <code>commit id</code> 为 <code>13e53fc</code> 进行安装。</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos="1 "></span></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/huggingface/peft.git
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos="2 "></span></a>git<span class="w"> </span>checkout<span class="w"> </span>13e53fc
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos="3 "></span></a>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-i<span class="w"> </span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w">  </span>--trusted-host<span class="w"> </span>pypi.tuna.tsinghua.edu.cn
+</code></pre></div>
+<h2 id="_3"><strong>远程开发准备</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="pycharmdocker">pycharm连接docker容器开发<a class="headerlink" href="#pycharmdocker" title="Permanent link">&para;</a></h3>
+<h2 id="_4"><strong>代码、模型、数据集准备</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5"><strong>代码准备</strong><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>下载<strong><a href="https://link.zhihu.com/?target=https%3A//github.com/ymcui/Chinese-LLaMA-Alpaca">Chinese-LLaMA-Alpaca</a></strong>官网代码。</p>
+<div class="language-bash highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># 3e2f2529</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ymcui/Chinese-LLaMA-Alpaca.git
+</code></pre></div>
+<h3 id="tokenizer"><strong>模型权重 及 Tokenizer 准备</strong><a class="headerlink" href="#tokenizer" title="Permanent link">&para;</a></h3>
+<p>将LLaMA原始权重文件转换为Transformers库对应的模型文件格式。具体可参考之前的文章：<strong>从0到1复现斯坦福羊驼（Stanford Alpaca 7B）</strong> 。</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a>TypeError:<span class="w"> </span>Descriptors<span class="w"> </span>cannot<span class="w"> </span>not<span class="w"> </span>be<span class="w"> </span>created<span class="w"> </span>directly.
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a>If<span class="w"> </span>this<span class="w"> </span>call<span class="w"> </span>came<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>_pb2.py<span class="w"> </span>file,<span class="w"> </span>your<span class="w"> </span>generated<span class="w"> </span>code<span class="w"> </span>is<span class="w"> </span>out<span class="w"> </span>of<span class="w"> </span>date<span class="w"> </span>and<span class="w"> </span>must<span class="w"> </span>be<span class="w"> </span>regenerated<span class="w"> </span>with<span class="w"> </span>protoc<span class="w"> </span>&gt;<span class="o">=</span><span class="w"> </span><span class="m">3</span>.19.0.
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a>If<span class="w"> </span>you<span class="w"> </span>cannot<span class="w"> </span>immediately<span class="w"> </span>regenerate<span class="w"> </span>your<span class="w"> </span>protos,<span class="w"> </span>some<span class="w"> </span>other<span class="w"> </span>possible<span class="w"> </span>workarounds<span class="w"> </span>are:
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos="4 "></span></a><span class="w"> </span><span class="m">1</span>.<span class="w"> </span>Downgrade<span class="w"> </span>the<span class="w"> </span>protobuf<span class="w"> </span>package<span class="w"> </span>to<span class="w"> </span><span class="m">3</span>.20.x<span class="w"> </span>or<span class="w"> </span>lower.
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos="5 "></span></a><span class="w"> </span><span class="m">2</span>.<span class="w"> </span>Set<span class="w"> </span><span class="nv">PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION</span><span class="o">=</span>python<span class="w"> </span><span class="o">(</span>but<span class="w"> </span>this<span class="w"> </span>will<span class="w"> </span>use<span class="w"> </span>pure-Python<span class="w"> </span>parsing<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>much<span class="w"> </span>slower<span class="o">)</span>.
+</code></pre></div>
+<p>torchrun命令找不到</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos="1 "></span></a><span class="c1"># pytorch1131_cu116镜像内默认环境位于conda base内 /opt/conda/bin</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos="2 "></span></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>:/opt/conda/bin
+</code></pre></div>
+<p>pip install datasets -i <a href="https://pypi.douban.com/simple">https://pypi.douban.com/simple</a> --trusted-host pypi.douban.com</p>
+<p>pip install scikit-learn -i <a href="https://pypi.douban.com/simple">https://pypi.douban.com/simple</a> --trusted-host pypi.douban.com</p>
+<p>pip install scikit-learn -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a> --trusted-host pypi.tuna.tsinghua.edu.cn</p>
+<p>精调模型</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a>run_sft.sh
+</code></pre></div>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos="1 "></span></a>python<span class="w"> </span>merge_llama_with_chinese_lora.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span>--base_model<span class="w"> </span>/workspace/model/llama-7b-hf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span>--tokenizer_path<span class="w"> </span>/workspace/Chinese-LLaMA-Alpaca/scripts/merged_tokenizer_hf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span>--lora_model<span class="w"> </span>/workspace/outputs/lora<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span>--output_type<span class="w"> </span>huggingface<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">    </span>--output_dir<span class="w"> </span>/workspace/outputs/book-merge-hf
+</code></pre></div>
+<p>合并模型时如果报错config.json问题，需要保证base_model包含</p>
+<p>adapter_config.json、adapter_model.bin、config.json</p>
+<p>合并精调模型</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a>python<span class="w"> </span>merge_llama_with_chinese_lora.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><a href="#__codelineno-12-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">     </span>--base_model<span class="w"> </span>/workspace/model/llama-7b-hf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><a href="#__codelineno-12-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">     </span>--tokenizer_path<span class="w"> </span>/workspace/outputs/pt_lora_model,/workspace/outputs/instruction/sft_lora_model<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><a href="#__codelineno-12-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">     </span>--lora_model<span class="w"> </span>/workspace/outputs/pt_lora_model,/workspace/outputs/instruction/sft_lora_model<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><a href="#__codelineno-12-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">     </span>--output_type<span class="w"> </span>huggingface<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><a href="#__codelineno-12-6"><span class="linenos" data-linenos="6 "></span></a><span class="w">     </span>--output_dir<span class="w"> </span>/workspace/output/book-alpaca-merge-hf
+</code></pre></div>
+<p>合并plus</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a>python<span class="w"> </span>merge_llama_with_chinese_lora_copy.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">    </span>--base_model<span class="w"> </span>/workspace/model/llama-7b-hf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><a href="#__codelineno-13-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">    </span>--lora_model<span class="w"> </span>/workspace/model/chinese-llama-plus-lora-7b,/workspace/model/chinese-alpaca-plus-lora-7b<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><a href="#__codelineno-13-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">    </span>--output_type<span class="w"> </span>huggingface<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><a href="#__codelineno-13-5"><span class="linenos" data-linenos="5 "></span></a><span class="w">    </span>--output_dir<span class="w"> </span>/workspace/outputs/merge_lora_hf
+</code></pre></div>
+<p>推理</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos="1 "></span></a>python<span class="w"> </span>inference_hf.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos="2 "></span></a><span class="w">     </span>--base_model<span class="w"> </span>/workspace/outputs/merge_lora_hf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos="3 "></span></a><span class="w">     </span>--with_prompt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos="4 "></span></a><span class="w">     </span>--interactive
+</code></pre></div>
+<p>inference相关参数</p>
+<div class="language-json highlight"><span class="filename">JSON</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="err">max_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h：</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><a href="#__codelineno-15-2"><span class="linenos" data-linenos=" 2 "></span></a><span class="w">    </span><span class="err">即限定生成的最大长度，这里的长度指的</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">的长度。并且是最大的长度，在这个长度之内的其他长度的句子也是可以被生成的。</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><a href="#__codelineno-15-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="err">mi</span><span class="kc">n</span><span class="err">_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h：</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><a href="#__codelineno-15-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="w">    </span><span class="err">与max_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h相反，限定生成的最小长度。在此不做赘述。</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><a href="#__codelineno-15-5"><span class="linenos" data-linenos=" 5 "></span></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><a href="#__codelineno-15-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="err">early_s</span><span class="kc">t</span><span class="err">oppi</span><span class="kc">n</span><span class="err">g：</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><a href="#__codelineno-15-7"><span class="linenos" data-linenos=" 7 "></span></a><span class="w">    </span><span class="err">early_s</span><span class="kc">t</span><span class="err">oppi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">参数用于控制是否启用</span><span class="w"> </span><span class="err">early</span><span class="w"> </span><span class="err">s</span><span class="kc">t</span><span class="err">oppi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">策略来提前终止生成序列的过程。在启用</span><span class="w"> </span><span class="err">early</span><span class="w"> </span><span class="err">s</span><span class="kc">t</span><span class="err">oppi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">策略后，会在生成的序列中检查停止标记（例如，句号、问号、感叹号等），一旦发现该标记，就会将生成的序列剪裁到该标记位置，停止生成。这样，就可以确保生成的序列是自然的、完整的、有意义的，并且符合预期的格式和长度。</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><a href="#__codelineno-15-8"><span class="linenos" data-linenos=" 8 "></span></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a><a href="#__codelineno-15-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="err">max_</span><span class="kc">t</span><span class="err">ime：</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><a href="#__codelineno-15-10"><span class="linenos" data-linenos="10 "></span></a><span class="w">    </span><span class="err">运行的最长时间。</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a><a href="#__codelineno-15-11"><span class="linenos" data-linenos="11 "></span></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12"></a><a href="#__codelineno-15-12"><span class="linenos" data-linenos="12 "></span></a><span class="err">do_sample：</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13"></a><a href="#__codelineno-15-13"><span class="linenos" data-linenos="13 "></span></a><span class="w">    </span><span class="err">do_sample是一个布尔值，是指是否使用采样（sampli</span><span class="kc">n</span><span class="err">g）方法来生成文本。采样是一种生成文本的方法，它从模型输出的概率分布中随机采样一个</span><span class="w"> </span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="w"> </span><span class="err">作为下一个生成的</span><span class="w"> </span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">，具有一定的随机性和多样性，因此生成的文本可能更加多样化，而不是完全按照概率分布中的概率来选择下一个</span><span class="w"> </span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">。</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14"></a><a href="#__codelineno-15-14"><span class="linenos" data-linenos="14 "></span></a><span class="w">    </span><span class="err">具体来说，如果设置</span><span class="w"> </span><span class="err">do_sample=True，那么在生成文本时就会使用采样方法。在采样时可以指定一些参数，例如</span><span class="w"> </span><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="err">、</span><span class="kc">t</span><span class="err">op_p</span><span class="w"> </span><span class="err">等，这些参数会影响采样方法的结果，从而影响生成文本的多样性和质量。&lt;br&gt;</span><span class="w"> </span><span class="err">如果设置</span><span class="w"> </span><span class="err">do_sample=False，那么就会使用贪心算法（greedy</span><span class="w"> </span><span class="err">decodi</span><span class="kc">n</span><span class="err">g）来生成文本，即每次选择模型输出概率最大的</span><span class="w"> </span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="w"> </span><span class="err">作为下一个</span><span class="w"> </span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">，这种方法生成的文本可能会比较单一和呆板。</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15"></a><a href="#__codelineno-15-15"><span class="linenos" data-linenos="15 "></span></a><span class="w">    </span><span class="err">do_sample的设置影响后续一些参数的设置，有些并不能兼容使用。</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16"></a><a href="#__codelineno-15-16"><span class="linenos" data-linenos="16 "></span></a>
+<a id="__codelineno-15-17" name="__codelineno-15-17"></a><a href="#__codelineno-15-17"><span class="linenos" data-linenos="17 "></span></a><span class="kc">nu</span><span class="err">m_beams</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18"></a><a href="#__codelineno-15-18"><span class="linenos" data-linenos="18 "></span></a><span class="w">    </span><span class="err">“</span><span class="kc">nu</span><span class="err">m_beams</span><span class="s2">&quot;是在进行文本生成时的一个参数。它是指在生成一个序列的时候，预测模型同时生成的候选解的数量。在Beam Search生成文本的方法中，预测模型会对于每一个时间步，生成一定数量的候选解，选取其中最优解进行下一步预测，直到完成整个序列的生成。这个数量即为&quot;</span><span class="kc">nu</span><span class="err">m_beams”。&lt;br&gt;</span><span class="w"> </span><span class="s2">&quot;num_beams&quot;</span><span class="err">设置较高，可以增加生成的候选解的数量，从而得到更多可能性，但是会同时增加计算代价。因此，通常需要根据任务的需求，合理选择</span><span class="s2">&quot;num_beams&quot;</span><span class="err">的值。</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19"></a><a href="#__codelineno-15-19"><span class="linenos" data-linenos="19 "></span></a>
+<a id="__codelineno-15-20" name="__codelineno-15-20"></a><a href="#__codelineno-15-20"><span class="linenos" data-linenos="20 "></span></a><span class="kc">nu</span><span class="err">m_beam_groups：</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21"></a><a href="#__codelineno-15-21"><span class="linenos" data-linenos="21 "></span></a><span class="w">    </span><span class="kc">nu</span><span class="err">m_beam_groups是在文本生成中使用的参数，它代表在生成给定序列的下一个单词时要使用的束数组数。一般来说，束搜索是一种生成文本的技术，它通过对生成的文本的分数进行排序来选择最佳的文本生成结果。&lt;br&gt;</span><span class="w"> </span><span class="err">在</span><span class="kc">nu</span><span class="err">m_beam_groups参数中，如果指定的数字为</span><span class="mi">1</span><span class="err">，那么将使用单一的束搜索组，如果指定的数字为</span><span class="mi">2</span><span class="err">或更多，则将使用多个束搜索组。每个束搜索组将独立进行搜索，并通过在多个束搜索组中并行进行搜索来生成更多的文本生成结果。这样可以显著提高生成效率。&lt;br&gt;</span><span class="w"> </span><span class="err">总的来说，</span><span class="kc">nu</span><span class="err">m_beam_groups参数可以帮助控制生成的文本数量和质量，具体的值可以根据需求进行调整。</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22"></a><a href="#__codelineno-15-22"><span class="linenos" data-linenos="22 "></span></a>
+<a id="__codelineno-15-23" name="__codelineno-15-23"></a><a href="#__codelineno-15-23"><span class="linenos" data-linenos="23 "></span></a><span class="err">pe</span><span class="kc">nalt</span><span class="err">y_alpha</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24"></a><a href="#__codelineno-15-24"><span class="linenos" data-linenos="24 "></span></a><span class="w">    </span><span class="err">pe</span><span class="kc">nalt</span><span class="err">y_alpha是在Tra</span><span class="kc">nsf</span><span class="err">ormer模型中生成文本时用于控制生成的文本多样性的参数。它控制生成的文本的多样性和翻译的目标序列的近似程度之间的权衡。当pe</span><span class="kc">nalt</span><span class="err">y_alpha值越大时，模型生成的文本变得更加多样性，生成的文本与目标序列的近似程度可能会变得更加差。反之，当pe</span><span class="kc">nalt</span><span class="err">y_alpha值越小时，模型生成的文本变得更加相似于目标序列，多样性可能会变得更加差。因此，根据生成文本的目的和要求，用户可以调整pe</span><span class="kc">nalt</span><span class="err">y_alpha的值以获得更好的结果。</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25"></a><a href="#__codelineno-15-25"><span class="linenos" data-linenos="25 "></span></a>
+<a id="__codelineno-15-26" name="__codelineno-15-26"></a><a href="#__codelineno-15-26"><span class="linenos" data-linenos="26 "></span></a><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27"></a><a href="#__codelineno-15-27"><span class="linenos" data-linenos="27 "></span></a><span class="w">    </span><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="w"> </span><span class="err">是生成文本模型（如Tra</span><span class="kc">nsf</span><span class="err">ormer模型）在生成文本时所使用的参数。&lt;br&gt;</span><span class="w"> </span><span class="err">模型通过对每一个单词的概率进行计算，并选择具有最高概率的单词作为下一个单词，以生成文本序列。为了生成多样性更高的文本，通常使用高斯分布重新调整单词的概率值。</span><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="w"> </span><span class="err">参数定义了重新调整的度量。</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28"></a><a href="#__codelineno-15-28"><span class="linenos" data-linenos="28 "></span></a><span class="w">    </span><span class="err">如果</span><span class="w"> </span><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="w"> </span><span class="err">的值为</span><span class="mi">1</span><span class="err">，则没有任何调整；如果其值比</span><span class="mi">1</span><span class="err">大，则会生成更加随机的文本；如果其值比</span><span class="mi">1</span><span class="err">小，则生成的文本更加保守。通常需要多次试验来找到最适合特定数据集的</span><span class="w"> </span><span class="kc">te</span><span class="err">mpera</span><span class="kc">ture</span><span class="w"> </span><span class="err">值</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29"></a><a href="#__codelineno-15-29"><span class="linenos" data-linenos="29 "></span></a>
+<a id="__codelineno-15-30" name="__codelineno-15-30"></a><a href="#__codelineno-15-30"><span class="linenos" data-linenos="30 "></span></a><span class="kc">t</span><span class="err">op_k</span><span class="w"> </span><span class="err">：用于</span><span class="kc">t</span><span class="err">op</span><span class="mi">-</span><span class="err">k筛选的最高概率词汇表标记的数量。</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31"></a><a href="#__codelineno-15-31"><span class="linenos" data-linenos="31 "></span></a>
+<a id="__codelineno-15-32" name="__codelineno-15-32"></a><a href="#__codelineno-15-32"><span class="linenos" data-linenos="32 "></span></a><span class="kc">t</span><span class="err">op_p：</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33"></a><a href="#__codelineno-15-33"><span class="linenos" data-linenos="33 "></span></a><span class="w">    </span><span class="err">“</span><span class="kc">t</span><span class="err">op_p”</span><span class="w"> </span><span class="err">是一个用于限制生成文本中词语选择的概率分布的参数。它代表了仅选择概率分布中前p%大的词语，而舍弃剩余的词语。通俗地说，它用于约束生成文本中词语的数量，防止生成过多的词语，并且只选择最可能的词语。</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34"></a><a href="#__codelineno-15-34"><span class="linenos" data-linenos="34 "></span></a><span class="w">    </span><span class="err">具体地，假设我们有一个模型，它预测了下一个单词的概率分布，如果我们将</span><span class="w"> </span><span class="kc">t</span><span class="err">op_p</span><span class="w"> </span><span class="err">设置为</span><span class="mf">0.9</span><span class="err">，那么我们将只选择概率分布中前</span><span class="w"> </span><span class="mi">90</span><span class="err">%</span><span class="w"> </span><span class="err">的词语。因此，如果我们生成的词语不在前</span><span class="mi">90</span><span class="err">%，那么将不会考虑这个词语。这样做可以降低生成的词语数量，同时可以保证生成的词语更可能是正确的。</span>
+<a id="__codelineno-15-35" name="__codelineno-15-35"></a><a href="#__codelineno-15-35"><span class="linenos" data-linenos="35 "></span></a>
+<a id="__codelineno-15-36" name="__codelineno-15-36"></a><a href="#__codelineno-15-36"><span class="linenos" data-linenos="36 "></span></a><span class="kc">t</span><span class="err">ypical_p：“</span><span class="kc">t</span><span class="err">op_p”</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="err">“</span><span class="kc">t</span><span class="err">op_k”</span><span class="w"> </span><span class="err">是一组限制生成文本中每个词选择的概率的参数。“</span><span class="kc">t</span><span class="err">op_p”</span><span class="w"> </span><span class="err">控制生成的文本中，每个词选择的概率必须在最高概率的前</span><span class="w"> </span><span class="err">p</span><span class="w"> </span><span class="err">的词中，而不是选择来自整个词汇表中的任何词。&lt;br&gt;</span><span class="w"> </span><span class="err">“</span><span class="kc">t</span><span class="err">ypical_p”</span><span class="w"> </span><span class="err">是一个新加入的参数，与</span><span class="w"> </span><span class="err">“</span><span class="kc">t</span><span class="err">op_p”</span><span class="w"> </span><span class="err">类似，但是它限制的是生成的文本中每个词概率的分布，而不是概率的确切值。与</span><span class="w"> </span><span class="err">“</span><span class="kc">t</span><span class="err">op_p”</span><span class="w"> </span><span class="err">不同的是，“</span><span class="kc">t</span><span class="err">ypical_p”</span><span class="w"> </span><span class="err">可以产生更长的文本序列，因为它允许更多的词汇选择。&lt;br&gt;</span><span class="w"> </span><span class="err">使用这些参数可以限制生成的文本，从而产生更有意义的，更符合目标的生成文本。</span>
+<a id="__codelineno-15-37" name="__codelineno-15-37"></a><a href="#__codelineno-15-37"><span class="linenos" data-linenos="37 "></span></a>
+<a id="__codelineno-15-38" name="__codelineno-15-38"></a><a href="#__codelineno-15-38"><span class="linenos" data-linenos="38 "></span></a><span class="err">epsilo</span><span class="kc">n</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="err">：</span>
+<a id="__codelineno-15-39" name="__codelineno-15-39"></a><a href="#__codelineno-15-39"><span class="linenos" data-linenos="39 "></span></a><span class="w">    </span><span class="err">epsilo</span><span class="kc">n</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">是一个超参数，它在文本生成中用于控制如何选择词语。它是一个数字，代表了从预测分布中删除词语的阈值。&lt;br&gt;</span><span class="w"> </span><span class="err">举个例子，如果我们设置</span><span class="w"> </span><span class="err">epsilo</span><span class="kc">n</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="err">，那么预测分布中低于</span><span class="mf">0.01</span><span class="err">的所有词语将不会被选择，只有剩下的更高的分数的词语将被选中。通过调整这个参数，可以控制预测的词语数量，从而控制生成的文本的精细程度。</span>
+<a id="__codelineno-15-40" name="__codelineno-15-40"></a><a href="#__codelineno-15-40"><span class="linenos" data-linenos="40 "></span></a>
+<a id="__codelineno-15-41" name="__codelineno-15-41"></a><a href="#__codelineno-15-41"><span class="linenos" data-linenos="41 "></span></a><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="err">：</span>
+<a id="__codelineno-15-42" name="__codelineno-15-42"></a><a href="#__codelineno-15-42"><span class="linenos" data-linenos="42 "></span></a><span class="w">    </span><span class="err">“e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="err">”</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="err">GPT</span><span class="mi">-2</span><span class="w"> </span><span class="err">文本生成中的一个参数，它控制生成的序列的多样性。它的作用是决定是否要在符合预定要求的前提下生成更加出奇不意的序列。&lt;br&gt;</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">表示当前生成的序列与最高概率的第二高概率的比值，如果比值大于</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="err">，则继续生成下一个字符；如果比值小于</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="err">，则停止生成。&lt;br&gt;</span><span class="w"> </span><span class="err">通过调整</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">的值，可以控制生成的序列的多样性：如果</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">较低，则生成的序列会更加多样化；如果</span><span class="w"> </span><span class="err">e</span><span class="kc">ta</span><span class="err">_cu</span><span class="kc">t</span><span class="err">o</span><span class="kc">ff</span><span class="w"> </span><span class="err">较高，则生成的序列会更加保守，更接近训练数据。</span>
+<a id="__codelineno-15-43" name="__codelineno-15-43"></a><a href="#__codelineno-15-43"><span class="linenos" data-linenos="43 "></span></a>
+<a id="__codelineno-15-44" name="__codelineno-15-44"></a><a href="#__codelineno-15-44"><span class="linenos" data-linenos="44 "></span></a><span class="err">diversi</span><span class="kc">t</span><span class="err">y_pe</span><span class="kc">nalt</span><span class="err">y：</span>
+<a id="__codelineno-15-45" name="__codelineno-15-45"></a><a href="#__codelineno-15-45"><span class="linenos" data-linenos="45 "></span></a><span class="w">    </span><span class="err">diversi</span><span class="kc">t</span><span class="err">y_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">参数是指对生成的文本多样性的惩罚因子。当</span><span class="w"> </span><span class="err">diversi</span><span class="kc">t</span><span class="err">y_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">设置为正数时，它会惩罚生成的文本里排在前面的单词出现的频率过高的情况，进而提高文本的多样性。较小的</span><span class="w"> </span><span class="err">diversi</span><span class="kc">t</span><span class="err">y_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">值可以使生成的文本更加保守，而较大的值则可以提高文本的创造性。需要注意的是，对文本多样性的惩罚因子过大也可能导致生成的文本质量下降，因此选择正确的</span><span class="w"> </span><span class="err">diversi</span><span class="kc">t</span><span class="err">y_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">值需要根据具体应用场景和需求进行调整。</span>
+<a id="__codelineno-15-46" name="__codelineno-15-46"></a><a href="#__codelineno-15-46"><span class="linenos" data-linenos="46 "></span></a>
+<a id="__codelineno-15-47" name="__codelineno-15-47"></a><a href="#__codelineno-15-47"><span class="linenos" data-linenos="47 "></span></a><span class="err">repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-48" name="__codelineno-15-48"></a><a href="#__codelineno-15-48"><span class="linenos" data-linenos="48 "></span></a><span class="w">    </span><span class="err">“repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y”</span><span class="w"> </span><span class="err">是用于文本生成中的参数，用于惩罚重复的单词和句子。默认值为</span><span class="mf">1.0</span><span class="err">，其中较高的值意味着更强的惩罚，生成的文本中将出现更少的重复。如果取值为</span><span class="mi">0</span><span class="err">，则没有惩罚，生成的文本可能包含大量重复的内容。&lt;br&gt;</span><span class="w"> </span><span class="err">在实际使用中，通常需要对该参数进行调整，以根据具体需求在生成的文本中达到适当的平衡，例如在一些任务中，过多的重复可能不是理想的，因此需要将repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y设置为较高的值；而在其他任务中，更多的重复可能是有意义的，因此需要将repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y设置为较低的值。</span>
+<a id="__codelineno-15-49" name="__codelineno-15-49"></a><a href="#__codelineno-15-49"><span class="linenos" data-linenos="49 "></span></a>
+<a id="__codelineno-15-50" name="__codelineno-15-50"></a><a href="#__codelineno-15-50"><span class="linenos" data-linenos="50 "></span></a><span class="err">e</span><span class="kc">n</span><span class="err">coder_repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-51" name="__codelineno-15-51"></a><a href="#__codelineno-15-51"><span class="linenos" data-linenos="51 "></span></a><span class="w">    </span><span class="err">e</span><span class="kc">n</span><span class="err">coder_repe</span><span class="kc">t</span><span class="err">i</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">_pe</span><span class="kc">nalt</span><span class="err">y是Tra</span><span class="kc">nsf</span><span class="err">ormers库中用于文本生成任务的一个参数。它决定了对模型对源文本进行重复生成文本的惩罚程度。当设置了较高的值时，模型会对生成出来的文本与源文本重复的部分进行惩罚，从而有可能生成出不同于源文本的新文本。设置的值越大，模型对重复的文本的惩罚程度就越高。如果不设置此参数，则默认为</span><span class="mf">1.0</span><span class="err">。</span>
+<a id="__codelineno-15-52" name="__codelineno-15-52"></a><a href="#__codelineno-15-52"><span class="linenos" data-linenos="52 "></span></a>
+<a id="__codelineno-15-53" name="__codelineno-15-53"></a><a href="#__codelineno-15-53"><span class="linenos" data-linenos="53 "></span></a><span class="err">le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y：</span>
+<a id="__codelineno-15-54" name="__codelineno-15-54"></a><a href="#__codelineno-15-54"><span class="linenos" data-linenos="54 "></span></a><span class="w">    </span><span class="err">le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y是一个因子，用于调整生成的序列长度的影响。在生成的文本中，长度是相对的。例如，一篇长文章与另一篇短文章相比可能更有价值。为了考虑这种情况，可以在生成文本时考虑长度，通过设置长度惩罚因子。&lt;br&gt;</span><span class="w"> </span><span class="err">具体来说，le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y是一个根据生成的序列长度动态调整生成序列的分数的因子。如果le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y的值较小，则长序列的分数会比较低，因此生成的序列可能较短。如果le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y的值较大，则长序列的分数可能更高，因此生成的序列可能更长。在适当的情况下，可以通过调整le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y的值来影响生成文本的长度。</span>
+<a id="__codelineno-15-55" name="__codelineno-15-55"></a><a href="#__codelineno-15-55"><span class="linenos" data-linenos="55 "></span></a>
+<a id="__codelineno-15-56" name="__codelineno-15-56"></a><a href="#__codelineno-15-56"><span class="linenos" data-linenos="56 "></span></a><span class="kc">n</span><span class="err">o_repea</span><span class="kc">t</span><span class="err">_</span><span class="kc">n</span><span class="err">gram_size：</span>
+<a id="__codelineno-15-57" name="__codelineno-15-57"></a><a href="#__codelineno-15-57"><span class="linenos" data-linenos="57 "></span></a><span class="w">    </span><span class="kc">n</span><span class="err">o_repea</span><span class="kc">t</span><span class="err">_</span><span class="kc">n</span><span class="err">gram_size</span><span class="w"> </span><span class="err">参数指定了生成文本时需要避免的重复文本的大小。该参数指示在生成的文本中，最多允许多少个词与原始文本中的词进行重复。如果该值设置为</span><span class="w"> </span><span class="mi">3</span><span class="err">，则生成的文本中的任何一段长度为三个词的子序列都不能与原始文本的任何子序列重复。设置该值可以防止生成的文本中出现重复词汇，因此可以提高生成文本的多样性。</span>
+<a id="__codelineno-15-58" name="__codelineno-15-58"></a><a href="#__codelineno-15-58"><span class="linenos" data-linenos="58 "></span></a>
+<a id="__codelineno-15-59" name="__codelineno-15-59"></a><a href="#__codelineno-15-59"><span class="linenos" data-linenos="59 "></span></a><span class="err">bad_words_ids：</span>
+<a id="__codelineno-15-60" name="__codelineno-15-60"></a><a href="#__codelineno-15-60"><span class="linenos" data-linenos="60 "></span></a><span class="w">    </span><span class="err">bad_words_ids</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="err">Tex</span><span class="kc">t</span><span class="w"> </span><span class="err">Ge</span><span class="kc">nerat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">中的一个参数，用来表示需要被禁止出现在生成的文本中的单词（通常是一些不当语言、种族歧视等）的</span><span class="w"> </span><span class="err">ID。这些单词在生成文本时将会被忽略，以确保生成的文本在内容和语言方面符合某些道德和社会规范。&lt;br&gt;</span><span class="w"> </span><span class="err">例如，假设你使用的是</span><span class="w"> </span><span class="err">BERT</span><span class="w"> </span><span class="err">模型，并且在你的词汇表中有一些不恰当的词。如果你不希望这些词在生成的文本中出现，你可以将它们的</span><span class="w"> </span><span class="err">ID</span><span class="w"> </span><span class="err">添加到</span><span class="w"> </span><span class="err">bad_words_ids</span><span class="w"> </span><span class="err">列表中。生成的文本中将不会再出现这些词的</span><span class="w"> </span><span class="err">ID。</span>
+<a id="__codelineno-15-61" name="__codelineno-15-61"></a><a href="#__codelineno-15-61"><span class="linenos" data-linenos="61 "></span></a>
+<a id="__codelineno-15-62" name="__codelineno-15-62"></a><a href="#__codelineno-15-62"><span class="linenos" data-linenos="62 "></span></a><span class="kc">f</span><span class="err">orce_words_ids：</span>
+<a id="__codelineno-15-63" name="__codelineno-15-63"></a><a href="#__codelineno-15-63"><span class="linenos" data-linenos="63 "></span></a><span class="w">    </span><span class="kc">f</span><span class="err">orce_words_ids参数可以用于强制模型在生成的文本中包含特定的单词或子序列。具体来说，它是一个包含单词或子序列id的列表，表示模型必须生成包含这些单词或子序列的文本。&lt;br&gt;</span><span class="w"> </span><span class="err">如果给定的单词或子序列在生成的过程中无法满足约束条件，则会尝试进行多次重新采样，直到满足条件或达到最大重试次数。如果最终无法生成满足条件的文本，则会引发一个异常。</span>
+<a id="__codelineno-15-64" name="__codelineno-15-64"></a><a href="#__codelineno-15-64"><span class="linenos" data-linenos="64 "></span></a><span class="w">    </span><span class="err">在一些应用场景中，</span><span class="kc">f</span><span class="err">orce_words_ids可以用于约束生成的文本必须满足某些关键词或要求，例如在生成广告文案时强制包含某些销售亮点词汇。</span>
+<a id="__codelineno-15-65" name="__codelineno-15-65"></a><a href="#__codelineno-15-65"><span class="linenos" data-linenos="65 "></span></a>
+<a id="__codelineno-15-66" name="__codelineno-15-66"></a><a href="#__codelineno-15-66"><span class="linenos" data-linenos="66 "></span></a><span class="err">re</span><span class="kc">n</span><span class="err">ormalize_logi</span><span class="kc">ts</span><span class="err">：</span>
+<a id="__codelineno-15-67" name="__codelineno-15-67"></a><a href="#__codelineno-15-67"><span class="linenos" data-linenos="67 "></span></a><span class="w">    </span><span class="err">在</span><span class="w"> </span><span class="err">Tex</span><span class="kc">t</span><span class="w"> </span><span class="err">Ge</span><span class="kc">nerat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">中，re</span><span class="kc">n</span><span class="err">ormalize_logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">是一个控制标准化逻辑概率的布尔值。当设置为</span><span class="w"> </span><span class="err">True</span><span class="w"> </span><span class="err">时，它会将模型中的</span><span class="w"> </span><span class="err">logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">规范化为概率分布，以便于计算损失和生成样本。在某些情况下，如果</span><span class="w"> </span><span class="err">logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">不规范化，可能会出现训练困难或生成不稳定的问题，因此可以将</span><span class="w"> </span><span class="err">re</span><span class="kc">n</span><span class="err">ormalize_logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">设置为</span><span class="w"> </span><span class="err">True</span><span class="w"> </span><span class="err">来解决这些问题。&lt;br&gt;</span><span class="w"> </span><span class="err">需要注意的是，将</span><span class="w"> </span><span class="err">re</span><span class="kc">n</span><span class="err">ormalize_logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">设置为</span><span class="w"> </span><span class="err">True</span><span class="w"> </span><span class="err">会对生成的样本产生一定的影响。具体来说，它会使生成的样本更加平滑，这意味着它们可能会失去一些原始模型的细节。因此，在某些情况下，可以将</span><span class="w"> </span><span class="err">re</span><span class="kc">n</span><span class="err">ormalize_logi</span><span class="kc">ts</span><span class="w"> </span><span class="err">设置为</span><span class="w"> </span><span class="err">False，以便生成更加准确和详细的样本。但是，这也可能导致训练问题和不稳定的生成结果，需要在使用时谨慎权衡。</span>
+<a id="__codelineno-15-68" name="__codelineno-15-68"></a><a href="#__codelineno-15-68"><span class="linenos" data-linenos="68 "></span></a>
+<a id="__codelineno-15-69" name="__codelineno-15-69"></a><a href="#__codelineno-15-69"><span class="linenos" data-linenos="69 "></span></a><span class="err">co</span><span class="kc">nstra</span><span class="err">i</span><span class="kc">nts</span><span class="w"> </span><span class="err">：</span>
+<a id="__codelineno-15-70" name="__codelineno-15-70"></a><a href="#__codelineno-15-70"><span class="linenos" data-linenos="70 "></span></a><span class="w">    </span><span class="err">co</span><span class="kc">nstra</span><span class="err">i</span><span class="kc">nts</span><span class="err">参数用于对生成文本的内容进行限制，以满足特定的条件或要求。该参数可以设置为一个约束函数的列表，每个函数都返回一个布尔值，表示输入序列是否符合特定的限制条件。&lt;br&gt;</span><span class="w"> </span><span class="err">具体来说，约束函数可以检查生成的序列是否包含特定的单词或短语，或者是否满足特定的语法规则。例如，可以使用一个约束函数来检查生成的序列是否符合特定的主题，或者是否包含不允许出现的单词。</span>
+<a id="__codelineno-15-71" name="__codelineno-15-71"></a><a href="#__codelineno-15-71"><span class="linenos" data-linenos="71 "></span></a><span class="kc">f</span><span class="err">orced_bos_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">_id：时，</span><span class="kc">f</span><span class="err">orced_bos_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">_id是一个可选参数，用于指定要强制用作开始标记的</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="w"> </span><span class="err">ID，即在生成文本时将其添加到生成序列的开头。</span>
+<a id="__codelineno-15-72" name="__codelineno-15-72"></a><a href="#__codelineno-15-72"><span class="linenos" data-linenos="72 "></span></a><span class="w">    </span><span class="err">默认情况下，Tra</span><span class="kc">nsf</span><span class="err">ormers使用模型的开始标记作为生成序列的第一个</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">，但是在某些情况下，可能需要强制使用其他</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">作为开始标记。例如，在对话生成任务中，我们可能希望生成序列的开头始终是某个固定的问句。</span>
+<a id="__codelineno-15-73" name="__codelineno-15-73"></a><a href="#__codelineno-15-73"><span class="linenos" data-linenos="73 "></span></a>
+<a id="__codelineno-15-74" name="__codelineno-15-74"></a><a href="#__codelineno-15-74"><span class="linenos" data-linenos="74 "></span></a><span class="err">remove_i</span><span class="kc">n</span><span class="err">valid_values</span><span class="w"> </span><span class="err">：在文本生成任务中，模型可能会生成一些无效的值，如NaN或I</span><span class="kc">nf</span><span class="err">。如果这些无效值被允许出现，可能会导致模型出现错误或不可预测的结果。因此，如果在模型输出中检测到此类无效值，可以选择将其移除。在Tra</span><span class="kc">nsf</span><span class="err">ormers库中，可以使用remove_i</span><span class="kc">n</span><span class="err">valid_values参数来控制是否移除无效值。当remove_i</span><span class="kc">n</span><span class="err">valid_values设置为True时，任何无效值都会被移除。当设置为False时，这些无效值将保留在输出中。</span>
+<a id="__codelineno-15-75" name="__codelineno-15-75"></a><a href="#__codelineno-15-75"><span class="linenos" data-linenos="75 "></span></a>
+<a id="__codelineno-15-76" name="__codelineno-15-76"></a><a href="#__codelineno-15-76"><span class="linenos" data-linenos="76 "></span></a><span class="err">expo</span><span class="kc">nent</span><span class="err">ial_decay_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y：</span>
+<a id="__codelineno-15-77" name="__codelineno-15-77"></a><a href="#__codelineno-15-77"><span class="linenos" data-linenos="77 "></span></a><span class="w">    </span><span class="err">expo</span><span class="kc">nent</span><span class="err">ial_decay_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y参数指定在生成文本时如何惩罚长度。该参数的默认值为</span><span class="mf">0.0</span><span class="err">，表示不应用长度惩罚。当expo</span><span class="kc">nent</span><span class="err">ial_decay_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y参数为非零值时，将按指数衰减的方式对生成文本的长度进行惩罚。&lt;br&gt;</span><span class="w"> </span><span class="err">衰减的速度由decay_ra</span><span class="kc">te</span><span class="err">参数决定。例如，如果decay_ra</span><span class="kc">te</span><span class="err">设置为</span><span class="mf">0.5</span><span class="err">，对于长度为N的文本，生成器会给该文本的得分乘以</span><span class="mf">0.5</span><span class="err">^N。这样做可以有效防止生成器生成过长的文本。&lt;br&gt;</span><span class="w"> </span><span class="err">expo</span><span class="kc">nent</span><span class="err">ial_decay_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h_pe</span><span class="kc">nalt</span><span class="err">y参数适用于需要生成特定长度文本的任务，比如对话系统中对话长度的控制。通常情况下，生成较短的文本可以更加流畅自然，而过长的文本可能会出现语法错误或者逻辑混乱等问题。</span>
+<a id="__codelineno-15-78" name="__codelineno-15-78"></a><a href="#__codelineno-15-78"><span class="linenos" data-linenos="78 "></span></a><span class="err">suppress_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">ns</span><span class="err">：suppress_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">ns</span><span class="err">参数可以用来抑制模型生成指定的标记(</span><span class="kc">t</span><span class="err">oke</span><span class="kc">n</span><span class="err">)。具体来说，当模型生成一个标记时，如果该标记在suppress_</span><span class="kc">t</span><span class="err">oke</span><span class="kc">ns</span><span class="err">中指定了，那么模型将会跳过该标记，继续生成下一个标记。这个参数通常用于特殊情况下的文本生成任务，比如过滤掉一些不合适的词汇或者指定一些强制要求的单词。</span>
+<a id="__codelineno-15-79" name="__codelineno-15-79"></a><a href="#__codelineno-15-79"><span class="linenos" data-linenos="79 "></span></a>
+<a id="__codelineno-15-80" name="__codelineno-15-80"></a><a href="#__codelineno-15-80"><span class="linenos" data-linenos="80 "></span></a><span class="kc">nu</span><span class="err">m_re</span><span class="kc">turn</span><span class="err">_seque</span><span class="kc">n</span><span class="err">ces：</span>
+<a id="__codelineno-15-81" name="__codelineno-15-81"></a><a href="#__codelineno-15-81"><span class="linenos" data-linenos="81 "></span></a><span class="w">    </span><span class="kc">nu</span><span class="err">m_re</span><span class="kc">turn</span><span class="err">_seque</span><span class="kc">n</span><span class="err">ces</span><span class="w"> </span><span class="err">参数用于控制模型生成的文本序列的数量。默认情况下，模型将生成一个完整的文本序列，但是你可以设置</span><span class="w"> </span><span class="kc">nu</span><span class="err">m_re</span><span class="kc">turn</span><span class="err">_seque</span><span class="kc">n</span><span class="err">ces</span><span class="w"> </span><span class="err">参数为一个大于</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">的整数，以生成多个文本序列。这对于生成多个相关但不完全相同的文本序列很有用，例如为一组给定的提示或问题生成多个可能的答案。</span>
+<a id="__codelineno-15-82" name="__codelineno-15-82"></a><a href="#__codelineno-15-82"><span class="linenos" data-linenos="82 "></span></a>
+<a id="__codelineno-15-83" name="__codelineno-15-83"></a><a href="#__codelineno-15-83"><span class="linenos" data-linenos="83 "></span></a><span class="err">ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="err">_a</span><span class="kc">ttent</span><span class="err">io</span><span class="kc">ns</span><span class="err">：</span>
+<a id="__codelineno-15-84" name="__codelineno-15-84"></a><a href="#__codelineno-15-84"><span class="linenos" data-linenos="84 "></span></a><span class="w">    </span><span class="err">ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="err">_a</span><span class="kc">ttent</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">是一个参数，用于指定是否返回注意力矩阵。注意力机制是深度学习中常用的一种机制，用于在给定输入时，自动分配不同的权重给不同的输入项，并计算其与输出的关联度。&lt;br&gt;</span><span class="w"> </span><span class="err">在文本生成任务中，注意力机制可以用来让模型了解输入文本的各部分之间的关联，从而更好地生成上下文相关的输出。如果</span><span class="w"> </span><span class="err">ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="err">_a</span><span class="kc">ttent</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">被设置为</span><span class="w"> </span><span class="err">True，那么在调用</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerate</span><span class="err">()</span><span class="w"> </span><span class="err">方法时，模型将返回一个元组</span><span class="w"> </span><span class="err">(ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="p">,</span><span class="w"> </span><span class="err">a</span><span class="kc">ttent</span><span class="err">io</span><span class="kc">ns</span><span class="err">)。其中，ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">是生成的文本序列，a</span><span class="kc">ttent</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">是一个元组，包含每个层次的注意力矩阵。注意力矩阵是一个三维张量，其维度为</span><span class="w"> </span><span class="p">[</span><span class="err">ba</span><span class="kc">t</span><span class="err">ch_size</span><span class="p">,</span><span class="w"> </span><span class="kc">nu</span><span class="err">m_heads</span><span class="p">,</span><span class="w"> </span><span class="err">seque</span><span class="kc">n</span><span class="err">ce_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h</span><span class="p">,</span><span class="w"> </span><span class="err">seque</span><span class="kc">n</span><span class="err">ce_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h</span><span class="p">]</span><span class="err">，其中，ba</span><span class="kc">t</span><span class="err">ch_size</span><span class="w"> </span><span class="err">表示输入的样本数，</span><span class="kc">nu</span><span class="err">m_heads</span><span class="w"> </span><span class="err">表示注意力头数，seque</span><span class="kc">n</span><span class="err">ce_le</span><span class="kc">n</span><span class="err">g</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">表示输入序列的长度。</span>
+</code></pre></div>
+<p>inference</p>
+<div class="language-shell highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><a href="#__codelineno-16-1"><span class="linenos" data-linenos="1 "></span></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>-p<span class="w"> </span><span class="m">8010</span>:8000<span class="w"> </span>-v<span class="w"> </span>/path/to/models:/models<span class="w"> </span>-e<span class="w"> </span><span class="nv">MODEL</span><span class="o">=</span>/models/ggml-model-name.bin<span class="w"> </span>ghcr.io/abetlen/llama-cpp-python:latest
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2017 - 2024 Gene
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Geneww" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:495612021@qq.com" target="_blank" rel="noopener" title="Email" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.prune", "toc.follow", "navigation.top", "search.suggest", "search.highlight", "search.share", "navigation.footer", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

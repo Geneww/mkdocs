@@ -1,0 +1,30 @@
+python merge_llama_with_chinese_lora.py \
+    --base_model /workspace/model/llama-7b-hf \
+    --tokenizer_path /workspace/outputs/checkpoint-55000 \
+    --lora_model /workspace/outputs/checkpoint-55000 \
+    --output_type huggingface \
+    --output_dir /workspace/outputs/checkpoint-55000/merge-pt-hf-t
+
+
+
+python merge_llama_with_chinese_lora.py \
+    --base_model /workspace/outputs/test1/merge-pt-hf \
+    --tokenizer_path /workspace/outputs/test1/instruction-wu/sft_lora_model \
+    --lora_model /workspace/outputs/test1/instruction-wu/sft_lora_model \
+    --output_type huggingface \
+    --output_dir /workspace/outputs/test1/instruction/merge-sft-hf-wu
+
+
+python merge_llama_with_chinese_lora_copy.py \
+    --base_model /workspace/model/llama-7b-hf \
+    --lora_model /workspace/model/chinese-llama-plus-lora-7b,/workspace/model/chinese-alpaca-plus-lora-7b \
+    --output_type huggingface \
+    --output_dir /workspace/outputs/merge_lora_hf
+
+/workspace/outputs/test1/instruction
+/workspace/outputs/test1/instruction/sft_lora_model/
+
+python inference_hf.py \
+	--base_model /workspace/outputs/test1/instruction/merge-sft-hf-wu \
+	--with_prompt \
+	--interactive
